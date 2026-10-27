@@ -97,6 +97,14 @@
   runtime composite: Default=EBGaramond-SemiBold, Desc=FiraSans-Regular,
   fallback=традиционный китайский Noto, culture subfaces ja/zh-Hans.
   Нельзя считать этот composite активным шрифтом любого TextBlock по соседству.
+- **Coherent, статический путь (2026-10-28):** stock `uiresources/commonObj/basic.css`
+  задаёт `.AphesText { font-family: var(--font-family-aphes), monospace; }`,
+  переменная равна `Aphes, EBGBold`. Названия локаций в Hud.html используют этот
+  класс; `ShowPlaceName` отдельно получает `stageAphes`/`placeAphes` и локализованные
+  имена. Глифы шрифта и содержание этих строк — разные источники. Это позволяет
+  исследовать штатный CSS-путь вместо изобретения alias/font URL, но не доказывает
+  применимость к UMG или результат конкретного нового мода в игре.
+  [Источник и границы проверки](https://github.com/NikichMods/SoulsEnemyHUD/blob/9f2cf4e6e75b665c3f1cb5573acf701583c98a1c/docs/BOSS_IMPLEMENTATION.md).
 - **Граница:** cmap кодирует символы, не перевод слов. В исследованных
   prompt/string/font ресурсах словарь действий на языке Афеса не найден;
   это не аудит всего игрового лора. Транслитерация/декоративная маркировка —
