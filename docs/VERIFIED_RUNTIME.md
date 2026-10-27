@@ -119,6 +119,27 @@
   отдельный продуктовый выбор. Font rendering, semantic translation и право
   публичной дистрибуции — три разные проверки; извлечённый TTF не опубликован.
 
+## R-008 — UE4SS callback boundaries for observation (2026-10-28)
+
+- **Evidence level:** source inspection of installed baseline revision `83330635`,
+  not a new runtime test. Steam 1.09/build12996889, UE4.27; installed UE4SS DLL
+  SHA256 `ce5e3c46a920cc00b2817ac61e438c9162830290379d0b5b9c4dfc2b29459290`.
+- [Version-pinned LuaMod.cpp](https://github.com/UE4SS-RE/RE-UE4SS/blob/83330635/UE4SS/src/Mod/LuaMod.cpp):
+  RegisterHook selects native/script handling from the loaded UFunction pointer
+  and flags. On UE4.27 the script path runs after ProcessLocalScriptFunction;
+  it skips ReturnValue during input marshalling. A Blueprint no-input bool query
+  therefore does not deliver that original result as a Lua callback argument.
+  A non-nil callback return can override the host result; observers return nil.
+- Hook parameters are marshalled before entering the Lua callback, including
+  out/reference address resolution. A context-only Lua callback does not bypass
+  that prerequisite; inspect the exact reflected signature before hooking it.
+- **Consumers/limits:** relevant to interaction-prompt observation and future
+  Asterigos UE4SS diagnostics. This establishes source contract, not successful
+  registration of a game function, support for all property shapes or final UI
+  writer ownership. Other UE4SS revisions require separate checks. Mod-specific
+  missing metadata and procedure remain in the
+  [ImmersiveInteractionPrompts report](https://github.com/NikichMods/ImmersiveInteractionPrompts/blob/afb5b4500b460734d6f76542926ffb8593d42231/research/interaction-prompts-owner/README.md).
+
 ## Что не скопировано сюда
 
 Не импортированы все исходники, журналы экспериментов и мод-специфические ID из подпроектов. При первом повторном использовании выявить конкретный применимый факт, сохранить доказательства и перенести только нужный переиспользуемый вывод в этот документ.

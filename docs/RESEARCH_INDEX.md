@@ -25,6 +25,10 @@
 | [MODDING_EVIDENCE.md](MODDING_EVIDENCE.md) | Публичные примеры `.pak`, UE4SS, 3Dmigoto; технические неопределённости для будущих исследований | Внешние опубликованные примеры, не проверенные в текущей установленной игре |
 | [GLOSSARY.md](GLOSSARY.md) | Игровые обозначения и уровни достоверности | Справочник |
 
+Дополнение: [R-008 в VERIFIED_RUNTIME.md](VERIFIED_RUNTIME.md#r-008--ue4ss-callback-boundaries-for-observation-2026-10-28)
+фиксирует post-only Blueprint callbacks и маршалинг до Lua в UE4SS `83330635`.
+Это проверка исходника точной версии, не новый игровой прогон.
+
 ## Откуда взят проверенный технический baseline
 
 - [AsterigosMods/AGENTS.md](https://github.com/NikichMods/AsterigosMods/blob/main/AGENTS.md) — точная версия Steam/UE/UE4SS и правила установки.
