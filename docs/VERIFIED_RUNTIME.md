@@ -64,6 +64,12 @@
   Consumer получает массив `[TextBlock_89]`, ImagePanels с RetainerBox_0,
   display mode, native FText и textures. C++ final writer/поздние перезаписи
   **не установлены**; не называть Blueprint proxy final writer.
+- **Native UHT-декларация (2026-10-28):** в одном разрешённом игровом сеансе
+  штатный генератор UE4SS `83330635` вывел
+  `void SetupTipMessage2(TArray<UTextBlock*>, TArray<UPanelWidget*>, ETipWidgetMode, TArray<FText>, TArray<UTexture2D*>)`.
+  Все пять параметров — входные по значению, без const/ref/out; возврата нет.
+  Это подтверждённая отражённая декларация, но не выполнение Lua-hook и не
+  наблюдение final writer. [Источник, хэши и границы](https://github.com/NikichMods/ImmersiveInteractionPrompts/blob/946fbf61dc40e7018f5a5c5047e9e904f16a745c/research/interaction-prompts-owner/UHT_SIGNATURE.md).
 - **Доказанные базы:** BaseLoot2_BP → tag Take → RU UI.locres «Взять»;
   BaseLoot_BP → Open → «Открыть»; BaseDocumentObject через BaseInteractiveItem_BP
   → Check → «Проверить». Это component overrides и локализационные ресурсы,
