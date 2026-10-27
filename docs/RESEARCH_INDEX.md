@@ -33,6 +33,10 @@
 EPropertyFlags readers в Lua FProperty binding UE4SS `83330635` и границу полноты
 metadata capture. Подтверждено исходником, без игрового запуска.
 
+Дополнение: R-010 в [VERIFIED_RUNTIME.md](VERIFIED_RUNTIME.md) — штатный UHT
+генератор дал декларацию SetupTipMessage2; правила вывода параметров позволяют
+установить отдельные флаги, но normalized macros и stub bodies имеют ограничения.
+
 ## Откуда взят проверенный технический baseline
 
 - [AsterigosMods/AGENTS.md](https://github.com/NikichMods/AsterigosMods/blob/main/AGENTS.md) — точная версия Steam/UE/UE4SS и правила установки.

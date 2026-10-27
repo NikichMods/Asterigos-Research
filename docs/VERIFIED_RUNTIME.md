@@ -168,6 +168,34 @@
   this does not establish actual Genesis signatures or final UI writers, and
   does not generalize to newer UE4SS bindings.
 
+## R-010 — Built-in UHT declaration evidence (2026-10-28)
+
+- **Verified environment:** Steam 1.09/build12996889 accepted EXE hash,
+  UE4.27, UE4SS 83330635. A separately authorized user-operated session completed
+  built-in Generate UHT Compatible Headers; generated native-class declarations
+  were obtained without a custom C++ mod or Lua FProperty flag reader.
+- `/Script/Genesis.ExtendedUserWidget:SetupTipMessage2` is emitted as void with
+  ordered inputs `TArray<UTextBlock*> utexts`, `TArray<UPanelWidget*> imgContainers`,
+  `ETipWidgetMode display_mode`, `TArray<FText> msgs`,
+  `TArray<UTexture2D*> base_textures`, all without const or reference qualifiers.
+  This agrees with the TipHUD call at 713 in R-006. It closes declaration access,
+  not final-writer or hook-runtime evidence.
+- [UEHeaderGenerator parameter generation](https://github.com/UE4SS-RE/RE-UE4SS/blob/83330635/UE4SS/src/SDKGenerator/UEHeaderGenerator.cpp#L3292)
+  filters Parm/non-ReturnParm and emits const/& from ConstParm and
+  ReferenceParm/OutParm. Its forced string const-reference exception does not
+  apply to these array/enum parameters. Therefore the selected parameter flags
+  can be inferred here, while full numeric masks remain uncaptured.
+- **Limits:** UHT generated macros may be normalized by settings, notably
+  MakeAllFunctionsBlueprintCallable; BlueprintCallable text alone does not prove
+  the original bit or native hookability. Generated .cpp bodies are stubs, not
+  game implementation. UHT removes the old UHTHeaderDump first; preserve any
+  existing output. The distinct CXX generator's asset load/free behavior is not
+  interchangeable with UHT. This broad built-in generation requires its own
+  authorized scope; it does not invalidate the earlier narrow Lua API limit.
+- Exact signature, source mapping, output/environment hashes, actual activation
+  count and cleanup belong in the
+  [owning UHT report](https://github.com/NikichMods/ImmersiveInteractionPrompts/blob/946fbf61dc40e7018f5a5c5047e9e904f16a745c/research/interaction-prompts-owner/UHT_SIGNATURE.md).
+
 ## Что не скопировано сюда
 
 Не импортированы все исходники, журналы экспериментов и мод-специфические ID из подпроектов. При первом повторном использовании выявить конкретный применимый факт, сохранить доказательства и перенести только нужный переиспользуемый вывод в этот документ.
