@@ -37,6 +37,10 @@ metadata capture. Подтверждено исходником, без игро
 генератор дал декларацию SetupTipMessage2; правила вывода параметров позволяют
 установить отдельные флаги, но normalized macros и stub bodies имеют ограничения.
 
+Дополнение: R-011 в [VERIFIED_RUNTIME.md](VERIFIED_RUNTIME.md) — индексный Get
+TArray UE4SS `83330635` может расширять массив; read-only diagnostics обязаны
+проверять границы и время жизни исходной памяти. Проверено исходником, без runtime.
+
 ## Откуда взят проверенный технический baseline
 
 - [AsterigosMods/AGENTS.md](https://github.com/NikichMods/AsterigosMods/blob/main/AGENTS.md) — точная версия Steam/UE/UE4SS и правила установки.

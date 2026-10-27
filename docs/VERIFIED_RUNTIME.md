@@ -196,6 +196,28 @@
   count and cleanup belong in the
   [owning UHT report](https://github.com/NikichMods/ImmersiveInteractionPrompts/blob/946fbf61dc40e7018f5a5c5047e9e904f16a745c/research/interaction-prompts-owner/UHT_SIGNATURE.md).
 
+## R-011 — TArray indexed reads can mutate storage in UE4SS 83330635 (2026-10-28)
+
+- **Source-level fact, not a new runtime test:** installed Asterigos baseline
+  UE4SS 83330635, same DLL identity as R-008. In
+  [LuaTArray.cpp](https://github.com/UE4SS-RE/RE-UE4SS/blob/83330635/UE4SS/src/LuaType/LuaTArray.cpp),
+  indexed Get uses prepare_to_handle; if the converted index is beyond Num or the
+  array is empty, it calls AddZeroed before reading. Operation::Get does not
+  exempt that branch. An apparent Lua read is therefore not inherently read-only.
+- Observers must validate count and enforce bounded in-range indexes in the same
+  valid callback; never use read-until-nil/ipairs on borrowed TArray userdata.
+  TArray IsValid checks a non-null header pointer, not frame/storage lifetime.
+  Wrappers and element addresses must not outlive the memory they reference.
+- ForEach has an unresolved source comment about stack corruption with large
+  arrays. This is not evidence of a crash on this game's small arrays; it does
+  not by itself certify or disprove a specific observer route. Guarded indexing
+  still requires valid native parameter memory before any element read.
+- Relevant to interaction and future UE4SS diagnostics, not production behavior
+  or a new compatibility claim. Snapshot SHA256
+  `c5c4be252fc9a026152a70d0964d5a7dc4889b68f609e37baa8eab216d80bbac`;
+  mod-specific native-frame evidence gap remains in the
+  [observer readiness report](https://github.com/NikichMods/ImmersiveInteractionPrompts/blob/d52939b65fe5b31d52738f2dcabe9ac6d7edbda8/research/interaction-prompts-owner/OBSERVER_READINESS.md).
+
 ## Что не скопировано сюда
 
 Не импортированы все исходники, журналы экспериментов и мод-специфические ID из подпроектов. При первом повторном использовании выявить конкретный применимый факт, сохранить доказательства и перенести только нужный переиспользуемый вывод в этот документ.
