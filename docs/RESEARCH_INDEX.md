@@ -2,6 +2,19 @@
 
 **Назначение:** короткий вход в общие знания, переиспользуемые несколькими модами NikichMods. Детали и первичные доказательства остаются в документах-владельцах. Дата первоначальной консолидации: **2026-10-27**.
 
+## Репозитории модов после организационного разделения
+
+Общая группа игры содержит шесть самостоятельных репозиториев и этот единственный Research. Актуальные исходники, версии и приёмка принадлежат модам; исходный [AsterigosMods](https://github.com/NikichMods/AsterigosMods) сохранён доступным, без архивирования. Первичные ссылки на старые точные коммиты в исследовательских выводах остаются историческими доказательствами.
+
+| Мод | Источник текущего состояния |
+| --- | --- |
+| [CombatHUD](https://github.com/NikichMods/CombatHUD) | [docs/STATUS.md](https://github.com/NikichMods/CombatHUD/blob/main/docs/STATUS.md) |
+| [SoulsEnemyHUD](https://github.com/NikichMods/SoulsEnemyHUD) | [docs/STATUS.md](https://github.com/NikichMods/SoulsEnemyHUD/blob/main/docs/STATUS.md) |
+| [SubtitleSoftEdges](https://github.com/NikichMods/SubtitleSoftEdges) | [docs/STATUS.md](https://github.com/NikichMods/SubtitleSoftEdges/blob/main/docs/STATUS.md) |
+| [ProfileRender](https://github.com/NikichMods/ProfileRender) | [docs/STATUS.md](https://github.com/NikichMods/ProfileRender/blob/main/docs/STATUS.md) |
+| [AnimationRate](https://github.com/NikichMods/AnimationRate) | [docs/STATUS.md](https://github.com/NikichMods/AnimationRate/blob/main/docs/STATUS.md) |
+| [ImmersiveInteractionPrompts](https://github.com/NikichMods/ImmersiveInteractionPrompts) | [docs/STATUS.md](https://github.com/NikichMods/ImmersiveInteractionPrompts/blob/main/docs/STATUS.md) |
+
 ## Действующие источники
 
 | Раздел | Что известно | Уровень доказательств |
@@ -16,7 +29,7 @@
 
 - [AsterigosMods/AGENTS.md](https://github.com/NikichMods/AsterigosMods/blob/main/AGENTS.md) — точная версия Steam/UE/UE4SS и правила установки.
 - [AsterigosMods/docs/VERIFIED_RUNTIME.md](https://github.com/NikichMods/AsterigosMods/blob/main/docs/VERIFIED_RUNTIME.md) — ранее принятый контрольный контекст и наблюдение DX11.
-- Соответствующие `<ModName>/docs/VERIFIED_RUNTIME.md` в `AsterigosMods` содержат принадлежащие отдельным модам точные доказательства. При необходимости извлекать общий факт с ссылкой и пределами применимости, а не переносить их документы целиком.
+- `docs/VERIFIED_RUNTIME.md` в каждом новом репозитории и соответствующие исторические `<ModName>/docs/VERIFIED_RUNTIME.md` в `AsterigosMods` сохраняют принадлежащие отдельным модам точные доказательства. При необходимости извлекать общий факт с ссылкой и пределами применимости, а не переносить их документы целиком.
 
 ## Автоматическая запись новых результатов
 
