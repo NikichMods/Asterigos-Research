@@ -44,6 +44,65 @@
 - **Неактивные ветки:** keyboard `CrystalList_Panel` в наблюдённых сессиях уже был native alpha0/Visibility2; альтернативная pad-группа была активна. Успешный опыт на активной ветке не подтверждает visible keyboard layout и не оправдывает фиксацию захваченного нуля как универсальной baseline. Не включать скрытую native ветку ради доказательства.
 - **Потребители:** CombatHUD; будущие HUD-моды должны переиспользовать menu-owner/identity evidence, оставляя свой состав targets и acceptance в документах мода.
 
+## R-006 — Компонентные interaction prompts: подтверждённая статическая цепочка
+
+- **Статус:** статически подтверждено на ресурсах Steam 1.09/build12996889,
+  UE4.27; это не новая runtime-сессия и не закрытие production gate.
+- **Первичный источник:** [Immersive Interaction Prompts static report](https://github.com/NikichMods/AsterigosMods/blob/207489fed083acb54e0fa5acae75990bfcdd5a57/ImmersiveInteractionPrompts/docs/VERIFIED_RUNTIME.md),
+  commit `207489fed083acb54e0fa5acae75990bfcdd5a57`. Там находятся tool/input hashes,
+  bytecode offsets, точные разрывы и воспроизведение; raw exports остаются локально.
+- **Owner:** `/Game/MainContent/Template/BaseBlueprint/BaseGameEventObject_BP`
+  содержит `ExtendedWidget:ExtendedWidgetComponent`, назначающий
+  `/Game/MainContent/Template/UMG/TipHUD.TipHUD_C`, и `TipHUDArgumentComponent`.
+  BeginPlay действительно получает widget из компонента, cast к TipHUD и передаёт
+  `HoldPress` в `CanHoldPress` (ubergraph offsets 102/144/219). Это положительная
+  executable связь, а не вывод из имени.
+- **Consumer и локализация:** `TipHUD_C:SetupTipMessage_Proxy` →
+  `ConvertMsgTagToTextArray` → `InteractTipToText` DataTable → FText StringTable
+  `InteractTipToText_cs`, namespace `NewStringTable` → native
+  `/Script/Genesis.ExtendedUserWidget:SetupTipMessage2` (ubergraph 713).
+  Consumer получает массив `[TextBlock_89]`, ImagePanels с RetainerBox_0,
+  display mode, native FText и textures. C++ final writer/поздние перезаписи
+  **не установлены**; не называть Blueprint proxy final writer.
+- **Доказанные базы:** BaseLoot2_BP → tag Take → RU UI.locres «Взять»;
+  BaseLoot_BP → Open → «Открыть»; BaseDocumentObject через BaseInteractiveItem_BP
+  → Check → «Проверить». Это component overrides и локализационные ресурсы,
+  не утверждение о каждом placed/live объекте. Ladder_BP наследует отдельный
+  native BaseClimbObject; общий prompt path и «спуститься» не доказаны.
+- **Input/lifecycle:** base TipHUDArgument задаёт semantic Interact и
+  IconNameIndex=InteractButton. DefaultInputMapping имеет F и
+  Gamepad_FaceButton_Bottom, но это не текущий remapping игрока. Device→texture
+  producer ещё неизвестен. Tick TipHUD пишет собственную opacity по DebugHideUMG
+  и обновляет material scalar t прогресса удержания; CanShow зависит от native
+  parent и input mode. Не фиксировать alpha или glyph и не заменять удержание
+  предположением. Реальный show/hide/target/respawn lifecycle не наблюдался.
+- **Применимость:** будущие interaction/UI моды могут переиспользовать точку
+  исследования; это не доказательство родства с HUD_Panel CombatHUD или
+  Coherent Hud.html. Мод-специфический дизайн/пробу/приёмку хранит исходный модуль.
+
+## R-007 — Aphes.ttf и граница между глифами, UFont и языком
+
+- **Статус/источник:** техническая offline-проверка stock ресурсов того же baseline,
+  [точный отчёт и SHA](https://github.com/NikichMods/AsterigosMods/blob/207489fed083acb54e0fa5acae75990bfcdd5a57/ImmersiveInteractionPrompts/docs/VERIFIED_RUNTIME.md).
+  Не проверено новое отображение в игре.
+- `Genesis/Content/Fonts/Aphes.ttf`, SHA256
+  `443fcae9fd3d3588a259d6c7746145b6c2a343cfb0c2f572fb330234c0f90ed0`:
+  внутреннее имя Aphes Medium; 72 glyphs, 97 cmap entries (U+0000, U+001D,
+  U+0020..U+007E); lowercase и uppercase ссылаются на одинаковые глифы.
+  A–Z/0–9 имеют непустые outlines и просмотрены на offline contact sheet.
+  Кириллицы, греческого Unicode и PUA в cmap нет. Mapping пунктуации не
+  гарантирует непустой outline.
+- В stock inventory нет отдельного Aphes UFont/FontFace uasset. Наличие TTF
+  не доказывает пригодность в UMG FontObject. `/Game/Fonts/Umg_Font` — другой
+  runtime composite: Default=EBGaramond-SemiBold, Desc=FiraSans-Regular,
+  fallback=традиционный китайский Noto, culture subfaces ja/zh-Hans.
+  Нельзя считать этот composite активным шрифтом любого TextBlock по соседству.
+- **Граница:** cmap кодирует символы, не перевод слов. В исследованных
+  prompt/string/font ресурсах словарь действий на языке Афеса не найден;
+  это не аудит всего игрового лора. Транслитерация/декоративная маркировка —
+  отдельный продуктовый выбор. Font rendering, semantic translation и право
+  публичной дистрибуции — три разные проверки; извлечённый TTF не опубликован.
+
 ## Что не скопировано сюда
 
 Не импортированы все исходники, журналы экспериментов и мод-специфические ID из подпроектов. При первом повторном использовании выявить конкретный применимый факт, сохранить доказательства и перенести только нужный переиспользуемый вывод в этот документ.
