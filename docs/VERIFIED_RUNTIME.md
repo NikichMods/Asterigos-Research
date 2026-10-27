@@ -140,6 +140,34 @@
   missing metadata and procedure remain in the
   [ImmersiveInteractionPrompts report](https://github.com/NikichMods/ImmersiveInteractionPrompts/blob/afb5b4500b460734d6f76542926ffb8593d42231/research/interaction-prompts-owner/README.md).
 
+## R-009 — Lua metadata completeness limit in UE4SS 83330635 (2026-10-28)
+
+- **Evidence:** source inspection for the same Steam 1.09/build12996889, UE4.27,
+  installed UE4SS revision/hash as R-008; no new game execution.
+- UFunction exposes GetFunctionFlags; UStruct exposes ForEachProperty;
+  XArrayProperty exposes GetInner. However,
+  [XProperty](https://github.com/UE4SS-RE/RE-UE4SS/blob/83330635/UE4SS/src/LuaType/LuaXProperty.cpp)
+  and its actual RemoteObjectBase/RemoteObject binding hierarchy expose no
+  EPropertyFlags getter/predicate. UObject HasAnyFlags is not FProperty access.
+  Native HasAnyPropertyFlags calls inside the loader do not make that API
+  available to Lua.
+- **Consequence:** property enumeration alone cannot certify Parm, OutParm,
+  ReferenceParm or ReturnParm, nor separate Blueprint locals from parameters.
+  Do not infer an exact native signature from property order/offsets or another
+  function's flags. A complete metadata reader needs another verified typed
+  access path or an existing trustworthy declaration. This is a binding limit,
+  not evidence that reflection reads themselves crashed or mutated game state.
+- **One-shot source contract:** LuaMod ExecuteInGameThread queues a simple
+  action; process_simple_actions removes it from the queue and unrefs the callback
+  after execution, with reentrant execution deferred. Scheduler availability and
+  naturally loaded target objects still require runtime evidence. Do not confuse
+  that shared engine dispatch with a need to hook the inspected game function.
+- **Consumers/limits:** interaction metadata capture and future exact-signature
+  diagnostics on this UE4SS revision. See the owning mod's
+  [metadata API report](https://github.com/NikichMods/ImmersiveInteractionPrompts/blob/46d220083263dd12017f071b4af9b48d9d710bf1/research/interaction-prompts-owner/METADATA_CAPTURE.md);
+  this does not establish actual Genesis signatures or final UI writers, and
+  does not generalize to newer UE4SS bindings.
+
 ## Что не скопировано сюда
 
 Не импортированы все исходники, журналы экспериментов и мод-специфические ID из подпроектов. При первом повторном использовании выявить конкретный применимый факт, сохранить доказательства и перенести только нужный переиспользуемый вывод в этот документ.

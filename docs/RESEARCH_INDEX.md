@@ -29,6 +29,10 @@
 фиксирует post-only Blueprint callbacks и маршалинг до Lua в UE4SS `83330635`.
 Это проверка исходника точной версии, не новый игровой прогон.
 
+Дополнение: R-009 в [VERIFIED_RUNTIME.md](VERIFIED_RUNTIME.md) описывает отсутствие
+EPropertyFlags readers в Lua FProperty binding UE4SS `83330635` и границу полноты
+metadata capture. Подтверждено исходником, без игрового запуска.
+
 ## Откуда взят проверенный технический baseline
 
 - [AsterigosMods/AGENTS.md](https://github.com/NikichMods/AsterigosMods/blob/main/AGENTS.md) — точная версия Steam/UE/UE4SS и правила установки.
