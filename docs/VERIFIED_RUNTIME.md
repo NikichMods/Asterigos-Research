@@ -495,6 +495,32 @@
   neither is distributed. This route tests a raster image, not a cooked UFont,
   and does not establish Aphes translation or a finished Nexus setup.
 
+### R-012 runtime follow-up — stock ornament, 2026-10-29
+
+A separate bounded IIP run now confirms the native import path in this exact
+baseline, using the stock Coherent ornament rather than the untested glyph PNG.
+Exact unchanged source `996ee47f06f6cf88d0440d235d13acb9daf05284`; main SHA256
+`3c8eb86e695b716616d89f143dd6d2f66ce4ff40c98db1aad50d99738f604abe`, helper
+`332ffbdda46c7ac9edc245dfc42913529e8ee9f20752a9ee9e077a367525ecc6`.
+Config/TTF/PNG/DLL matched the installation manifest; baseline UE4SS83330635.
+
+00:33:10 Moscow one ImportFileAsTexture2D→transient Texture2D570×16→UImage brush
+binding, two own children attached under TipHUD.CanvasPanel_6. User reports visual
+success and supplies a2560×1440 frame showing the ornament between native Aphes
+and stock localized text.00:33:27 state-change cleanup restores stock text's
+render translation, detaches both children and clears image/font resource refs;
+CLEANED remaining0. Native getter readback confirms restoration, not a separate
+post-cleanup visual frame. Later manual cleanups were empty; no READ/manual
+removal while attached in this run. No full GC/GPU deallocation, general PNG
+compatibility, lifecycle or public distribution-rights claim. Probe disabled
+with host closed; game resources remain local.
+
+Raw log SHA256 `04e8e943db379971e5b40ffcdb16ccf931fea03e020b32e980f58d3169451cbb`;
+user frame `a6374d4c45bab919ff4e63b516b43181862c31e90568e0b1cc47389fe22ff33b`.
+[Owning result and limits](https://github.com/NikichMods/ImmersiveInteractionPrompts/blob/17c2080b4baa7dfca09f18fdbd9d1e64406720cd/research/interaction-prompts-owner/composition/README.md).
+Original raster-glyph PNG remains untested; native Aphes font render has its
+separate R-007 evidence. Final IIP design/production acceptance belongs to IIP.
+
 ## R-013 — Coherent location-title ornament, source-only (2026-10-28)
 
 Installed Steam1.09/build12996889 base containers contain
@@ -525,9 +551,9 @@ SetBrushFromTexture also changes the imported texture's residency flags; brush
 binding is not a promise of no transient engine activity.
 
 Provenance and limits: [IIP composition report](https://github.com/NikichMods/ImmersiveInteractionPrompts/blob/996ee47f06f6cf88d0440d235d13acb9daf05284/research/interaction-prompts-owner/composition/README.md).
-No game run/install in this investigation. IIP-specific layout/cleanup policy
-and future acceptance remain owned by that project; prior native Aphes font PASS
-does not prove PNG import or the new composition.
+No game run/install occurred in the original source investigation. The separate
+R-012 runtime follow-up above now covers native reuse of this exact stock PNG;
+IIP-specific appearance and broader lifecycle acceptance remain owned by IIP.
 
 ## Что не скопировано сюда
 
