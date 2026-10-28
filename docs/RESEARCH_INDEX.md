@@ -1,5 +1,9 @@
 # Research Index — Asterigos: Curse of the Stars
 
+R-007 дополнен source/static review nested setters, owning FString copy в exact
+UE4SS83330635 DLL и FontObject retention. Это основа следующего ограниченного
+Aphes writer source, не подтверждение реальных записей/глифов/GC в игре.
+
 R-007 дополнен pinned getter-контрактами native array/struct storage addresses:
 они позволяют готовить read-only isolation checks, но не доказывают сами по себе
 независимость всех внутренних буферов. Последующий IIP run подтвердил отдельный

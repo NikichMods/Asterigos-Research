@@ -285,6 +285,31 @@
   acceptance. Не переносить результат на другие классы/Templates/версии без
   проверки. Raw log остаётся локальным; никаких шрифтовых payload не опубликовано.
 
+### R-007 Setter/ownership follow-up — source/static only, 2026-10-28
+
+- UE4SS83330635 LuaUScriptStruct.cpp167–218 NewIndex вычисляет адрес поля
+  существующего native struct и вызывает Operation::Set. LuaUObject.cpp445–480
+  object Set с nil пишет nullptr в этот slot, не меняя целевой UObject.
+- LuaUObject.cpp1758–1790 Lua-string branch создаёт temporary FString и
+  copy-assigns destination. В exact installed DLL SHA256
+  `ce5e3c46a920cc00b2817ac61e438c9162830290379d0b5b9c4dfc2b29459290`
+  bounded static dumpbin inspection экспортированных FString constructor/copy/
+  assignment и resize/copy paths подтвердил owning destination character copy.
+  Это не borrowed temporary char pointer. FString-userdata SetCharArray branch
+  этим выводом не сертифицирован; числовые setters сами не проверяют enum range.
+- UE4.27.2 source Class.cpp/UnrealString.h/Array.h показывает native/non-POD
+  property copying и owning FString Data TArray. В совокупности с раздельным
+  native storage это позволяет готовить запись в существующий FFontData частной
+  копии, но не разрешает модификацию общих font assets или raw offsets.
+- FontInfo.FontObject — отражённая reference и часть AddReferencedObjects.
+  Для own TextBlock font удерживается этой ссылкой; Outer/Lua wrappers не roots.
+  После detach typed native SetFont(stock read) может заменить own reference и
+  Slate state вместе. No forced GC/immediate collection claim; реальная очистка,
+  font-cache lifetime и Aphes decoding/render ещё не проверены.
+- [Точный setter review и исходник](https://github.com/NikichMods/ImmersiveInteractionPrompts/blob/94770eddf8ec9c74d75fa4ca145c4e81d1940fe4/research/interaction-prompts-owner/aphes-text/README.md):
+  отдельный OPEN→READ probe, 10 новых offline mock groups pass. Не установлен/
+  не запускался. Raw tool/source evidence, TTF и config остаются локальными.
+
 ## R-008 — UE4SS callback boundaries for observation (2026-10-28)
 
 - **Evidence level:** source inspection of installed baseline revision `83330635`,
