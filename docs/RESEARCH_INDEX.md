@@ -1,5 +1,13 @@
 # Research Index — Asterigos: Curse of the Stars
 
+**2026-10-29 — R-014 source-only:** ExtendedWidgetComponent CDO uses Screen,
+but UE4.27 projects its scene-component location; this differs from viewport-fixed
+UMG. Actual Create/AddToViewport contracts, Abstract UserWidget restriction,
+existing HUD root candidate and Coherent bridge limits recorded in
+[VERIFIED_RUNTIME.md](VERIFIED_RUNTIME.md#r-014--projected-screen-components-vs-viewport-hud-root-2026-10-29).
+No new game run or acceptance of independent-screen placement yet.
+
+
 **2026-10-29 — R-012 runtime follow-up / R-013:** stock Coherent PNG570×16
 успешно импортирован и показан в native TipHUD; state-change cleanup и возврат
 translation подтверждены логом. Probe отключён; общий lifecycle/финальный дизайн

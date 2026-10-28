@@ -555,6 +555,50 @@ No game run/install occurred in the original source investigation. The separate
 R-012 runtime follow-up above now covers native reuse of this exact stock PNG;
 IIP-specific appearance and broader lifecycle acceptance remain owned by IIP.
 
+## R-014 — projected screen components vs viewport HUD root (2026-10-29)
+
+Source/static only, no game run for this investigation. Retained actual UHT output
+`Genesis/Private/ExtendedWidgetComponent.cpp` initializes inherited Space=Screen;
+base UMG WidgetComponent initializes World. Pinned UEHeaderGenerator.cpp789ff
+reads class CDO values to generate constructor assignments; this is a default
+snapshot, not recovered C++ implementation. Gameplay method bodies/returns in
+these dumps remain stubs. BaseGameEventObject_BP's component template has no
+Space override, so inherits the Screen default. Exact live/placed overrides and
+native Genesis position writer remain unobserved.
+
+UE4.27 source mirror306a7e9f7fb53f14c2cb3bfd3854ad906710a17e,
+SWorldWidgetScreenLayer.cpp92–145, projects SceneComponent.GetComponentLocation
+through the player view and converts into layer-local coordinates. Thus Screen
+WidgetComponent rendering can still move with its world actor; SetWidgetSpace
+alone does not make a contextual prompt viewport-fixed.
+
+Actual UHT UserWidget is Abstract. WidgetBlueprintLibrary.Create(WorldContext,
+WidgetType,OwningPlayer), AddToViewport/AddToPlayerScreen and viewport anchor/
+position APIs are reflected; UE4.27 ValidateUserWidgetClass rejects Abstract
+classes, Initialize constructs/initializes WidgetTree, AddToScreen owns the Slate
+layer. Presence of these methods does not justify bypassing initialization or
+constructing an arbitrary gameplay UserWidget class without reviewing callbacks.
+
+Existing R-004/005 identifies in-viewport HUDMainUMG_BP_C and gameplay pawn guard.
+Retained HUDMainUMG_BP tree has Canvas Main_Panel as its root; the same export
+SHA2566c26eb0e427490bf9e55b2d27d2bb81d5bc2dbb1353c2a9645585c99d1f3aeaa is
+owned by CombatHUD's evidence. A bounded independent-screen candidate can attach
+one owned Canvas subtree here through native AddChildToCanvas, leaving original
+children/slots untouched. Root-normalized anchors avoid manual DPI conversion;
+host viewport stretch/transforms/margins and lifecycle still bound applicability.
+Exact viewport-pixel mapping has not been established by this source review.
+
+Coherent UHT exposes CreateJSEvent, AddString/AddBool and TriggerJSEvent plus
+readiness APIs. Retained base Hud.html ShowTipMessage/HideTipMessage bindings
+2678–2686 and TipMessage DOM5987ff are commented out. The bounded inspected inputs
+do not confirm an active TipHUD→localized-action/current-input bridge. A custom
+bridge is possible in principle but would add state/input synchronization and
+shared Hud.html integration; absence is not proved for every native subsystem.
+
+[Owning IIP comparison/prototype](https://github.com/NikichMods/ImmersiveInteractionPrompts/blob/242a5f0a6f5807dd4cdc3953f1f51acc02b0be06/research/interaction-prompts-owner/viewport/README.md)
+has source/mocks only for the new root attachment/tuning/hint copy. No runtime
+acceptance is transferred from prior TipHUD-child/font/import experiments.
+
 ## Что не скопировано сюда
 
 Не импортированы все исходники, журналы экспериментов и мод-специфические ID из подпроектов. При первом повторном использовании выявить конкретный применимый факт, сохранить доказательства и перенести только нужный переиспользуемый вывод в этот документ.
