@@ -495,6 +495,40 @@
   neither is distributed. This route tests a raster image, not a cooked UFont,
   and does not establish Aphes translation or a finished Nexus setup.
 
+## R-013 — Coherent location-title ornament, source-only (2026-10-28)
+
+Installed Steam1.09/build12996889 base containers contain
+`Genesis/Content/uiresources/Hud.html`: PlaceName DOM5676–5682 includes an Ani2 img
+referencing `images/menu/ele_loctitleline.png`. Active CSS297–301 gives absolute
+width40.5vw, height1.48vh and bottom3.88vh inside a centered column. Earlier
+background/pseudo-element alternatives are commented out. The actual separator
+is one transparent 570×16 RGBA PNG, alpha0–228, with symmetric end ornaments and
+a central motif. It is not a CSS border/font glyph.
+
+SHA256: Hud.html `f3edde51ec5d285ef242968a66f97f8da207cf5ec65b3c229e573f938937c87b`;
+commonObj/basic.css `5449a256f3d1b44bd286ecb37592ee25c6136c86671f8cefca47a0480da30a24`;
+PNG `901b72602a69a535e6a3d54bce2a13f18d0badc20d59abfca351eec70161e668`.
+Only those three entries were extracted with the existing CUE4Parse1.2.2 reader;
+raw host bytes remain local/ignored. Exact-basename lookup in retained paths
+found no matching uasset/uexp; this does not exclude differently named textures.
+Coherent HTML/URL is not a native UMG UTexture2D. Local import under R-012 is a
+candidate, not runtime-verified reuse or permission to redistribute game images.
+
+Retained game UHT Widget.h/WidgetTransform.h reflect GetDesiredSize,
+SetRenderTranslation(FVector2D), and RenderTransform.Translation. UE4.27 mirror
+`306a7e9f7fb53f14c2cb3bfd3854ad906710a17e`, Widget.cpp: GetDesiredSize reads cached
+SWidget extent or returns zero; SetRenderTranslation changes only Translation
+and updates rendering. This can preserve slot/layout desired size, but neither
+cached extent freshness nor absence of native competing transform writes follows.
+Opaque FGeometry is unnecessary for this limited approach. Image.cpp's
+SetBrushFromTexture also changes the imported texture's residency flags; brush
+binding is not a promise of no transient engine activity.
+
+Provenance and limits: [IIP composition report](https://github.com/NikichMods/ImmersiveInteractionPrompts/blob/996ee47f06f6cf88d0440d235d13acb9daf05284/research/interaction-prompts-owner/composition/README.md).
+No game run/install in this investigation. IIP-specific layout/cleanup policy
+and future acceptance remain owned by that project; prior native Aphes font PASS
+does not prove PNG import or the new composition.
+
 ## Что не скопировано сюда
 
 Не импортированы все исходники, журналы экспериментов и мод-специфические ID из подпроектов. При первом повторном использовании выявить конкретный применимый факт, сохранить доказательства и перенести только нужный переиспользуемый вывод в этот документ.

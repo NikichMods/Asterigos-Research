@@ -1,5 +1,11 @@
 # Research Index — Asterigos: Curse of the Stars
 
+**2026-10-28 — R-013, source-only:** оригинальный орнамент названия локации —
+один прозрачный Coherent PNG570×16; native UMG import ещё не проверен.
+См. [VERIFIED_RUNTIME.md#r-013](VERIFIED_RUNTIME.md#r-013--coherent-location-title-ornament-source-only-2026-10-28).
+Raw игровые изображения остаются локальными; новый runtime не выполнялся.
+
+
 R-007: **native Aphes OPEN→READ/manual cleanup runtime PASS** в одном natural
 Open prompt, с пользовательским визуальным подтверждением. Private transient
 UFont/local TTF работает без cooker; probe отключён. Final design, semantic
