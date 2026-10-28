@@ -109,6 +109,13 @@
 
 ### R-006 layout-дополнение, 2026-10-28
 
+- Позднейший узкий UI-прогон на том же baseline прошёл live проверки
+  TextBlock_89 → CanvasPanel_6 → WidgetTree → текущий TipHUD, три canvas children
+  и Font.Size=22. Остановился до создания нового ребёнка на строгом условии
+  Position/Alignment; сами значения/формат getters не были залогированы.
+  Это не доказательство native изменения координат или работоспособности
+  создания/рендера/RemoveChild. [Точный результат](https://github.com/NikichMods/ImmersiveInteractionPrompts/blob/ea85872892090c8bd13fdc09a275b14ec9bfa94d/research/interaction-prompts-owner/ui-child/README.md).
+
 - На прежнем Steam 1.09/build12996889 / UE4.27 baseline offline проверены семь
   reciprocal Parent/Content/Slot связей: CanvasPanel_0 → HorizontalBox_4 →
   CanvasPanel_6; отдельные ветви TextBlock_89, RetainerBox_0 → allowed image,
