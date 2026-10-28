@@ -243,6 +243,26 @@
   альтернатив: [IIP dynamic font report](https://github.com/NikichMods/ImmersiveInteractionPrompts/blob/872929ce07ef19d504c14a977eb6cfe04cf17ccc/research/interaction-prompts-owner/DYNAMIC_FONT_READINESS.md).
   Шрифты, raw JSON и engine source snapshots остаются локальными.
 
+### R-007 Read-only native storage identity — UE4SS83330635 source
+
+- LuaTArray.cpp13–17,79–109 хранит remote FScriptArray из params.data;
+  GetArrayAddress возвращает адрес native header, GetArrayDataAddress — GetData.
+  Это адреса хранилища, не identity Lua wrappers. Num/Max можно читать без индекса;
+  indexed Get требует проверки границ заранее, поскольку способен AddZeroed.
+- LuaUObject.cpp748–826 ordinary StructProperty Get помещает params.data в
+  ScriptStructWrapper.start_of_struct. LuaUScriptStruct.cpp86–94 возвращает его
+  через GetStructAddress; nested Get получает адрес поля в той же структуре.
+  GetPropertyAddress возвращает общую metadata, непригодную для доказательства
+  независимости значений. GetNonTrivialLocal использует другой table path.
+- Эти source-контракты дают средство сравнения native array/struct storage без
+  изменения данных и без чтения raw memory по возвращённым числам. Разные адреса
+  не доказывают независимость скрытых FString buffers/всех heap allocations;
+  FontFace UObject reference в копии может намеренно оставаться общим.
+- [Узкий IIP creation/storage probe](https://github.com/NikichMods/ImmersiveInteractionPrompts/blob/6c75063300c9aa84ec946f64ca108cc4d686e1e3/research/interaction-prompts-owner/font-template/README.md)
+  подготовлен с count-before-index и donor post-check. Десять новых mock groups
+  проверяют control flow; в игре не запускался. Никакой runtime deep-copy,
+  FFontData-mutation, font rendering или GC acceptance здесь не добавлено.
+
 ## R-008 — UE4SS callback boundaries for observation (2026-10-28)
 
 - **Evidence level:** source inspection of installed baseline revision `83330635`,

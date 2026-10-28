@@ -1,5 +1,9 @@
 # Research Index — Asterigos: Curse of the Stars
 
+R-007 дополнен pinned getter-контрактами native array/struct storage addresses:
+они позволяют готовить read-only isolation checks, но не доказывают сами по себе
+независимость всех внутренних буферов. Новый IIP probe ещё не запускался в игре.
+
 Уточнение R-007 в [VERIFIED_RUNTIME.md](VERIFIED_RUNTIME.md): ограниченная font
 inventory и UE4.27 filename-constructor source; private Template UFont copy —
 новый непроверенный runtime-кандидат без shared font replacement. Не объявлять
