@@ -44,10 +44,11 @@
 - **Неактивные ветки:** keyboard `CrystalList_Panel` в наблюдённых сессиях уже был native alpha0/Visibility2; альтернативная pad-группа была активна. Успешный опыт на активной ветке не подтверждает visible keyboard layout и не оправдывает фиксацию захваченного нуля как универсальной baseline. Не включать скрытую native ветку ради доказательства.
 - **Потребители:** CombatHUD; будущие HUD-моды должны переиспользовать menu-owner/identity evidence, оставляя свой состав targets и acceptance в документах мода.
 
-## R-006 — Компонентные interaction prompts: подтверждённая статическая цепочка
+## R-006 — Interaction prompts: статическая цепочка и живые поля CanShow
 
-- **Статус:** статически подтверждено на ресурсах Steam 1.09/build12996889,
-  UE4.27; это не новая runtime-сессия и не закрытие production gate.
+- **Первоначальный статус:** статически подтверждено на ресурсах Steam
+  1.09/build12996889, UE4.27. Отдельное runtime-дополнение ниже не закрывает
+  production gate и не превращает всю статическую цепочку в live owner proof.
 - **Первичный источник:** [Immersive Interaction Prompts static report](https://github.com/NikichMods/AsterigosMods/blob/207489fed083acb54e0fa5acae75990bfcdd5a57/ImmersiveInteractionPrompts/docs/VERIFIED_RUNTIME.md),
   commit `207489fed083acb54e0fa5acae75990bfcdd5a57`. Там находятся tool/input hashes,
   bytecode offsets, точные разрывы и воспроизведение; raw exports остаются локально.
@@ -79,6 +80,25 @@
 - **Применимость:** будущие interaction/UI моды могут переиспользовать точку
   исследования; это не доказательство родства с HUD_Panel CombatHUD или
   Coherent Hud.html. Мод-специфический дизайн/пробу/приёмку хранит исходный модуль.
+
+### R-006 runtime-дополнение, 2026-10-28
+
+- На том же Steam/UE4.27 baseline, UE4SS 83330635, zero-input Blueprint post-hook
+  `/Game/MainContent/Template/UMG/TipHUD.TipHUD_C:CanShow` реально зарегистрировался
+  и дошёл до 948 callbacks. В трёх разных TipHUD непосредственно прочитаны
+  TextBlock_89.Text и stored Visibility/RenderOpacity/bIsEnabled: локализованные
+  «Взаимодействовать», «Открыть», «Взять»; шесть changed snapshots. Это подтверждает
+  этот узкий маршрут чтения без SetupTipMessage2 array arguments, не native hook.
+- В каждой identity сначала прочитано `???`, затем действие; raw Visibility
+  4(SelfHitTestInvisible) → 0(Visible), opacity=1, enabled=true.
+  SelfHitTestInvisible не означает Hidden. Нельзя выводить из этого видимый
+  placeholder, полный hide/show lifecycle, тип actor или final writer.
+- [Точное свидетельство и пределы](https://github.com/NikichMods/ImmersiveInteractionPrompts/blob/1d0983ec76a33bdf396932949f2164e5848e1bb0/docs/VERIFIED_RUNTIME.md):
+  runtime source `4cda59f27f4719a728a88d671e04cca901e08ab8`, script SHA256
+  `ae75d8419d988ea91be288ba1aa33760ab980b354cd4d74d791564eec5109e09`,
+  log SHA256 `c847c8ca032ede4c0540c6c4e1f2bbffbf2b2a0e70bf6565fb40cd5bcf2f7a7c`.
+  Raw log stays local. Probe disabled after normal exit. Input icons, actor/
+  component linkage, ladder, menu transitions and visual acceptance remain open.
 
 ## R-007 — Aphes.ttf и граница между глифами, UFont и языком
 

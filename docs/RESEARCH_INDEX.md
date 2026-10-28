@@ -41,6 +41,10 @@ metadata capture. Подтверждено исходником, без игро
 TArray UE4SS `83330635` может расширять массив; read-only diagnostics обязаны
 проверять границы и время жизни исходной памяти. Проверено исходником, без runtime.
 
+Уточнение R-006: к статической цепочке добавлено отдельное runtime-свидетельство
+zero-input CanShow post-hook — чтение текста/состояния трёх живых TipHUD.
+Это не подтверждение actor mapping, полного hide/show или final writer.
+
 ## Откуда взят проверенный технический baseline
 
 - [AsterigosMods/AGENTS.md](https://github.com/NikichMods/AsterigosMods/blob/main/AGENTS.md) — точная версия Steam/UE/UE4SS и правила установки.
