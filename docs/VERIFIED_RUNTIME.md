@@ -224,6 +224,17 @@
 
 ### R-008 object/struct lifetime clarification, 2026-10-28
 
+- Additional pinned-source contract: LuaUScriptStruct.cpp 63–65 routes field
+  __newindex to Operation::Set; 163–230 resolves reflected fields/type handlers.
+  Nested owned structs can therefore be configured through their actual fields;
+  this does not establish native defaults or substitute for constructors.
+  LuaUObject.cpp 229–232 excludes ConstParm from OutParm table/writeback handling,
+  relevant to reflected const-reference inputs such as UImage.SetBrush.
+  Source snapshot SHA256 `d7896437d23331d799a1cdce0225df7cd03cc02e3052693c6d646e0a4d09d277`.
+  [Exact review and limits](https://github.com/NikichMods/ImmersiveInteractionPrompts/blob/180ffbfa8d0ba6e0e6c5da8aa8efe9f818152f3c/research/interaction-prompts-owner/DIVIDER_READINESS.md).
+  Resource-free Image Box rendering/defaults remain unobserved; a source-ready
+  prototype is not a new runtime result. No game resources were published.
+
 - Source-only, same revision `83330635`: LuaMod.cpp 1916–2023 supplies
   StaticConstructObject with UClass/Outer/name/flags, not a reflected UMG factory.
   LuaUObject.cpp 754–830 supports same-type ScriptStructWrapper CopyCompleteValue;
