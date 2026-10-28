@@ -111,3 +111,7 @@ UMG font resource. Aphes UMG render/cook-load ещё не подтверждён
 4. Оставляет конкретные решения по реализации, тестовые версии, релизы и приёмку **владеющему моду**.
 
 Отсутствие нового принятого факта не требует фиктивного коммита. Если GitHub недоступен, запись остаётся явно ожидающей публикации — она не считается сохранённой здесь, пока не подтверждён коммит.
+
+## Input/action contracts — 2026-10-29
+
+[R-014](VERIFIED_RUNTIME.md#r-014--native-actionmapping-contracts-and-skill-topology-static-2026-10-29) records static semantic action IDs, mapping/default-vs-user boundaries, native held/context getters, absent Blueprint action override, Coherent/UI forwarding and keyboard/pad skill topology. Runtime dispatch, remapping behavior and focus/menu release semantics remain unverified; concrete CombatHUD readiness stays in its owned report.
