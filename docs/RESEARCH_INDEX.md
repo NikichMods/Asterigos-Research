@@ -48,6 +48,11 @@ TArray UE4SS `83330635` может расширять массив; read-only di
 zero-input CanShow post-hook — чтение текста/состояния трёх живых TipHUD.
 Это не подтверждение actor mapping, полного hide/show или final writer.
 
+Последующее R-006 UI-свидетельство: один transient TextBlock добавлен в native
+CanvasPanel_6, видимо отрисован штатным шрифтом и вручную удалён; исходная строка/
+иконка остались на месте по наблюдению пользователя. Это не Aphes или GC/lifecycle
+acceptance; точные исходники, log hash и ограничения находятся в R-006.
+
 Offline-уточнение R-006/R-007: установлены семь slot edges штатного TipHUD,
 text/icon layout branches и граница FontFilename/SourceFilename против готового
 UMG font resource. Aphes UMG render/cook-load ещё не подтверждён; дерево из

@@ -109,6 +109,17 @@
 
 ### R-006 layout-дополнение, 2026-10-28
 
+- **Узкое runtime-подтверждение добавления UI:** Steam 1.09/build12996889,
+  UE4.27, UE4SS 83330635; один TipHUD с «Открыть». StaticConstructObject создал
+  отдельный transient TextBlock с Outer=WidgetTree; synchronous typed Font copy
+  и CanvasPanel_6.AddChildToCanvas/свой slot дошли до ATTACHED. RemoveChild
+  вернул true, GetParent после него отсутствовал, CLEANED reason=user.
+  Пользователь увидел OPEN и его удаление, исходные действие/иконка остались
+  на месте. Это один render/manual detach case, не полный lifecycle/GC proof.
+  [Точные source/log hashes и границы](https://github.com/NikichMods/ImmersiveInteractionPrompts/blob/a89ab33358df4e905f97942dc7deb64d59b5f16a/research/interaction-prompts-owner/ui-child/README.md).
+  Probe отключён после выхода. Не подтверждены Aphes/divider, timeout/смена цели,
+  другие действия/устройства, DPI/длинные строки или immediate UObject destruction.
+
 - Следующий диагностический прогон установил конкретные live slot значения:
   Position table `(38,0)`, Alignment table `(0,0.5)` у естественного Open prompt.
   Designer X=88 не подходит как безусловный live invariant; Y/alignment совпали.
@@ -226,8 +237,9 @@
   engine-lifetime proof.
 - [Source contract review and limits](https://github.com/NikichMods/ImmersiveInteractionPrompts/blob/c9ecc0064eae59e8f6fc2a6557a1721b28d80534/research/interaction-prompts-owner/ui-child/README.md).
   hpp SHA256 `1b011de1b90390abd02c9f11ebf9da7eb7b55b7d8b2c3f7040f749bd4649e157`.
-  No new successful UMG construction/render/GC result is claimed; source-only
-  prototype readiness belongs to the mod, not shared runtime acceptance.
+  That source review alone did not prove UMG runtime behavior. The subsequent
+  one-label construction/render/manual-detach case is recorded in R-006;
+  GC and broader lifecycle remain unproved. Mod readiness belongs to the mod.
 
 ## R-009 — Lua metadata completeness limit in UE4SS 83330635 (2026-10-28)
 
