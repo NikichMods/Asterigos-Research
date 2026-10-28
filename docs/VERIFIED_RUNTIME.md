@@ -109,6 +109,19 @@
 
 ### R-006 layout-дополнение, 2026-10-28
 
+- **Resource-free divider runtime case:** same Steam/UE4.27/UE4SS 83330635
+  baseline, one Open prompt. New UImage Brush initially DrawAs=3(Image),
+  ResourceObject absent, ResourceName=None, dynamic=false, has_uobject=false.
+  Explicit Box/NoImage/zero-margin/specified white 140×2 setup and readback
+  succeeded; user screenshot shows the divider beneath OPEN with original
+  action/input hint present. No texture/material/imported resource required.
+  Both own children RemoveChild/GetParent checks passed; CLEANED reason=user,
+  remaining=0 after ~5.5s, not timeout. User was uncertain about visually seeing
+  disappearance; native pair detachment is established, not invented visual
+  confirmation. [Source, log/image hashes and limits](https://github.com/NikichMods/ImmersiveInteractionPrompts/blob/8db6e87472257744e83edb29800515ab0870060e/research/interaction-prompts-owner/DIVIDER_READINESS.md).
+  Probe disabled; no GC/full-lifecycle/final-design/Aphes acceptance. These
+  defaults are observed for this constructed UImage, not every FSlateBrush.
+
 - **Узкое runtime-подтверждение добавления UI:** Steam 1.09/build12996889,
   UE4.27, UE4SS 83330635; один TipHUD с «Открыть». StaticConstructObject создал
   отдельный transient TextBlock с Outer=WidgetTree; synchronous typed Font copy
@@ -232,8 +245,9 @@
   relevant to reflected const-reference inputs such as UImage.SetBrush.
   Source snapshot SHA256 `d7896437d23331d799a1cdce0225df7cd03cc02e3052693c6d646e0a4d09d277`.
   [Exact review and limits](https://github.com/NikichMods/ImmersiveInteractionPrompts/blob/180ffbfa8d0ba6e0e6c5da8aa8efe9f818152f3c/research/interaction-prompts-owner/DIVIDER_READINESS.md).
-  Resource-free Image Box rendering/defaults remain unobserved; a source-ready
-  prototype is not a new runtime result. No game resources were published.
+  At that source-review checkpoint Image Box rendering/defaults were unobserved;
+  subsequent limited runtime evidence is in R-006. A source-ready prototype alone
+  is not runtime proof. No game resources were published.
 
 - Source-only, same revision `83330635`: LuaMod.cpp 1916–2023 supplies
   StaticConstructObject with UClass/Outer/name/flags, not a reflected UMG factory.

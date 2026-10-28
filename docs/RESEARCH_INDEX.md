@@ -53,6 +53,10 @@ CanvasPanel_6, видимо отрисован штатным шрифтом и 
 иконка остались на месте по наблюдению пользователя. Это не Aphes или GC/lifecycle
 acceptance; точные исходники, log hash и ограничения находятся в R-006.
 
+R-006 divider follow-up: resource-free UImage Box виден на пользовательском кадре;
+native detachment обоих добавленных элементов подтверждён, reason=user, не timeout.
+Не обобщать на GC/lifecycle или уверенное визуальное наблюдение исчезновения пары.
+
 Offline-уточнение R-006/R-007: установлены семь slot edges штатного TipHUD,
 text/icon layout branches и граница FontFilename/SourceFilename против готового
 UMG font resource. Aphes UMG render/cook-load ещё не подтверждён; дерево из
