@@ -1,5 +1,10 @@
 # Research Index — Asterigos: Curse of the Stars
 
+Уточнение R-007 в [VERIFIED_RUNTIME.md](VERIFIED_RUNTIME.md): ограниченная font
+inventory и UE4.27 filename-constructor source; private Template UFont copy —
+новый непроверенный runtime-кандидат без shared font replacement. Не объявлять
+его Aphes-in-UMG acceptance или готовым C++-мостом.
+
 R-012 в [VERIFIED_RUNTIME.md](VERIFIED_RUNTIME.md) фиксирует source-only контракт
 runtime PNG import / explicit CDO call / Image texture reference для UE4SS83330635.
 Это готовность узкого теста, без подтверждения импорта/прозрачности/Aphes в UMG.

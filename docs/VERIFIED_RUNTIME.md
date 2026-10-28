@@ -214,6 +214,35 @@
   новые объявления. [Источник и границы](https://github.com/NikichMods/ImmersiveInteractionPrompts/blob/e6592818452b007159be9d84a407e865483f5b11/research/interaction-prompts-owner/VISUAL_READINESS.md).
   Ни TTF, ни cooked assets не опубликованы; новый runtime не выполнялся.
 
+### R-007 Dynamic TTF без cooker — source-only, 2026-10-28
+
+- Ограниченный offline разбор 17 известных game Fonts / EngineFonts packages
+  подтвердил 5 UFont и 12 FontFace. Garamond используется Umg_Font и HudUmg
+  DamageDigits0…19; пять игровых FontFace входят в Umg_Font. Независимого
+  in-place donor не установлено; отсутствие ссылок на engine Font в ограниченном
+  корпусе JSON не доказывает отсутствие native/style/soft-reference потребителей.
+- Upstream UE4.27.2 source (mirror AlexMercer-MA/UnrealEngine-4.27,
+  `306a7e9f7fb53f14c2cb3bfd3854ad906710a17e`, Build.version4.27.2)
+  подтверждает runtime FString filename constructor FSlateFontInfo и legacy cache,
+  создающий FStandaloneCompositeFont с LazyLoad. Нативный CompositeFont shared
+  pointer не UPROPERTY и отсутствует в installed UHT; Lua SetFont marshalling
+  не вызывает такой конструктор. Это engine capability, не подтверждённый ABI
+  Asterigos или готовый UE4SS C++-мост. Обычная engine plugin сборка не равна
+  загружаемой в Shipping игру UE4SS DLL.
+- **Новый source-supported кандидат, не runtime-факт:** LuaMod.cpp1916–2023
+  pinned UE4SS83330635 принимает Template в StaticConstructObject. UE4.27 native
+  InitProperties + struct/array copy поддерживают создание собственной копии UFont.
+  Installed UHT exposes FFontData.FontFilename и FontFaceAsset; native FFontData
+  читает filename, если face asset отсутствует. Копирование маленького Runtime
+  UFont с существующим typeface entry позволяет исследовать собственный provider,
+  обходя конструирование native shared pointer и новой typeface array из Lua.
+- Это не подмена donor object/file. До записи в копию необходимо доказать её
+  изоляцию в реальной игре; optional Template через installed binding, decoder,
+  rendering/cache/lifetime ещё не проверены. Новый payload/DLL не создавался,
+  runtime не выполнялся. Исходники, хэши, границы dumpbin-проверки и сравнение
+  альтернатив: [IIP dynamic font report](https://github.com/NikichMods/ImmersiveInteractionPrompts/blob/872929ce07ef19d504c14a977eb6cfe04cf17ccc/research/interaction-prompts-owner/DYNAMIC_FONT_READINESS.md).
+  Шрифты, raw JSON и engine source snapshots остаются локальными.
+
 ## R-008 — UE4SS callback boundaries for observation (2026-10-28)
 
 - **Evidence level:** source inspection of installed baseline revision `83330635`,
