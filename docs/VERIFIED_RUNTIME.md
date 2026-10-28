@@ -599,8 +599,39 @@ NotifyCoherentHudInput→UI_Input/UI_InputReleased forwarding; it does not estab
 a contextual TipHUD/action-text/current-hint payload.
 
 [Owning IIP comparison/prototype](https://github.com/NikichMods/ImmersiveInteractionPrompts/blob/242a5f0a6f5807dd4cdc3953f1f51acc02b0be06/research/interaction-prompts-owner/viewport/README.md)
-has source/mocks only for the new root attachment/tuning/hint copy. No runtime
-acceptance is transferred from prior TipHUD-child/font/import experiments.
+initially had source/mocks only for root attachment/tuning/hint copy. The separate
+R-015 runtime follow-up below exercises that root route with explicit limits;
+acceptance is not inferred from prior TipHUD-child/font/import experiments.
+
+### R-015 runtime follow-up — existing HUD-root sample, 2026-10-29
+
+A separate user-run IIP test now exercised the existing viewport-root route.
+Exact source `242a5f0a6f5807dd4cdc3953f1f51acc02b0be06`, main SHA256
+`3fa10606000f9b44406d1ddf5a798d1634483e6809570c8fc9b242ed12da63fa`, helper
+`e2e83b83e2a8b4d1efdef5b01b7125383de99d784f15319ecbbc5ce89bc59620`;
+private config/TTF/PNG/DLL and18 previous mod/loader files matched after exit.
+
+02:28:05 Moscow own Canvas with five children attached under in-viewport
+HUDMainUMG.Main_Panel, initial normalized anchors(.50,.78), viewport2560×1440.
+User reports the screen sample worked apart from arrow movement and supplies one
+frame showing the original actor-relative prompt plus the lower-screen sample,
+including the copied current F hint alongside localized text. The user's report
+supports stability during the camera check; a single still does not establish
+that by itself.02:30:43 CLEANED reason=user remaining0: five own children detached,
+image resource refs cleared, private font released and own empty Canvas detached.
+No probe failures. No full lifecycle/device-switch/remapping/GC/other-resolution
+acceptance. Probe disabled after closed-host inspection; host assets/log/frame
+remain local. This result does not transfer production behavior between mods.
+
+POSITION move/reset/commit records are absent. User saw camera motion during
+arrow attempts, not sample movement. This is an unsuccessful control subtest,
+not proof of UE4SS key interception/routing cause or a universal arrow-key defect.
+Home reset and F7 commit remain unverified. The project's user chose the initial
+position directly; that product decision and future layout stay owned by IIP.
+
+Log SHA256 `1f2f787adc0d82bfcdc005981c6ed513c0b218dafb90eb1bdefc0c37bdeb3096`;
+frame SHA256 `f49ecdafb7d1b635fa8f36b57704c4d1497bc0051ca052ba36b38f3f1daa2b07`.
+[Owning result/limits](https://github.com/NikichMods/ImmersiveInteractionPrompts/blob/1320ad57665124f18b61244b10c5c7c6980388ea/research/interaction-prompts-owner/viewport/README.md).
 
 ## Что не скопировано сюда
 

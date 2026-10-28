@@ -1,11 +1,13 @@
 # Research Index — Asterigos: Curse of the Stars
 
-**2026-10-29 — R-015 source-only:** ExtendedWidgetComponent CDO uses Screen,
-but UE4.27 projects its scene-component location; this differs from viewport-fixed
-UMG. Actual Create/AddToViewport contracts, Abstract UserWidget restriction,
-existing HUD root candidate and Coherent bridge limits recorded in
+**2026-10-29 — R-015 runtime follow-up:** one own Canvas in existing viewport
+HUD root rendered and manually cleaned up, original TipHUD preserved. Arrow
+tuning did not pass; no input-routing cause inferred. Source distinction between
+projected screen components and viewport HUD, Abstract UserWidget restriction
+and Coherent bridge limits remain recorded in
 [VERIFIED_RUNTIME.md](VERIFIED_RUNTIME.md#r-015--projected-screen-components-vs-viewport-hud-root-2026-10-29).
-No new game run or acceptance of independent-screen placement yet.
+A bounded2560×1440 user-run result now exists; full lifecycle and other resolutions
+are unaccepted. Exact source/log/frame and partial input outcome in R-015 follow-up.
 
 
 **2026-10-29 — R-012 runtime follow-up / R-013:** stock Coherent PNG570×16
