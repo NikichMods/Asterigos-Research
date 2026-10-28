@@ -1,5 +1,9 @@
 # Research Index — Asterigos: Curse of the Stars
 
+R-012 в [VERIFIED_RUNTIME.md](VERIFIED_RUNTIME.md) фиксирует source-only контракт
+runtime PNG import / explicit CDO call / Image texture reference для UE4SS83330635.
+Это готовность узкого теста, без подтверждения импорта/прозрачности/Aphes в UMG.
+
 **Назначение:** короткий вход в общие знания, переиспользуемые несколькими модами NikichMods. Детали и первичные доказательства остаются в документах-владельцах. Дата первоначальной консолидации: **2026-10-27**.
 
 ## Репозитории модов после организационного разделения

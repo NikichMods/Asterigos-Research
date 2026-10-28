@@ -344,6 +344,38 @@
   mod-specific native-frame evidence gap remains in the
   [observer readiness report](https://github.com/NikichMods/ImmersiveInteractionPrompts/blob/d52939b65fe5b31d52738f2dcabe9ac6d7edbda8/research/interaction-prompts-owner/OBSERVER_READINESS.md).
 
+## R-012 — Runtime PNG import contract, source-only (2026-10-28)
+
+- **Offline contract, no new game run:** retained UHT output for Steam 1.09 /
+  build12996889, UE4.27, UE4SS83330635 declares runtime Engine static
+  `UTexture2D* ImportFileAsTexture2D(UObject* WorldContextObject, const FString& Filename)`
+  on KismetRenderingLibrary. UMG Image declares
+  `SetBrushFromTexture(UTexture2D* Texture, bool bMatchSize)` and
+  `SetBrushResourceObject(UObject* ResourceObject)`. Generated cpp bodies are
+  stubs, not evidence of native implementation success/failure.
+- Pinned UE4SS LuaMod.cpp1245–1275 / LuaUObject.cpp373–386 returns an unbound
+  UFunction from exact StaticFindObject. LuaUObject.cpp93–145 consumes its
+  explicit calling UObject before reflected parameters; 210–280 marshals then
+  ProcessEvent, 342–361 returns the object result. Correct source-confirmed form:
+  `fn(cdo, current_widget, absolute_filename)`, where fn is
+  `/Script/Engine.KismetRenderingLibrary:ImportFileAsTexture2D` and cdo is
+  `/Script/Engine.Default__KismetRenderingLibrary`. CDO and WorldContextObject
+  are separate arguments. No forced lookup/load is needed by the prepared test.
+- Reflected UImage.Brush → FSlateBrush.ResourceObject provides the engine object
+  reference for the imported texture after binding. Lua wrappers and Outer alone
+  are not GC roots. Detached owned Image can release its resource reference via
+  the nil-capable object pusher and SetBrushResourceObject(nil); native operation
+  and rendering still require runtime confirmation. This does not prove immediate
+  texture/GPU deallocation or certify GC/full HUD lifecycle.
+- Original research source, API provenance, exact local font/PNG hashes and
+  failure/one-import/cleanup policy are in the
+  [IIP PNG report](https://github.com/NikichMods/ImmersiveInteractionPrompts/blob/135d0ed33c2b697051b63e079a6190da862e8862/research/interaction-prompts-owner/png-header/README.md).
+  Thirty mock/offline tests pass there. No PNG import, alpha, GPU upload,
+  Aphes-in-UMG render or texture unbind is runtime-verified. No game installation
+  occurred. The original TTF and one derived transparent PNG remain local/ignored;
+  neither is distributed. This route tests a raster image, not a cooked UFont,
+  and does not establish Aphes translation or a finished Nexus setup.
+
 ## Что не скопировано сюда
 
 Не импортированы все исходники, журналы экспериментов и мод-специфические ID из подпроектов. При первом повторном использовании выявить конкретный применимый факт, сохранить доказательства и перенести только нужный переиспользуемый вывод в этот документ.
