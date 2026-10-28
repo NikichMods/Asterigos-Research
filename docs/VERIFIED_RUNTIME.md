@@ -109,6 +109,12 @@
 
 ### R-006 layout-дополнение, 2026-10-28
 
+- Следующий диагностический прогон установил конкретные live slot значения:
+  Position table `(38,0)`, Alignment table `(0,0.5)` у естественного Open prompt.
+  Designer X=88 не подходит как безусловный live invariant; Y/alignment совпали.
+  Писатель X и применимость к другим actions/devices не установлены. Новый ребёнок
+  снова не создавался из-за старого guard. [Точное свидетельство и log hash](https://github.com/NikichMods/ImmersiveInteractionPrompts/blob/6e55c184dded60eb1e2a1c0f8753f37bdeda18fe/research/interaction-prompts-owner/ui-child/README.md).
+
 - Позднейший узкий UI-прогон на том же baseline прошёл live проверки
   TextBlock_89 → CanvasPanel_6 → WidgetTree → текущий TipHUD, три canvas children
   и Font.Size=22. Остановился до создания нового ребёнка на строгом условии
