@@ -310,6 +310,29 @@
   отдельный OPEN→READ probe, 10 новых offline mock groups pass. Не установлен/
   не запускался. Raw tool/source evidence, TTF и config остаются локальными.
 
+### R-007 Native Aphes UMG render/change — bounded runtime PASS, 2026-10-28
+
+- Established Steam1.09/build12996889 / UE4.27 / UE4SS83330635: exact source
+  `94770eddf8ec9c74d75fa4ca145c4e81d1940fe4`, SHA256
+  `9042d9daebe65681c80e445a963e15ec6bd0b4c1a68d9825cb1b62284b8a6306`,
+  config/local original Aphes.ttf and DLL identities matched after exit.
+- Один natural Open prompt: private RF_Transient UFont constructed with Template,
+  только его FFontData configured with nil face/absolute TTF/LazyLoad, native
+  UTextBlock FontObject bound. FONT_CONFIGURED/FONT_BOUND/DONOR_UNCHANGED at21:07:54;
+  OPEN→READ same_element=true at21:08:11; оба own children REMOVED, FONT_RELEASED,
+  CLEANED reason=user own_children_remaining=0 at21:08:21, до30s timeout. Ошибок probe нет.
+- Пользователь подтвердил визуальный успех; один кадр2560×1440 показывает Aphes
+  glyph shapes, original «Открыть»/F и divider. Это техническое принятие dynamic
+  local TTF→private UFont→native UMG в одном случае, без editor/cook/PNG/new DLL,
+  не финальная композиция или семантический перевод OPEN/READ на язык Афеса.
+- Raw log SHA256 `b83f9bbe387b4894b07938d121913ca2d957a4fc08b2008262481847c6313c7c`;
+  frame SHA256 `b8a9397ee1bb42992d207a328495585cf8ae8a63464103305fa5d20a7340e6de`.
+  [Полный результат и границы](https://github.com/NikichMods/ImmersiveInteractionPrompts/blob/db09e4d79daacb44a225b2c7854c1ae3ebb8970e/research/interaction-prompts-owner/aphes-text/README.md).
+- Probe disabled after closed session. User exit Alt+F4; manual cleanup logged
+  before exit, normal-menu shutdown and full GC/cache deallocation не приняты.
+  Широкий lifecycle/другие prompts/DPI/input coverage и final design остаются
+  отдельными gates. Raw log/frame, TTF и config остаются локальными/ignored.
+
 ## R-008 — UE4SS callback boundaries for observation (2026-10-28)
 
 - **Evidence level:** source inspection of installed baseline revision `83330635`,

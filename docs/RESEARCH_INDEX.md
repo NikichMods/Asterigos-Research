@@ -1,5 +1,10 @@
 # Research Index — Asterigos: Curse of the Stars
 
+R-007: **native Aphes OPEN→READ/manual cleanup runtime PASS** в одном natural
+Open prompt, с пользовательским визуальным подтверждением. Private transient
+UFont/local TTF работает без cooker; probe отключён. Final design, semantic
+translation и полный GC/lifecycle не приняты этим ограниченным тестом.
+
 R-007 дополнен source/static review nested setters, owning FString copy в exact
 UE4SS83330635 DLL и FontObject retention. Это основа следующего ограниченного
 Aphes writer source, не подтверждение реальных записей/глифов/GC в игре.
