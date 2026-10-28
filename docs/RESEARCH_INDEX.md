@@ -2,7 +2,9 @@
 
 R-007 дополнен pinned getter-контрактами native array/struct storage addresses:
 они позволяют готовить read-only isolation checks, но не доказывают сами по себе
-независимость всех внутренних буферов. Новый IIP probe ещё не запускался в игре.
+независимость всех внутренних буферов. Последующий IIP run подтвердил отдельный
+transient UFont/observed storage через Template; probe отключён. Setters/Aphes
+rendering и полная deep-copy independence этим не подтверждены.
 
 Уточнение R-007 в [VERIFIED_RUNTIME.md](VERIFIED_RUNTIME.md): ограниченная font
 inventory и UE4.27 filename-constructor source; private Template UFont copy —

@@ -263,6 +263,28 @@
   проверяют control flow; в игре не запускался. Никакой runtime deep-copy,
   FFontData-mutation, font rendering или GC acceptance здесь не добавлено.
 
+### R-007 Runtime Template creation/storage result — 2026-10-28
+
+- Один пользовательский запуск на established Steam1.09/build12996889,
+  UE4.27/UE4SS83330635 подтвердил StaticConstructObject с Template argument8
+  для naturally loaded `/Game/Fonts/EBGaramond-SemiBold_Font`.
+  Создан отдельный RF_Transient UFont; passed guards: Runtime cache, one Default
+  entry, empty fallback/subtypes, matching selected FontData values.
+- Native array header/data, entry/FontData и остальные inspected struct/header
+  addresses различались у донора и копии. Общая FontFace reference ожидаема.
+  DONOR_UNCHANGED относится к выбранному snapshot, не ко всем скрытым данным.
+  Один CREATE_BEGIN/CREATED завершён DONE result=STORAGE_CHECK_PASS;
+  font_data_writes=0, ui_writes=0, gc_forced=false. Probe отключён после выхода.
+- Source `6c75063300c9aa84ec946f64ca108cc4d686e1e3`, installed SHA256
+  `f771481709412b2bdf5bc9f54e262b1d8cd7f69db23b1e9c72b0dca7b3b9cc7d`
+  совпал после закрытия. Лог строки697–702 /16:32:16 МСК, SHA256
+  `c8c06876154954e94d507e7af1ebc683e37830ea42329564329d46a935f22453`.
+  [Точный результат и границы](https://github.com/NikichMods/ImmersiveInteractionPrompts/blob/4f660f41fd6564cfa0197b15e069ea23440a1089/research/interaction-prompts-owner/font-template/README.md).
+- Это runtime-свидетельство construction/observed storage, не full deep copy,
+  FString backing independence, setter safety, Aphes decoding/render или GC
+  acceptance. Не переносить результат на другие классы/Templates/версии без
+  проверки. Raw log остаётся локальным; никаких шрифтовых payload не опубликовано.
+
 ## R-008 — UE4SS callback boundaries for observation (2026-10-28)
 
 - **Evidence level:** source inspection of installed baseline revision `83330635`,
