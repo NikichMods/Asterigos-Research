@@ -555,7 +555,7 @@ No game run/install occurred in the original source investigation. The separate
 R-012 runtime follow-up above now covers native reuse of this exact stock PNG;
 IIP-specific appearance and broader lifecycle acceptance remain owned by IIP.
 
-## R-014 — projected screen components vs viewport HUD root (2026-10-29)
+## R-015 — projected screen components vs viewport HUD root (2026-10-29)
 
 Source/static only, no game run for this investigation. Retained actual UHT output
 `Genesis/Private/ExtendedWidgetComponent.cpp` initializes inherited Space=Screen;
@@ -594,6 +594,9 @@ readiness APIs. Retained base Hud.html ShowTipMessage/HideTipMessage bindings
 do not confirm an active TipHUD→localized-action/current-input bridge. A custom
 bridge is possible in principle but would add state/input synchronization and
 shared Hud.html integration; absence is not proved for every native subsystem.
+The concurrent R-014 action-contract entry below separately confirms native
+NotifyCoherentHudInput→UI_Input/UI_InputReleased forwarding; it does not establish
+a contextual TipHUD/action-text/current-hint payload.
 
 [Owning IIP comparison/prototype](https://github.com/NikichMods/ImmersiveInteractionPrompts/blob/242a5f0a6f5807dd4cdc3953f1f51acc02b0be06/research/interaction-prompts-owner/viewport/README.md)
 has source/mocks only for the new root attachment/tuning/hint copy. No runtime
@@ -602,3 +605,14 @@ acceptance is transferred from prior TipHUD-child/font/import experiments.
 ## Что не скопировано сюда
 
 Не импортированы все исходники, журналы экспериментов и мод-специфические ID из подпроектов. При первом повторном использовании выявить конкретный применимый факт, сохранить доказательства и перенести только нужный переиспользуемый вывод в этот документ.
+
+## R-014 — Native action/mapping contracts and skill topology, static (2026-10-29)
+
+- **Baseline/evidence:** Steam1.09/build12996889, UE4.27; existing UHT declarations and CUE4Parse1.2.2 exports (ReadScriptData=true). No live action callbacks/getters have been exercised by this investigation. [Exact report and evidence SHA-256](https://github.com/NikichMods/CombatHUD/blob/ac526518f2255e30b9726a22e4f00984ee44cd75/docs/VERIFIED_RUNTIME.md#контекстные-игровые-действия-и-skill-targets--статический-этап-2026-10-29).
+- **Native semantic contract:** EGenesisInputCommandType has Interact25, SpecialSkill_Switch14 and a separate UI_Enter; EGenesisInputEventType has Pressed0/Released1. GenesisPlayerController declares NotifyActionInput(Command,EventType), onActionInputEvent and native OnActionInputPressed/Released(listener). MainPlayerController_BP has no NotifyActionInput override in the extracted exports. A declared event is not proof of hookability or dispatch; reflected ActionInputMappingListener does not expose a semantic command/key field.
+- **Mapping storage shape:** DefaultInputMapping/DefaultInputMappingTypeB use FInputMappingData (ContextType/Command/FKey, modifier/chord/pause flags). FSavedInputMappingData declares saved row/mapping fields, and controller ConfigureAndApply and GameGlobal GetInputMapping/GetInputRemappingData are reflected endpoints. The actual persistence file/manager and current user mapping have not been established. Do not replace semantic actions with shipped default keys or call setters while observing. The two presets assign different default Interact face buttons, while retaining the semantic command.
+- **Read candidates:** GenesisPlayerController.GetModifier_SpecialSkill returns bool, GetNowInputControllerType returns input-device enum, GameGlobal.GetInputMode(getAction,getAxis) returns Scene0/UI1/QuestTimeEvent2. These declarations do not establish held/release behavior across menu, device or focus changes. Do not equate Scene or viewport with window focus. Reset/resync of an observer's own held latch requires separate evidence; timeout is not native release proof.
+- **Executable forwarding:** MainPlayerController_BP.NotifyCoherentHudInput(cmd,IsPressed) goes via ubergraph entry814 to GTGameHUDBPLocal UI_Input/UI_InputReleased (branches913/927/979). This proves the Coherent/UI forwarding path, not a general gameplay Interact event.
+- **Skill families:** HUDSkillUMG_BP has four keyboard skill children under SkillSlotList_Panel plus SP resources; HUDActiveSkillUMG_BP has four pad skill children under Main_Panel and two Image children. Six children are not six proven skill icons. The common HUD_Panel/menu ancestry remains native; visual/gamepad/input switching ownership and independent opacity in new states are unverified. CombatHUD's target selection and runtime acceptance remain owned by CombatHUD.
+
+This entry promotes only static contracts and their negative boundaries. A private read-only observer is prepared in the owning task; it has no runtime result. No diagnostic source, raw UHT dump, game asset, private machine path or settings/save data is published here.
