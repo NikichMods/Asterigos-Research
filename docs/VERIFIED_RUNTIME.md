@@ -100,6 +100,21 @@
   Raw log stays local. Probe disabled after normal exit. Input icons, actor/
   component linkage, ladder, menu transitions and visual acceptance remain open.
 
+### R-006 layout-дополнение, 2026-10-28
+
+- На прежнем Steam 1.09/build12996889 / UE4.27 baseline offline проверены семь
+  reciprocal Parent/Content/Slot связей: CanvasPanel_0 → HorizontalBox_4 →
+  CanvasPanel_6; отдельные ветви TextBlock_89, RetainerBox_0 → allowed image,
+  CanvasPanel_2 → forbidden image. Text slot AutoSize=true, anchor `(0,0.5)`,
+  Left=88; root-child canvas slot centered, 1000×100. Это сериализованные
+  параметры, не измеренные live geometry/desired size/clipping.
+- Blueprint native consumer получает ровно исходный TextBlock_89 и RetainerBox_0
+  в своих массивах. Hold material, lock overlay и handheld SetFont(size56) —
+  отдельные preserved boundaries. Добавление sibling не доказывает сохранение
+  panel desired size или individual visibility; полный final writer не установлен.
+- [Точный отчёт, дерево, хэши и воспроизводимый offline audit](https://github.com/NikichMods/ImmersiveInteractionPrompts/blob/e6592818452b007159be9d84a407e865483f5b11/research/interaction-prompts-owner/VISUAL_READINESS.md).
+  Runtime/mod-specific implementation и визуальная приёмка не заявляются.
+
 ## R-007 — Aphes.ttf и граница между глифами, UFont и языком
 
 - **Статус/источник:** техническая offline-проверка stock ресурсов того же baseline,
@@ -138,6 +153,22 @@
   это не аудит всего игрового лора. Транслитерация/декоративная маркировка —
   отдельный продуктовый выбор. Font rendering, semantic translation и право
   публичной дистрибуции — три разные проверки; извлечённый TTF не опубликован.
+
+### R-007 UMG readiness-дополнение, 2026-10-28
+
+- Installed-build UHT подтверждает UTextBlock::SetFont(FSlateFontInfo),
+  UFont.CompositeFont и reflected FFontData.FontFilename, но у FSlateFontInfo
+  нет reflected filename member. UE4SS 83330635 marshals struct fields, а не
+  C++ filename constructor FFontData. Наличие этих полей не доказывает корректную
+  инициализацию полного font state или чтение packaged Aphes.ttf.
+- UFontFace.SourceFilename не заменяет импорт raw payload. Стандартный
+  [UE4.27 UMG font path](https://dev.epicgames.com/documentation/en-us/unreal-engine/using-fonts-with-umg?application_version=4.27)
+  использует runtime composite/font-face assets. Валидный Aphes UMG font object
+  ещё не получен; это пробел доказательств, не невозможность UMG-рендера.
+  Generated UHT `.cpp` bodies — stubs, не engine implementations. Точные поля
+  проверять по installed dump; страницы API даже с version=4.27 могут содержать
+  новые объявления. [Источник и границы](https://github.com/NikichMods/ImmersiveInteractionPrompts/blob/e6592818452b007159be9d84a407e865483f5b11/research/interaction-prompts-owner/VISUAL_READINESS.md).
+  Ни TTF, ни cooked assets не опубликованы; новый runtime не выполнялся.
 
 ## R-008 — UE4SS callback boundaries for observation (2026-10-28)
 

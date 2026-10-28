@@ -45,6 +45,11 @@ TArray UE4SS `83330635` может расширять массив; read-only di
 zero-input CanShow post-hook — чтение текста/состояния трёх живых TipHUD.
 Это не подтверждение actor mapping, полного hide/show или final writer.
 
+Offline-уточнение R-006/R-007: установлены семь slot edges штатного TipHUD,
+text/icon layout branches и граница FontFilename/SourceFilename против готового
+UMG font resource. Aphes UMG render/cook-load ещё не подтверждён; дерево из
+экспорта не равно live geometry. Точный источник и хэши добавлены в эти разделы.
+
 ## Откуда взят проверенный технический baseline
 
 - [AsterigosMods/AGENTS.md](https://github.com/NikichMods/AsterigosMods/blob/main/AGENTS.md) — точная версия Steam/UE/UE4SS и правила установки.
