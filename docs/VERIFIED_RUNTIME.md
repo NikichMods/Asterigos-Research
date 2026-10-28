@@ -198,6 +198,24 @@
   missing metadata and procedure remain in the
   [ImmersiveInteractionPrompts report](https://github.com/NikichMods/ImmersiveInteractionPrompts/blob/afb5b4500b460734d6f76542926ffb8593d42231/research/interaction-prompts-owner/README.md).
 
+### R-008 object/struct lifetime clarification, 2026-10-28
+
+- Source-only, same revision `83330635`: LuaMod.cpp 1916–2023 supplies
+  StaticConstructObject with UClass/Outer/name/flags, not a reflected UMG factory.
+  LuaUObject.cpp 754–830 supports same-type ScriptStructWrapper CopyCompleteValue;
+  a synchronous copy of a live property differs from fabricating a partial struct
+  or retaining a borrowed native parameter for later use.
+- LuaUObject.hpp 761–775 checks non-null/sentinel, global object-map membership
+  and IsUnreachable. LuaUObject.cpp 25–92 contains map/deletion-listener handling.
+  This is neither a strong GC root nor a serial-number weak handle. Outer or a
+  Lua wrapper must not be assumed to keep an object alive. Fresh exact lookup and
+  identity checks avoid reliance on retained raw wrappers, but are not a complete
+  engine-lifetime proof.
+- [Source contract review and limits](https://github.com/NikichMods/ImmersiveInteractionPrompts/blob/c9ecc0064eae59e8f6fc2a6557a1721b28d80534/research/interaction-prompts-owner/ui-child/README.md).
+  hpp SHA256 `1b011de1b90390abd02c9f11ebf9da7eb7b55b7d8b2c3f7040f749bd4649e157`.
+  No new successful UMG construction/render/GC result is claimed; source-only
+  prototype readiness belongs to the mod, not shared runtime acceptance.
+
 ## R-009 — Lua metadata completeness limit in UE4SS 83330635 (2026-10-28)
 
 - **Evidence:** source inspection for the same Steam 1.09/build12996889, UE4.27,

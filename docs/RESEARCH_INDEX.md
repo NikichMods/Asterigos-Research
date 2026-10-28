@@ -33,6 +33,9 @@
 EPropertyFlags readers в Lua FProperty binding UE4SS `83330635` и границу полноты
 metadata capture. Подтверждено исходником, без игрового запуска.
 
+Уточнение R-008: добавлены source-only границы StaticConstructObject, typed struct
+copy и UObject wrapper/GC lifetime. Они не доказывают успешное создание/рендер UMG.
+
 Дополнение: R-010 в [VERIFIED_RUNTIME.md](VERIFIED_RUNTIME.md) — штатный UHT
 генератор дал декларацию SetupTipMessage2; правила вывода параметров позволяют
 установить отдельные флаги, но normalized macros и stub bodies имеют ограничения.
