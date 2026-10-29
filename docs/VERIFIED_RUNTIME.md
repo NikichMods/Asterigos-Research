@@ -990,6 +990,22 @@ This is source evidence; frame cadence/camera phase, cancellation and performanc
 in the game are not newly runtime-proven. No mod-specific orientation UX is
 promoted here.
 
+### Frame-loop and explicit user cleanup — bounded runtime PASS, 2026-10-30
+
+[Exact owning result](https://github.com/NikichMods/ImmersiveInteractionPrompts/blob/fb0f0be94bcf314d043c57973e9ad48d8ef2af59/research/interaction-prompts-owner/world-space/vertical-yaw/README.md),
+UE4SS log SHA256 `d06cb0f2d327336493b143f3f2b3ac5fdf39d07a2632d656f58ef0afa747980a`.
+Same Steam1.09/build12996889 / UE4.27 / UE4SS83330635. One owned frame-loop handle3
+performed1068 registered-component rotation writes with guarded readbacks, no
+probe errors. Snapshot pitch/roll0; native depth material/world position/scale
+retained. User confirms near-ideal visual operation and pressing manual stop.
+CancelDelayedAction returned true (LOOP_CANCELLED), STOP reason=user/hooks_remaining0,
+then native component destruction and own host release CLEANED reason=user.
+No later probe events; host subsequently exited. Source explains deferred
+PendingRemoval/unref; no separate post-cancel handle query or forced GC claim.
+Rough60 callbacks/s over17.796s is not display FPS, proof of every global tick,
+or a performance benchmark. No generalized production lifecycle acceptance.
+Probe archived/disabled closed-game; no change to other mods/current settings/saves.
+
 ## R-017 — concrete independent UserWidget host candidate (2026-10-29)
 
 ### Host-only runtime follow-up — one viewport lifecycle PASS

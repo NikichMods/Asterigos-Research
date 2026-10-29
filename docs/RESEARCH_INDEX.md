@@ -1,5 +1,10 @@
 # Research Index — Asterigos: Curse of the Stars
 
+**2026-10-30 — R-016 bounded frame-loop/manual-stop runtime PASS:**1068 own
+rotation updates, explicit handle cancellation and user-triggered native cleanup
+completed. User visual confirmation; no FPS benchmark/full lifecycle claim.
+[Evidence](VERIFIED_RUNTIME.md#frame-loop-and-explicit-user-cleanup--bounded-runtime-pass-2026-10-30).
+
 **2026-10-30 — R-016 source-only:** pinned frame-loop ownership, zero-result
 callback contract and cancellation/removal reviewed. Runtime cadence/cancellation
 not accepted by this entry.
