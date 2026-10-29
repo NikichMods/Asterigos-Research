@@ -46,6 +46,27 @@
 
 ## R-006 — Interaction prompts: статическая цепочка и живые поля CanShow
 
+### Parent BeginPlay acquisition — live partial PASS, 2026-10-29
+
+Same Steam1.09/UE4.27/UE4SS83330635 baseline. Exact parent Blueprint script hook
+registered IDs10/10 before manual save reload, then observed three initialized
+Open/Interact25 actors in0-1_plot_outerRimA_interact1. For each, the reader verified
+argument.GetOwner==actor, actor.ExtendedWidget↔component.GetOwner, exact TipHUD,
+GetUserWidgetObject/GetWidget/Widget equality and compatible NewUserWidget.
+Three distinct live widget paths remained under MainGameInstance, while their
+components belonged to the actual level actors. Thus the parent script entry
+and component-side identity/getter route have bounded live evidence across this
+reload; this is not inference from object names or widget Outer.
+
+The observation ended at128 initialization callbacks after20.789s, with3 ready
+pairs,0 CanShow callbacks and0 poses. It proves acquisition only: no current visible
+Open selection, numeric-address log, concrete actor-class log or world transform.
+CanShow hook registered11/11 but its callback survival through reload is neither
+confirmed nor refuted by this cutoff. No probe failures; own unregistration accepted.
+Probe disabled closed-game; no new revision/World test was installed.
+Log SHA25662e8dcd171f9de0b4056ce2df4aa8470be07827cd5034aaf90ad9d8b9a74636f.
+[Exact identities, counters and limits](https://github.com/NikichMods/ImmersiveInteractionPrompts/blob/9b488fcdaaf4033c32f49b30b466ef174280ed03/research/interaction-prompts-owner/open-binding/beginplay-probe/README.md).
+
 ### Script-hook lifetime across map changes — source contract, 2026-10-29
 
 In exact UE4SS83330635 LuaMod.cpp1138–1186/4271ff, non-native script registrations

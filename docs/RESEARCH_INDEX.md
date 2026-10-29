@@ -1,5 +1,10 @@
 # Research Index — Asterigos: Curse of the Stars
 
+**2026-10-29 — R-006 acquisition live partial PASS:** parent BP hook fired after
+manual reload;3 Open actor/component/TipHUD pairs passed reciprocal getter checks.
+Initialization budget stopped observation before CanShow/pose, so active selection
+remains unproved. [Live evidence and limits](VERIFIED_RUNTIME.md#parent-beginplay-acquisition--live-partial-pass-2026-10-29).
+
 **2026-10-29 — R-006 script-hook lifetime, source-only:** pinned registrations
 use function/Outer name chains at mod scope; reviewed LoadMap handlers preserve
 them, uninstall clears them. This supports a bounded reload test, not live reload
