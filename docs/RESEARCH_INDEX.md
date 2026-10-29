@@ -1,5 +1,12 @@
 # Research Index — Asterigos: Curse of the Stars
 
+**2026-10-29 — R-017 source-only:** shipped concrete PostionItemUMG_BP_C directly
+inherits UMG.UserWidget; own-only callbacks/primitive tree and independent normal
+Create/Slate contract reviewed. Construct hides self; runtime class availability,
+Create/render/cleanup NOT_TESTED. See [host facts and limits](VERIFIED_RUNTIME.md#r-017--concrete-independent-userwidget-host-candidate-2026-10-29).
+No new World payload or game execution.
+
+
 **2026-10-29 — R-016 source/static:** World WidgetComponent uses normal scene
 geometry/depth; stock Widget3DPassThrough family is present. SetWidgetSpace is
 assignment-only and does not allocate the World renderer needed at registration.

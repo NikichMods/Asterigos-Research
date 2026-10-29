@@ -689,6 +689,49 @@ source links and mod-specific candidate/blockers live in the
 [IIP World-space report](https://github.com/NikichMods/ImmersiveInteractionPrompts/blob/21d3fd994002bbcd78293a8833f87c432a73e1b2/research/interaction-prompts-owner/world-space/README.md).
 No executable World payload or new rendering acceptance is supplied by this result.
 
+## R-017 — concrete independent UserWidget host candidate (2026-10-29)
+
+Source/static only, same Steam1.09/build12996889/UE4.27/UE4SS83330635 baseline.
+Bounded four-package read from existing base containers found
+`/Game/MainContent/Template/UMG/Debug/PostionItemUMG_BP.PostionItemUMG_BP_C`.
+It is concrete (no Abstract/Deprecated/NewerVersionExists flags) and directly
+inherits UMG.UserWidget, then Widget/Visual/Object. No game native base.
+
+Exactly14 exports: four functions plus own primitive tree/slots/CDO/class.
+Construct entry36→10 calls self SetVisibility(Hidden2), then returns; PreConstruct
+entry31 returns. CDO script Tick/Paint false; generated-class native-tick-required
+field absent with reflected class CDO false. No animations/property/dynamic
+bindings or nested UserWidgets. SetText helper only converts/concatenates numbers,
+writes own Value_Text and sets self HitTestInvisible3; not a lifecycle callback.
+Tree CanvasPanel_0→Main_Panel→{Bg_Image,Value_Text}, three reciprocal slot edges
+checked. All callable symbols were enumerated, including EX_CallMath; no gameplay,
+input, save/file or actor calls in these Blueprint graphs. Normal engine UMG
+bookkeeping is not excluded or misrepresented as zero side effects.
+
+UE4.27 source306a7e9f7fb53f14c2cb3bfd3854ad906710a17e confirms normal
+WidgetBlueprintLibrary.Create→NewObject/Initialize, generated-class instancing of
+private WidgetTree and per-object Slate caches. This supports an independent
+instance without sharing the live TipHUD or mutating class/CDO/other UI. First
+OnWidgetRebuilt runs Construct, so setting visibility only before first build
+will be overwritten by this class's own Hidden. Do not mistake that for inability
+to render; a bounded future test must handle/read back own visibility after build.
+Create's host RF_Transactional and the private tree's transient flags differ.
+
+Class residency/loadability, actual Lua Create, native callback timing/Slate and
+cleanup have NOT been executed for this candidate. UE4SS LoadAsset exists and
+uses AssetRegistry with object/was_found/did_load results; the registry presence
+of this exact cooked class path is unverified, so no class-loading recipe is
+claimed proven. A separate bounded host-only runtime check is justified by source,
+not yet a successful World WidgetComponent test. Other native game classes were
+not declared inert from small trees; raw exports remain local/ignored.
+
+Candidate export SHA256
+`cac88b3e55127ad3afe5d9d976ed65371afabca9e61586311612aa5db192441f`;
+Construct bytecode `d8fd1f391d9cd86eead6ed2e8cda101805a1627cc1626a6dd2dd7bf348c3d682`;
+ubergraph `f03baab2734d97441166dc107bb5e7418ef5c7410cb03ac54491c262c2bbe683`.
+[Owning report and exact limits](https://github.com/NikichMods/ImmersiveInteractionPrompts/blob/8598e4f96da87d536598580fae52be7a938a7c17/research/interaction-prompts-owner/userwidget-host/README.md).
+No new payload/game run/install/toolchain or production acceptance.
+
 ## Что не скопировано сюда
 
 Не импортированы все исходники, журналы экспериментов и мод-специфические ID из подпроектов. При первом повторном использовании выявить конкретный применимый факт, сохранить доказательства и перенести только нужный переиспользуемый вывод в этот документ.
