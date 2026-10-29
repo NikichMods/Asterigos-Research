@@ -1,5 +1,11 @@
 # Research Index — Asterigos: Curse of the Stars
 
+**2026-10-30 — R-016 pinned execution-context follow-up, source-only:** script
+callbacks retain the UE4SS global recursive mutex; explicit EngineTick actions
+execute outside the queue-lock scope. LoadAsset may synchronously LoadObject.
+[Contracts and limits](VERIFIED_RUNTIME.md#pinned-script-callback-versus-enginetick-execution--source-only-2026-10-30).
+This does not diagnose a particular hang or establish a runtime fix.
+
 **2026-10-29 — R-016 source follow-up:** explicit transient native ownership and
 manual FinishAddComponent registration/teardown reviewed. UE4SS Lua IsValid does
 not reject PendingKill; reflected native Kismet validity is the distinct logical

@@ -848,6 +848,31 @@ registration/render/depth/occlusion/resource teardown remain unverified; the
 earlier independent viewport-host and natural Open-binding passes do not prove
 these renderer properties. No new game assets or installed files are published.
 
+### Pinned script callback versus EngineTick execution — source-only, 2026-10-30
+
+UE4SS83330635 LuaMod.cpp6324ff `script_hook` holds global recursive
+m_thread_actions_mutex across Lua callback execution. Explicit
+ExecuteInGameThread(fn,EngineTick)4331–4404 queues, rather than calls fn inline.
+process_simple_actions3793–3834 drains the queue under a short mutex scope, then
+invokes the actions after that scope is released; EngineTick4130–4164 processes
+this queue outside its short lock scopes. Work enqueued during action processing
+is placed in the pending queue. This distinguishes the supported execution
+context from invoking native construction/loading directly in a script callback.
+
+LoadAsset3334–3381 is game-thread-only and delegates through AssetRegistry data
+to UAssetRegistryHelpers.GetAsset. Pinned UE4.27 mirror306a7e9f7fb53f14c2cb3bfd3854ad906710a17e,
+AssetRegistryHelpers.cpp55–58→CoreUObject/Public/AssetRegistry/AssetData.h279–294:
+FindObject first, then synchronous LoadObject on miss. Recursive same-thread lock
+permission does not establish absence of a cross-thread loading wait cycle.
+EngineTick does not make this API nonblocking or eliminate all engine locks.
+
+These are exact source contracts, **not** a diagnosed deadlock or a proven hang
+fix in Asterigos. The accepted independent host test used EngineTick; it does not
+prove arbitrary loading/Slate/registration contexts. A phase-marked diagnostic
+revision is [prepared in IIP](https://github.com/NikichMods/ImmersiveInteractionPrompts/blob/2941123d56f2840e98ce8ca49d81204b8185fbc5/research/interaction-prompts-owner/world-space/probe/deferred/README.md),
+not installed/run. Native rendering, reentrancy and cleanup remain separate game
+evidence gates; retained Lua wrappers/old process identities are not live ownership.
+
 ## R-017 — concrete independent UserWidget host candidate (2026-10-29)
 
 ### Host-only runtime follow-up — one viewport lifecycle PASS
