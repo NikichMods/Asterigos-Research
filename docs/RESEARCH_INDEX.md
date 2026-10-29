@@ -1,5 +1,10 @@
 # Research Index — Asterigos: Curse of the Stars
 
+**2026-10-29 — R-006 component-binding source follow-up:** exact widget/owner/
+pose getter contracts and reciprocal BP object fields checked. No new live owner
+mapping; natural reflected SetShow dispatch remains an untested event route.
+[Contracts and limits](VERIFIED_RUNTIME.md#component-side-binding-contracts--source-only-follow-up-2026-10-29).
+
 **2026-10-29 — R-017 host-only runtime PASS:** shipped PostionItemUMG_BP_C loaded
 through its exact generated-class registry path, created with an independent tree,
 shown after Construct Hidden and manually released from viewport. Original HUD

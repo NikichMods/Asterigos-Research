@@ -46,6 +46,26 @@
 
 ## R-006 — Interaction prompts: статическая цепочка и живые поля CanShow
 
+### Component-side binding contracts — source-only follow-up, 2026-10-29
+
+Installed UHT confirms ExtendedWidgetComponent.SetShow(bool,float,float),
+SenderActor:Actor* and NewUserWidget:UserWidget*, plus inherited GetWidget,
+GetUserWidgetObject, GetOwner and scene-component world location/rotation/scale
+getters. UE4.27 source306a7e9 shows both WidgetComponent getters return its stored
+Widget pointer without initialization. BaseGameEventObject_BP exports actual
+ExtendedWidget/TipHUDArgument object fields, permitting reciprocal identity checks
+once a specific live component is known. SenderActor is not established as owner;
+NewUserWidget is not assumed to be the rendered instance without comparison.
+
+Archived CanShow widgets are under MainGameInstance, not actor/component Outers;
+owning player is not an interaction-owner backlink. Component world transform is
+the anchor used by the stock screen projection; actor origin is distinct and must
+not be substituted silently. These source contracts do **not** supply new live
+actor/component identities or prove natural native SetShow calls traverse reflected
+dispatch. One event-scoped read-only test is prepared by its owning mod; no world
+scan, runtime mapping success or World-rendering result is claimed here.
+[Exact contracts, raw-input provenance and unrun boundary](https://github.com/NikichMods/ImmersiveInteractionPrompts/blob/148e5c062cc5817e271635372d8111efb97cae4f/research/interaction-prompts-owner/open-binding/README.md).
+
 - **Первоначальный статус:** статически подтверждено на ресурсах Steam
   1.09/build12996889, UE4.27. Отдельное runtime-дополнение ниже не закрывает
   production gate и не превращает всю статическую цепочку в live owner proof.
