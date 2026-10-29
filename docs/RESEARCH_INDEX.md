@@ -3,7 +3,9 @@
 **2026-10-29 — R-017 source-only:** shipped concrete PostionItemUMG_BP_C directly
 inherits UMG.UserWidget; own-only callbacks/primitive tree and independent normal
 Create/Slate contract reviewed. Construct hides self; runtime class availability,
-Create/render/cleanup NOT_TESTED. See [host facts and limits](VERIFIED_RUNTIME.md#r-017--concrete-independent-userwidget-host-candidate-2026-10-29).
+Create/render/cleanup NOT_TESTED. Follow-up confirms the exact generated-class
+AssetRegistry entry and pinned game-thread LoadAsset contract, still offline.
+See [host facts and limits](VERIFIED_RUNTIME.md#r-017--concrete-independent-userwidget-host-candidate-2026-10-29).
 No new World payload or game execution.
 
 

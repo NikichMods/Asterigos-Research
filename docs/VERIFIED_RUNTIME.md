@@ -691,6 +691,26 @@ No executable World payload or new rendering acceptance is supplied by this resu
 
 ## R-017 — concrete independent UserWidget host candidate (2026-10-29)
 
+### Targeted registry/loading follow-up — offline, not runtime
+
+The installed Genesis/AssetRegistry.bin contains a separate exact generated-class
+entry for `/Game/MainContent/Template/UMG/Debug/PostionItemUMG_BP.PostionItemUMG_BP_C`,
+AssetClass WidgetBlueprintGeneratedClass, ParentClass/NativeParentClass UMG.UserWidget,
+chunk0. The WidgetBlueprint entry is also present; no guessed fallback path is
+needed. Raw registry SHA256 `9ba7a655f82877869145de2bc62c2fa76b392fd3d8e7ec67b6b9667784f1ac92`.
+Only matching records were inspected with the already cached CUE4Parse1.2.2 reader;
+no game execution or tool installation. Raw registry/records remain private.
+
+Pinned UE4SS83330635 LuaMod.cpp3334ff exposes game-thread-only LoadAsset through
+AssetRegistry, returning object/was_found/did_load. This establishes a specific
+bounded load route, not a successful live load. Static UFunction calls require
+the correct explicit receiver; WidgetBlueprintLibrary.Create needs its library
+CDO before WorldContextObject/class/OwningPlayer arguments. Own RemoveFromParent
+releases viewport ownership; weak Slate liveness can lag, so a pending release
+must not be recorded as completed GC or solved by forced collection.
+[Exact source/provenance and unrun test boundary](https://github.com/NikichMods/ImmersiveInteractionPrompts/blob/a23635b95b029ff8d73dec4f940e1aa54c213d37/research/interaction-prompts-owner/userwidget-host/probe/README.md).
+No native loading/Create/render/cleanup PASS is claimed by this addition.
+
 Source/static only, same Steam1.09/build12996889/UE4.27/UE4SS83330635 baseline.
 Bounded four-package read from existing base containers found
 `/Game/MainContent/Template/UMG/Debug/PostionItemUMG_BP.PostionItemUMG_BP_C`.
