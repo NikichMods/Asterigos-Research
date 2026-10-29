@@ -46,6 +46,19 @@
 
 ## R-006 — Interaction prompts: статическая цепочка и живые поля CanShow
 
+### SetShow event route — bounded NO_EVENTS observation, 2026-10-29
+
+Same Steam1.09/UE4.27/UE4SS83330635 baseline. A scoped read-only hook on
+Genesis.ExtendedWidgetComponent:SetShow registered native IDs10/11 successfully,
+but received0 callbacks/0 samples from14:28:55.863 to user stop14:29:27.828
+(31.965s, before60s timeout). No probe error/unregister-failure events; no widget/
+owner/transform getter execution or new live mapping. Cause of missing events is
+unknown; this does not prove SetShow is unused or diagnose native bypass. Do not
+infer failure of getters or automatically repeat/expand the same observer.
+Log SHA256cb14e1797409d94414f14139352f28653e83d06a9f5b591a95bd18115d429c2f.
+[Exact result and limits](https://github.com/NikichMods/ImmersiveInteractionPrompts/blob/e1b7d9c5c3aff930df9ac84ce2e4cc776cb11b6e/research/interaction-prompts-owner/open-binding/README.md).
+Probe disabled closed-game after log capture; no World experiment followed.
+
 ### Component-side binding contracts — source-only follow-up, 2026-10-29
 
 Installed UHT confirms ExtendedWidgetComponent.SetShow(bool,float,float),

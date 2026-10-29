@@ -1,5 +1,9 @@
 # Research Index — Asterigos: Curse of the Stars
 
+**2026-10-29 — R-006 SetShow NO_EVENTS:** native hook registration succeeded,
+but0 callbacks/samples in31.965s before user stop. No new live owner/pose proof;
+missing-event cause unknown. [Negative result and limits](VERIFIED_RUNTIME.md#setshow-event-route--bounded-no_events-observation-2026-10-29).
+
 **2026-10-29 — R-006 component-binding source follow-up:** exact widget/owner/
 pose getter contracts and reciprocal BP object fields checked. No new live owner
 mapping; natural reflected SetShow dispatch remains an untested event route.
