@@ -132,3 +132,7 @@ UMG font resource. Aphes UMG render/cook-load ещё не подтверждён
 ## Input/action contracts — 2026-10-29
 
 [R-014](VERIFIED_RUNTIME.md#r-014--native-actionmapping-contracts-and-skill-topology-static-2026-10-29) records static semantic action IDs, mapping/default-vs-user boundaries, native held/context getters, absent Blueprint action override, Coherent/UI forwarding and keyboard/pad skill topology. Runtime dispatch, remapping behavior and focus/menu release semantics remain unverified; concrete CombatHUD readiness stays in its owned report. The R-014 startup addition records successful hook registration, two Released callbacks and primitive getter reads, followed by an observer widget-contract stop; this does not establish gameplay dispatch or held behavior.
+
+R-014 observer02 addition now demonstrates the native modifier getter in gameplay, both skill-root bindings and native menu-ancestor hiding. Semantic Interact dispatch, remapping and lost-release/focus behavior remain OPEN; capture ended at the observer's240-line budget. Exact evidence and limits stay linked to CombatHUD.
+
+R-014 scalar continuation documents Interact virtual-key identities and the source-reviewed GetKeyByVirtualKey/FKey route, avoiding unnecessary out arrays; current-binding and native key-edge execution remain unverified.
