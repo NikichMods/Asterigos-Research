@@ -1,5 +1,10 @@
 # Research Index — Asterigos: Curse of the Stars
 
+**2026-10-30 — R-016 bounded rotation runtime addition:** reflected native setter
+returned on one owned registered World component; target-loss native cleanup
+completed. No final follow metrics/manual F7/design acceptance.
+[Evidence and limits](VERIFIED_RUNTIME.md#registered-scene-rotation--bounded-runtime-addition-2026-10-30).
+
 **2026-10-30 — R-016 source-only:** registered scene rotation setter and pinned
 OutParm table/scheduler contracts reviewed. Actual native rotation/marshalling
 and visual smoothness remain untested.

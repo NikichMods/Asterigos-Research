@@ -952,6 +952,21 @@ source evidence, not proof of frame timing/smoothness.
 No new installed payload or runtime result. Camera-facing UX, distance scaling
 and a mod's design choices remain owned by that project.
 
+### Registered scene rotation — bounded runtime addition, 2026-10-30
+
+[Exact owning evidence](https://github.com/NikichMods/ImmersiveInteractionPrompts/blob/7e5d57bd1378f2b646b4bfbf5fbc33d3b08dfe2f/research/interaction-prompts-owner/world-space/orientation/README.md),
+UE4SS log SHA256 `bc0f046c85043d42974f50bec7e4fb4594a3a86e90c1885d2d16357d316db066`.
+In the pinned baseline, the first registered own WidgetComponent
+K2_SetWorldRotation(rot,false,fresh_output_table,true) call returned; its immediate
+orientation/readback guard did not fail before the later target-visibility stop.
+This closes the bounded native call/marshalling gate, not universal FHitResult
+field correctness, smoothness or a preferred UX. No final numeric follow sample
+or total rotation count was recorded. At about42.629s the original visible Screen
+Open contract ceased to hold; hooks were removed and native own-component destroy /
+host release CLEANED completed. Exact visibility predicate/cause is unknown.
+Manual F7 is absent and remains untested. Probe archived/disabled closed-game;
+no design decision or production lifecycle acceptance is inferred.
+
 ## R-017 — concrete independent UserWidget host candidate (2026-10-29)
 
 ### Host-only runtime follow-up — one viewport lifecycle PASS
