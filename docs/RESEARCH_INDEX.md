@@ -1,5 +1,10 @@
 # Research Index — Asterigos: Curse of the Stars
 
+**2026-10-29 — R-006 script-hook lifetime, source-only:** pinned registrations
+use function/Outer name chains at mod scope; reviewed LoadMap handlers preserve
+them, uninstall clears them. This supports a bounded reload test, not live reload
+acceptance. [Lifetime and cleanup limits](VERIFIED_RUNTIME.md#script-hook-lifetime-across-map-changes--source-contract-2026-10-29).
+
 **2026-10-29 — R-006 positive initialization callsite, source-only:** Open-tagged
 BaseLoot BeginPlay explicitly calls parent BaseGameEventObject BeginPlay, which
 reads its own component's widget. Exact non-native post-hook contract reviewed;

@@ -46,6 +46,24 @@
 
 ## R-006 — Interaction prompts: статическая цепочка и живые поля CanShow
 
+### Script-hook lifetime across map changes — source contract, 2026-10-29
+
+In exact UE4SS83330635 LuaMod.cpp1138–1186/4271ff, non-native script registrations
+store the function/Outer FName chain and Lua registry callback IDs at mod scope;
+dispatch compares Stack.Node's name chain, not the old UFunction pointer/address.
+Reviewed LoadMap pre/post handlers6477–6551 do not clear that registry; mod
+uninstall6129–6164 does. LuaUObject.cpp86–90 object-delete listener removes UObject
+wrapper tracking only, without erasing script callback registrations.
+
+This supports a bounded experiment over one manual save reload without retaining
+UFunction/UObject wrappers or forcing automatic re-registration/rooting. It is
+**not observed reload survival** in Asterigos: actual parent/CanShow dispatch and
+metadata residency remain runtime gates. UnregisterHook1748ff resolves by path;
+if metadata is absent, a reader must become inert before retaining its own IDs
+for explicit removal later. No new map/global hook is needed for that failure
+policy. Source evidence should not be inflated into production map/GC guarantees.
+[Exact source identity and preparation limits](https://github.com/NikichMods/ImmersiveInteractionPrompts/blob/3497ab5234e61084cf75fe32fe1a16d4b92de443/research/interaction-prompts-owner/open-binding/beginplay-probe/README.md).
+
 ### Open-tagged BaseLoot initialization chain — source-only, 2026-10-29
 
 BaseLoot_BP's inherited TipHUDArgument template overrides msgTag=Open. Its
