@@ -1,5 +1,11 @@
 # Research Index — Asterigos: Curse of the Stars
 
+**2026-10-29 — R-016 source follow-up:** explicit transient native ownership and
+manual FinishAddComponent registration/teardown reviewed. UE4SS Lua IsValid does
+not reject PendingKill; reflected native Kismet validity is the distinct logical
+death check. [Contracts and limits](VERIFIED_RUNTIME.md#r-016--world-widgetcomponent-rendererdepthlifecycle-limits-2026-10-29).
+No World registration/render/occlusion runtime result is inferred.
+
 **2026-10-29 — R-006 natural Open join/pose live PASS:** BeginPlay acquisition
 plus CanShow matched one real item_lootbox02_C actor/component/TipHUD and read2
 finite world poses after one manual reload. World rendering/occlusion is untested.

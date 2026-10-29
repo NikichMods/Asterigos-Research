@@ -501,6 +501,8 @@ scan, runtime mapping success or World-rendering result is claimed here.
   or retaining a borrowed native parameter for later use.
 - LuaUObject.hpp 761–775 checks non-null/sentinel, global object-map membership
   and IsUnreachable. LuaUObject.cpp 25–92 contains map/deletion-listener handling.
+  It does not reject PendingKill: native destruction must not be inferred from
+  this Lua predicate alone. See the R-016 native-validity follow-up below.
   This is neither a strong GC root nor a serial-number weak handle. Outer or a
   Lua wrapper must not be assumed to keep an object alive. Fresh exact lookup and
   identity checks avoid reliance on retained raw wrappers, but are not a complete
@@ -814,6 +816,37 @@ Raw exports/source copies remain local/ignored; exact seven-file identities,
 source links and mod-specific candidate/blockers live in the
 [IIP World-space report](https://github.com/NikichMods/ImmersiveInteractionPrompts/blob/21d3fd994002bbcd78293a8833f87c432a73e1b2/research/interaction-prompts-owner/world-space/README.md).
 No executable World payload or new rendering acceptance is supplied by this result.
+
+### R-016 source follow-up — transient ownership and native validity
+
+Same UE4.27/UE4SS83330635 baseline, **source/UHT only**, no game run or new World
+runtime acceptance. Engine mirror306a7e9f7fb53f14c2cb3bfd3854ad906710a17e:
+
+- ActorComponent.cpp253ff/282–316 sets typed actor owner/Native creation method;
+  cooked PostInitProperties adds native actor-owned components. Explicit
+  RF_Transient StaticConstructObject plus actor Outer therefore has a native
+  ownership route before registration, without directly writing component arrays
+  or using AddComponentByClass's BlueprintCreatedComponents path.
+- ActorConstruction.cpp1165ff FinishAddComponent(component,true,FTransform)
+  skips autoattachment/root promotion, applies transform and registers; an own
+  plain WidgetComponent can be configured before this registration. Widget
+  UPROPERTY and independent WidgetTree/native Slate holders supply UI ownership;
+  an arbitrary Lua UObject wrapper or Outer alone is not a GC root.
+- ActorComponent.cpp1305ff/1369ff destruction permits self as K2 caller, unregisters
+  and removes own native membership, then marks pending kill. WidgetComponent's
+  virtual destruction releases resources with engine-deferred renderer cleanup.
+- UE4SS LuaUObject.hpp761–775 IsValid omits PendingKill. Installed UHT exposes
+  KismetSystemLibrary.IsValid(const UObject*)→bool; UE4.27
+  KismetSystemLibrary.h1984–1987 delegates to ::IsValid(Object), explicitly
+  non-null/not pending kill. Call with exact native library CDO receiver. A
+  surviving Lua wrapper after native destroy is not evidence of a live component;
+  native false is logical death, not immediate GPU/GC deallocation proof.
+
+[Exact source review, hashes and bounded policy tests](https://github.com/NikichMods/ImmersiveInteractionPrompts/blob/d4a1ac610fcfc829b59545a7138034aa1795efc3/research/interaction-prompts-owner/world-space/probe/README.md).
+An IIP research source is prepared, not installed. Actual Shipping World
+registration/render/depth/occlusion/resource teardown remain unverified; the
+earlier independent viewport-host and natural Open-binding passes do not prove
+these renderer properties. No new game assets or installed files are published.
 
 ## R-017 — concrete independent UserWidget host candidate (2026-10-29)
 
