@@ -1,5 +1,10 @@
 # Research Index — Asterigos: Curse of the Stars
 
+**2026-10-29 — R-006 natural Open join/pose live PASS:** BeginPlay acquisition
+plus CanShow matched one real item_lootbox02_C actor/component/TipHUD and read2
+finite world poses after one manual reload. World rendering/occlusion is untested.
+[Exact scope and evidence](VERIFIED_RUNTIME.md#natural-open-actorcomponentwidget-join-and-world-pose--live-pass-2026-10-29).
+
 **2026-10-29 — R-006 acquisition live partial PASS:** parent BP hook fired after
 manual reload;3 Open actor/component/TipHUD pairs passed reciprocal getter checks.
 Initialization budget stopped observation before CanShow/pose, so active selection

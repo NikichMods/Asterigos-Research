@@ -46,6 +46,35 @@
 
 ## R-006 — Interaction prompts: статическая цепочка и живые поля CanShow
 
+### Natural Open actor/component/widget join and world pose — live PASS, 2026-10-29
+
+Steam1.09/UE4.27/UE4SS83330635, one manual reload/session. Parent BeginPlay script
+reader acquired3 Open initialization pairs, then its128-callback budget closed
+acquisition only. CanShow continued, joining exactly one current RU Open widget
+by path/class/address and reciprocal references to its real actor/component.
+Actor `0-1_lootbox_01_mat_ST001` in0-1_plot_outerRimA_interact1, concrete class
+`/Game/MainContent/Act/Discoveries_BP/common/item_lootbox02.item_lootbox02_C`, owns
+`.ExtendedWidget` (Genesis.ExtendedWidgetComponent). The matched TipHUD remained
+under MainGameInstance; widget Outer alone would not reveal this actor.
+
+Actor/component/argument ownership, Open/Interact25 and GetWidget/GetUserWidgetObject/
+Widget equality were rechecked before native component location/rotation/scale
+reads. Both finite poses agreed: component(-40619.4648,12241.2139,5672), rotation
+(0,109.320808,0), scale(1,1,1), actor origin(-40619.4648,12241.2139,5552).
+The120-unit vertical difference is this sample's anchor, not a universal offset.
+415 CanShow callbacks,1 exact match,2 poses,0 unmatched qualifying callbacks;
+user stop46.394s, no probe failures, owned IDs released. Both script routes have
+observed usability through this reload without re-registration; UFunction object
+recreation itself was not measured. Probe disabled closed-game after archiving.
+
+Source603ab6be645bbc2b552f3e88e0d2448c981485b1 / Lua SHA256
+932901d8766bfb3640ddd48f1d7811e8ccadbf83df2b63bc597dfece225ea664;
+log SHA256953bcf244a2c6bb952092a99bbac290556f90ff7a56be81c40331281fd2f8e1c.
+[Exact identities/addresses/limits](https://github.com/NikichMods/ImmersiveInteractionPrompts/blob/48b6b2b35a5455017a0a76d279d6db6b9be97947/research/interaction-prompts-owner/open-binding/beginplay-probe/README.md).
+This closes one live binding/anchor case, not all Open actors, active-target
+priority, dynamic motion tracking, World rendering/depth/occlusion, native UI
+resource teardown or production acceptance. Those remain independent gates.
+
 ### Parent BeginPlay acquisition — live partial PASS, 2026-10-29
 
 Same Steam1.09/UE4.27/UE4SS83330635 baseline. Exact parent Blueprint script hook
