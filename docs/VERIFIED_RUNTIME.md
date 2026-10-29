@@ -691,6 +691,28 @@ No executable World payload or new rendering acceptance is supplied by this resu
 
 ## R-017 — concrete independent UserWidget host candidate (2026-10-29)
 
+### Host-only runtime follow-up — one viewport lifecycle PASS
+
+Same Steam1.09/build12996889/UE4.27/UE4SS83330635 baseline. Exact candidate
+LoadAsset returned found=true/loaded=true; normal WidgetBlueprintLibrary.Create
+returned a fresh instance with independently owned WidgetTree, four expected
+primitive widgets and reciprocal slots. First viewport Slate build ran Construct
+Hidden2; changing only the new host to HitTestInvisible3 displayed a plain label.
+Manual removal22.218s later detached the own label and released own viewport
+ownership without forced GC or class/package unload. Original gameplay HUD/tree/
+root identities and root child count remained unchanged. User confirmed the
+expected show/remove scenario and original UI behavior. No probe failure events.
+
+Source a23635b95b029ff8d73dec4f940e1aa54c213d37; Lua SHA256
+66ffdce4fecdf954981a5364320bc78f3f67df717ee16175673558bac9543186; log SHA256
+e2aabde7105beb95294c97cbd9388a1c23f785de566095194bfb332027bfc6c4.
+[Exact owning result](https://github.com/NikichMods/ImmersiveInteractionPrompts/blob/6e9ebddafeeb1bb68a089e280c1a2f89b99924a8/research/interaction-prompts-owner/userwidget-host/probe/README.md).
+Probe disabled closed-game after archiving the log. This closes the independent
+host gate for this class/one viewport cycle; it does not establish World component
+registration/rendering/occlusion, natural actor/pose binding, timeout behavior,
+GC completion, map lifecycle or production acceptance. Earlier source-only
+unknowns below describe the state before this follow-up, not a request to repeat it.
+
 ### Targeted registry/loading follow-up — offline, not runtime
 
 The installed Genesis/AssetRegistry.bin contains a separate exact generated-class

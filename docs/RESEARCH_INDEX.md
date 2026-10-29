@@ -1,12 +1,11 @@
 # Research Index — Asterigos: Curse of the Stars
 
-**2026-10-29 — R-017 source-only:** shipped concrete PostionItemUMG_BP_C directly
-inherits UMG.UserWidget; own-only callbacks/primitive tree and independent normal
-Create/Slate contract reviewed. Construct hides self; runtime class availability,
-Create/render/cleanup NOT_TESTED. Follow-up confirms the exact generated-class
-AssetRegistry entry and pinned game-thread LoadAsset contract, still offline.
+**2026-10-29 — R-017 host-only runtime PASS:** shipped PostionItemUMG_BP_C loaded
+through its exact generated-class registry path, created with an independent tree,
+shown after Construct Hidden and manually released from viewport. Original HUD
+fingerprint unchanged; user confirmed visible show/removal and normal original UI.
 See [host facts and limits](VERIFIED_RUNTIME.md#r-017--concrete-independent-userwidget-host-candidate-2026-10-29).
-No new World payload or game execution.
+This is one viewport cycle, not World rendering/occlusion or production lifecycle.
 
 
 **2026-10-29 — R-016 source/static:** World WidgetComponent uses normal scene
