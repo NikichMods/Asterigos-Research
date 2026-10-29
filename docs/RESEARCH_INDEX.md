@@ -1,5 +1,10 @@
 # Research Index — Asterigos: Curse of the Stars
 
+**2026-10-30 — R-016 source-only:** registered scene rotation setter and pinned
+OutParm table/scheduler contracts reviewed. Actual native rotation/marshalling
+and visual smoothness remain untested.
+[Evidence and limits](VERIFIED_RUNTIME.md#registered-scene-rotation-and-reflected-outparm--source-only-2026-10-30).
+
 **2026-10-30 — R-016 bounded runtime PASS:** one independent actor-owned World
 WidgetComponent/private host rendered; user confirmed Hilda partial-letter
 occlusion and reappearance. Native state and45s timeout cleanup completed; probe

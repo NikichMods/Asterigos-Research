@@ -926,6 +926,32 @@ Raw logs/source copies stay private; [exact owning result and limits](https://gi
 Probe disabled closed-game after archival. One actor/case, not all UMG classes,
 translucent geometry, lifecycle or production acceptance; first-hang cause unknown.
 
+### Registered scene rotation and reflected OutParm — source-only, 2026-10-30
+
+Baseline Steam1.09/build12996889 / UE4.27 / UE4SS83330635. Installed UHT exposes
+`SceneComponent.K2_SetWorldRotation(FRotator,bool,FHitResult&,bool)`.
+[UE4.27 native implementation](https://github.com/AlexMercer-MA/UnrealEngine-4.27/blob/306a7e9f7fb53f14c2cb3bfd3854ad906710a17e/Engine/Source/Runtime/Engine/Private/Components/SceneComponent.cpp)
+3839ff passes null hit pointer with sweep=false, then follows SetWorldRotation /
+SetRelativeRotation / movement-transform update paths. A reflected field write
+alone is not equivalent to the native scene/render update.
+
+[Pinned LuaUObject.cpp](https://github.com/UE4SS-RE/RE-UE4SS/blob/83330635/UE4SS/src/LuaType/LuaUObject.cpp)
+229ff still requires a table for a non-const OutParm;287ff reuses/copies back the
+output table and releases the temporary registry reference. With no sweep, a
+fresh empty FHitResult output table can be prepared without using its data.
+This is a **source-supported call candidate**, not an Asterigos runtime acceptance
+of this specific structure marshalling or registered World renderer rotation.
+
+Pinned delayed game-thread callback chooses the configured/default dispatch
+method; if a particular operation requires EngineTick explicitly, use the delayed
+callback only to enqueue that explicit EngineTick action. Bound the chain, avoid
+catch-up, and make pending callbacks inert after cancellation. This is scheduling
+source evidence, not proof of frame timing/smoothness.
+
+[Exact source audit and limited prototype](https://github.com/NikichMods/ImmersiveInteractionPrompts/blob/6d44daa28b4dcc1cf0109b6f6d3c4fcb06467a9f/research/interaction-prompts-owner/world-space/orientation/README.md).
+No new installed payload or runtime result. Camera-facing UX, distance scaling
+and a mod's design choices remain owned by that project.
+
 ## R-017 — concrete independent UserWidget host candidate (2026-10-29)
 
 ### Host-only runtime follow-up — one viewport lifecycle PASS
