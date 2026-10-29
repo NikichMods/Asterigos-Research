@@ -1,5 +1,11 @@
 # Research Index — Asterigos: Curse of the Stars
 
+**2026-10-30 — R-016 bounded runtime PASS:** one independent actor-owned World
+WidgetComponent/private host rendered; user confirmed Hilda partial-letter
+occlusion and reappearance. Native state and45s timeout cleanup completed; probe
+disabled. Manual F7/dynamic billboard/broader lifecycle remain unverified.
+[Exact scope/evidence](VERIFIED_RUNTIME.md#r-016-runtime-follow-up--one-owned-world-rendererocclusiontimeout-cleanup-pass-2026-10-30).
+
 **2026-10-30 — R-016 pinned execution-context follow-up, source-only:** script
 callbacks retain the UE4SS global recursive mutex; explicit EngineTick actions
 execute outside the queue-lock scope. LoadAsset may synchronously LoadObject.

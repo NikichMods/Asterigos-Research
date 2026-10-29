@@ -892,6 +892,40 @@ across map loading or infer successful Slate/rendering from load success.
 [Bounded source implementation/checks](https://github.com/NikichMods/ImmersiveInteractionPrompts/blob/6ad93fc302d43c9578792cd339ddf10421f3e0fe/research/interaction-prompts-owner/world-space/probe/deferred/README.md)
 remain source/offline evidence, not a World renderer runtime result.
 
+### R-016 runtime follow-up — one owned World renderer/occlusion/timeout cleanup PASS, 2026-10-30
+
+Same Steam1.09/build12996889, UE4.27 Windows x64, pinned UE4SS83330635 baseline.
+Exact IIP source6ad93fc302d43c9578792cd339ddf10421f3e0fe; main SHA256
+52fbcba729e062451f989557e9f1d690834cd884342a8033c66c7519507ec877, helper
+ca02673f7258b5459219d3e5cf0fb9e265c937f91875906375f1a8cd806fd33c.
+Natural item_lootbox02_C Open identity joined actor/component/TipHUD. A queued
+EngineTick action saw exact PostionItemUMG_BP_C ABSENT_NULL, loaded it once, and
+revalidated LIVE return/fresh lookup plus original target/UI. Stock masked World
+material was already LIVE; no extra material load or game-material mutation.
+
+Own RF_Transient plain UMG.WidgetComponent with actor Outer/manual
+FinishAddComponent and independently created PostionItemUMG_BP_C completed
+creation, first Slate/Construct and registration guards. Original Screen renderer
+was not switched or rebound. Initial RENDER_PENDING preceded two user-requested
+STATE snapshots with the same render target512×128, World0, visible/not-hidden,
+stock Widget3DPassThrough_Masked/depth-disable=false, no collision/overlap/hardware
+input/window focus. The user separately explicitly confirmed partial letters
+covered by Hilda and their reappearance when moving aside. Native state alone is
+not the visual occlusion evidence.
+
+45s own timeout released hooks, unbound own widget, self-destroyed own component
+with native pending-kill-aware confirmation, and completed host release/CLEANED.
+No probe failure. This is logical native teardown, not immediate GPU/GC-free
+measurement. F7 was not reached before timeout, so manual World cleanup-key runtime
+is not accepted by this run. Two actual sampled world transforms were identical;
+only initial camera-facing pose was implemented. Perceived early motion is
+unresolved by these later snapshots; no dynamic billboard/distance policy proved.
+
+UE4SS log SHA256de0d42d942662da4e38298ded3f54908d3993559b23179c01c4f436aaaccb543.
+Raw logs/source copies stay private; [exact owning result and limits](https://github.com/NikichMods/ImmersiveInteractionPrompts/blob/b97588c8636fb7635b9541431d2ff497342e46e1/research/interaction-prompts-owner/world-space/probe/deferred/README.md).
+Probe disabled closed-game after archival. One actor/case, not all UMG classes,
+translucent geometry, lifecycle or production acceptance; first-hang cause unknown.
+
 ## R-017 — concrete independent UserWidget host candidate (2026-10-29)
 
 ### Host-only runtime follow-up — one viewport lifecycle PASS
