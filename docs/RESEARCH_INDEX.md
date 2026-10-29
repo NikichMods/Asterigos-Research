@@ -1,5 +1,12 @@
 # Research Index — Asterigos: Curse of the Stars
 
+**2026-10-29 — R-016 source/static:** World WidgetComponent uses normal scene
+geometry/depth; stock Widget3DPassThrough family is present. SetWidgetSpace is
+assignment-only and does not allocate the World renderer needed at registration.
+[Renderer/material/ownership limits](VERIFIED_RUNTIME.md#r-016--world-widgetcomponent-rendererdepthlifecycle-limits-2026-10-29)
+record exact sources and defaults; no World payload/game render/rollback acceptance.
+
+
 **2026-10-29 — R-015 runtime follow-up:** one own Canvas in existing viewport
 HUD root rendered and manually cleaned up, original TipHUD preserved. Arrow
 tuning did not pass; no input-routing cause inferred. Source distinction between

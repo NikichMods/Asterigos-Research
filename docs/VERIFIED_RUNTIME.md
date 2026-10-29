@@ -633,6 +633,62 @@ Log SHA256 `1f2f787adc0d82bfcdc005981c6ed513c0b218dafb90eb1bdefc0c37bdeb3096`;
 frame SHA256 `f49ecdafb7d1b635fa8f36b57704c4d1497bc0051ca052ba36b38f3f1daa2b07`.
 [Owning result/limits](https://github.com/NikichMods/ImmersiveInteractionPrompts/blob/1320ad57665124f18b61244b10c5c7c6980388ea/research/interaction-prompts-owner/viewport/README.md).
 
+## R-016 — World WidgetComponent renderer/depth/lifecycle limits (2026-10-29)
+
+Source/static only on Steam1.09/build12996889, UE4.27, UE4SS83330635;
+installed DLL still SHA256ce5e3c46a920cc00b2817ac61e438c9162830290379d0b5b9c4dfc2b29459290.
+No game run, installation or game/settings/save/other-mod writes in this study.
+
+- R-015's reflected ExtendedWidgetComponent CDO Screen value and projected
+  component-world location remain distinct from World geometry. Actual UHT
+  EWidgetSpace is World0/Screen1. CDO/serialized inheritance does not certify
+  every placed live component or recover Genesis' native transform writer.
+- UE4.27 mirror306a7e9f7fb53f14c2cb3bfd3854ad906710a17e WidgetComponent.h337:
+  SetWidgetSpace only assigns Space. OnRegister861–895 allocates FWidgetRenderer
+  for non-Screen mode; Tick1139ff calls UpdateWidget but does not perform this
+  allocation. DrawWidgetToRenderTarget1259ff returns if renderer is null.
+  Therefore changing an already registered Screen component's enum is not a
+  verified World transition. Cached screen-layer/window/material/renderer state
+  also prevents declaring exact rollback from property readbacks alone.
+- World scene proxy draws a local YZ plane (+X normal) from render-target size
+  and Pivot through component LocalToWorld, in SDPG_World. It is not automatic
+  billboarding. Physical size depends on component scale; perspective size
+  changes with depth. Two-sided rendering does not keep text camera-facing.
+- Exactly seven installed base EngineMaterials/Widget3DPassThrough packages were
+  read with existing CUE4Parse1.2.2. All six instances resolve to Unlit base
+  Widget3DPassThrough (Translucent), with Masked/Opaque/Translucent and two-sided
+  overrides. Base lacks a serialized disable-depth=true; actual UMaterial CDO
+  sets bDisableDepthTest=false. This is static default/asset evidence, not active
+  material/shader/Hilda occlusion measurement. GetMaterial(0) gives override
+  precedence; GetBaseMaterial and bDisableDepthTest are reflected read candidates.
+  No shared base-material mutation or CustomDepth/post-process is required by
+  this evidence. Ordinary scene depth can also admit walls/chests/masked foliage;
+  it is not a character-only mask.
+- AddComponentByClass/FinishAddComponent and K2_DestroyComponent are reflected.
+  Engine ActorConstruction creates actor ownership/BlueprintCreatedComponents,
+  optionally attaches/promotes root and registers; AddComponentByClass has no
+  RF_Transient parameter. A candidate can instead investigate explicit transient
+  native allocation with actor Outer + manual FinishAddComponent, configure own
+  World/no-collision/no-focus before registration, and self/owner-allowed destroy.
+  ActorComponent PostInitProperties/DestroyComponent manage native membership;
+  WidgetComponent destruction releases resources via deferred engine cleanup.
+  These paths are source-reviewed, not runtime registration/teardown acceptance.
+- WidgetComponent.SetWidget needs independent UUserWidget content. CanvasPanel
+  is not a UserWidget; TakeWidget uses cached Slate, not a deep clone. Prior
+  UFont Template-copy success does not establish UUserWidget/Slate duplication.
+  Base UUserWidget is Abstract; game native/BP class callbacks cannot be assumed
+  inert from generated UHT stubs. CreateWidget(World) can use GameInstance Outer;
+  player ownership is not an inverse pointer to the interaction's WidgetComponent.
+  The retained earlier R-006 CanShow identities scope all three TipHUD objects
+  under MainGameInstance_BP_C, reinforcing this boundary without a new runtime run.
+
+Material-export SHA256: base50f69813fcca27b7b7b59b41ab9d5bbaadafe0a689851fcd737e29d0b32a2533;
+Masked_OneSided b1c11f8f940bce8600d73923ca2fc941fdc995b86246ea1592ca75696bfb2ac1.
+Raw exports/source copies remain local/ignored; exact seven-file identities,
+source links and mod-specific candidate/blockers live in the
+[IIP World-space report](https://github.com/NikichMods/ImmersiveInteractionPrompts/blob/21d3fd994002bbcd78293a8833f87c432a73e1b2/research/interaction-prompts-owner/world-space/README.md).
+No executable World payload or new rendering acceptance is supplied by this result.
+
 ## Что не скопировано сюда
 
 Не импортированы все исходники, журналы экспериментов и мод-специфические ID из подпроектов. При первом повторном использовании выявить конкретный применимый факт, сохранить доказательства и перенести только нужный переиспользуемый вывод в этот документ.
