@@ -873,6 +873,25 @@ revision is [prepared in IIP](https://github.com/NikichMods/ImmersiveInteraction
 not installed/run. Native rendering, reentrancy and cleanup remain separate game
 evidence gates; retained Lua wrappers/old process identities are not live ownership.
 
+### Null wrappers and exact asset-result checks — source-only, 2026-10-30
+
+Pinned UE4SS83330635 StaticFindObject(LuaMod.cpp1245–1275) and LoadAsset3334–3381
+return through auto_construct_object. LuaUObject.cpp373–386 constructs empty
+UObject userdata for a null native pointer; testing only Lua nil is insufficient.
+LuaUObject.hpp172–185 GetAddress on remote UObject returns the pointer value
+without dereferencing it, so zero distinguishes a null wrapper. Nonzero + Lua
+IsValid=false does not identify whether deletion/map membership/unreachable caused
+invalidity, and must not be followed by unchecked path/class access.
+Lua-valid + native Kismet IsValid=false is another distinct state.
+
+LoadAsset did_load=true is set for a non-null returned pointer, not for a separate
+native not-PendingKill check. A consumer needing a specific live class/material
+must validate flags, native validity, expected path/type and a fresh exact lookup
+matching the returned object's address. Do not reuse cached UObject wrappers
+across map loading or infer successful Slate/rendering from load success.
+[Bounded source implementation/checks](https://github.com/NikichMods/ImmersiveInteractionPrompts/blob/6ad93fc302d43c9578792cd339ddf10421f3e0fe/research/interaction-prompts-owner/world-space/probe/deferred/README.md)
+remain source/offline evidence, not a World renderer runtime result.
+
 ## R-017 — concrete independent UserWidget host candidate (2026-10-29)
 
 ### Host-only runtime follow-up — one viewport lifecycle PASS
