@@ -135,4 +135,4 @@ UMG font resource. Aphes UMG render/cook-load ещё не подтверждён
 
 R-014 observer02 addition now demonstrates the native modifier getter in gameplay, both skill-root bindings and native menu-ancestor hiding. Semantic Interact dispatch, remapping and lost-release/focus behavior remain OPEN; capture ended at the observer's240-line budget. Exact evidence and limits stay linked to CombatHUD.
 
-R-014 scalar continuation documents Interact virtual-key identities and the source-reviewed GetKeyByVirtualKey/FKey route, avoiding unnecessary out arrays; current-binding and native key-edge execution remain unverified.
+R-014 scalar continuation and live addition document Interact virtual-key identities plus demonstrated current-PC GetKeyByVirtualKey/FKey/native key-edge queries, avoiding unnecessary out arrays. Live before/after rebinding, chords and other platform namespaces remain unverified; see the exact observer03 result and its scope.
