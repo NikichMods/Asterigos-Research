@@ -46,6 +46,31 @@
 
 ## R-006 — Interaction prompts: статическая цепочка и живые поля CanShow
 
+### Open-tagged BaseLoot initialization chain — source-only, 2026-10-29
+
+BaseLoot_BP's inherited TipHUDArgument template overrides msgTag=Open. Its
+ReceiveBeginPlay wrapper enters ExecuteUbergraph_BaseLoot_BP at2152, where an
+explicit zero-argument EX_LocalFinalFunction calls
+BaseGameEventObject_BP_C:ReceiveBeginPlay. The parent wrapper enters92, then102
+reads own ExtendedWidget.GetUserWidgetObject and144 casts TipHUD. Thus an
+actor-context initialization entry is supported by executable Blueprint data,
+not merely an available native method name. Parent event flags are non-Native
+Event/Protected/BlueprintEvent, zero inputs/void. This is not live class/owner proof
+for the previously observed Open widget or all descendants.
+
+Pinned83330635 LuaMod.cpp4271/6324/7253 registers exact non-native script callbacks
+on ProcessLocalScriptFunction **post** for UE4.22+, supplying context. Equal
+pre/post IDs do not create two script phases; returning non-nil can alter a return
+value and must be avoided by readers. A lifecycle observer must register before
+the actor's natural BeginPlay, not assume approaching an existing actor repeats it.
+
+The inherited setup method's declaring path is
+`/Script/Genesis.WidgetArgumentComponent:Setup(Actor*,ExtendedUserWidget*)`.
+Setup/SetArrayData/SetShow natural callsites were not found in304 retained script
+exports; native timing remains unknown, not proved absent game-wide. No runtime
+execution/new observer was performed by this review.
+[Exact offsets, input hashes and limits](https://github.com/NikichMods/ImmersiveInteractionPrompts/blob/f785bc7524b6d413afc1bcb2cf54c145d9449e1e/research/interaction-prompts-owner/open-binding/ROUTE_REVIEW.md).
+
 ### SetShow event route — bounded NO_EVENTS observation, 2026-10-29
 
 Same Steam1.09/UE4.27/UE4SS83330635 baseline. A scoped read-only hook on
