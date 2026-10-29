@@ -967,6 +967,29 @@ host release CLEANED completed. Exact visibility predicate/cause is unknown.
 Manual F7 is absent and remains untested. Probe archived/disabled closed-game;
 no design decision or production lifecycle acceptance is inferred.
 
+### Pinned frame-loop ownership and cancellation — source-only, 2026-10-30
+
+Exact UE4SS83330635 [LuaMod.cpp](https://github.com/UE4SS-RE/RE-UE4SS/blob/83330635/UE4SS/src/Mod/LuaMod.cpp)
+4790ff exposes LoopInGameThreadAfterFrames(frames,callback). It requires EngineTick;
+[LuaMod.hpp](https://github.com/UE4SS-RE/RE-UE4SS/blob/83330635/UE4SS/include/Mod/LuaMod.hpp)
+DelayedGameThreadAction defaults to EngineTick. The loop processor3950ff decrements
+and resets frames_remaining, invokes with zero results: returning true does not
+cancel. It executes from UEngineTick pre, not a proven post-camera/render phase.
+
+make_hook_state767–797 returns the shared, anchored per-mod m_hook_lua. Actions
+store this same pointer; CancelDelayedAction5128ff compares both handle and this
+calling-mod pointer in active/pending queues, marks PendingRemoval;4083ff erases
+and unrefs the function registry reference. This does not destroy the shared Lua
+thread or unregister UE4SS's global tick hook. A callback already copied to the
+ready list may still run after cancellation: guard intent/phase before object
+reads, then cancel the exact owned handle. Do not use global action cancellation
+or assume a return value removes the loop.
+
+[Exact source audit and bounded test preparation](https://github.com/NikichMods/ImmersiveInteractionPrompts/blob/f1eb6358fef4e9e9ebcb4e8ad00d2a9f04659851/research/interaction-prompts-owner/world-space/vertical-yaw/README.md).
+This is source evidence; frame cadence/camera phase, cancellation and performance
+in the game are not newly runtime-proven. No mod-specific orientation UX is
+promoted here.
+
 ## R-017 — concrete independent UserWidget host candidate (2026-10-29)
 
 ### Host-only runtime follow-up — one viewport lifecycle PASS

@@ -1,5 +1,10 @@
 # Research Index — Asterigos: Curse of the Stars
 
+**2026-10-30 — R-016 source-only:** pinned frame-loop ownership, zero-result
+callback contract and cancellation/removal reviewed. Runtime cadence/cancellation
+not accepted by this entry.
+[Exact limits](VERIFIED_RUNTIME.md#pinned-frame-loop-ownership-and-cancellation--source-only-2026-10-30).
+
 **2026-10-30 — R-016 bounded rotation runtime addition:** reflected native setter
 returned on one owned registered World component; target-loss native cleanup
 completed. No final follow metrics/manual F7/design acceptance.
