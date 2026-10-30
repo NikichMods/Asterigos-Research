@@ -335,8 +335,8 @@ Pinned baseline: RetainerBox_0 native ImageInteractAllowed, retained=true/global
 phase0/count1/on-phase=true; existing TipIconMat effect MID and Icon RT bound to
 one own UImage. Source slot38x38, RT51x51, force-linear-gamma=false,
 RTF_RGBA8_SRGB3 / BLEND_AlphaComposite5. Device4→1 rebind completed with unchanged
-MID/RT identities. User saw controller glyph change correctly to keyboard U;
-no independent native keymap query or complete return-device cycle was captured.
+MID/RT identities. User saw controller glyph change correctly to keyboard F;
+no independent native keymap query or complete return-device cycle was captured. The user later corrected the glyph observation from U to F (speech-to-text error); the log itself records only the device transition.
 This supports a live native output reference, not a fixed hard-coded F snapshot.
 
 After about3.764s the original visible-Screen predicate failed; exact predicate/

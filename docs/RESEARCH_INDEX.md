@@ -1,7 +1,7 @@
 # Research Index — Asterigos: Curse of the Stars
 
 **2026-10-30 — R-006 partial runtime:** borrowed retained MID/Icon device4→1
-updated visible glyph to keyboard U; guard cleanup passed. Small/faded/bluish
+updated visible glyph to keyboard F; guard cleanup passed. Small/faded/bluish
 output reported, pixel equivalence/full cycle not accepted.
 [Evidence](VERIFIED_RUNTIME.md#borrowed-retained-hint--partial-runtime-proof-2026-10-30).
 
