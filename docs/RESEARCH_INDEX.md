@@ -1,5 +1,10 @@
 # Research Index — Asterigos: Curse of the Stars
 
+**2026-10-30 — R-006 partial runtime:** borrowed retained MID/Icon device4→1
+updated visible glyph to keyboard U; guard cleanup passed. Small/faded/bluish
+output reported, pixel equivalence/full cycle not accepted.
+[Evidence](VERIFIED_RUNTIME.md#borrowed-retained-hint--partial-runtime-proof-2026-10-30).
+
 **2026-10-30 — R-006 source-only:** native Retainer/MID texture getters and
 Shipping global-mode boundary reviewed;0 from cvar getter is ambiguous. No new
 current-hint/device/rendering PASS.

@@ -327,6 +327,27 @@ material/texture/retainer setter or second shared-MID Retainer is needed; source
 input device is observed without reconstructing its keymap. This records no new
 runtime PASS and no mod-specific visual acceptance.
 
+### Borrowed retained hint — partial runtime proof, 2026-10-30
+
+[Exact owning result/limits](https://github.com/NikichMods/ImmersiveInteractionPrompts/blob/004c711ae1c8ffcf9d1aab15b3afd9eaf02a74e9/research/interaction-prompts-owner/world-space/hint-mirror/README.md).
+UE4SS log SHA256 `28c4f19be610588b8eee0e5ee12f8757d6ec484773bca4b75da59f176e7e154e`.
+Pinned baseline: RetainerBox_0 native ImageInteractAllowed, retained=true/global1,
+phase0/count1/on-phase=true; existing TipIconMat effect MID and Icon RT bound to
+one own UImage. Source slot38x38, RT51x51, force-linear-gamma=false,
+RTF_RGBA8_SRGB3 / BLEND_AlphaComposite5. Device4→1 rebind completed with unchanged
+MID/RT identities. User saw controller glyph change correctly to keyboard U;
+no independent native keymap query or complete return-device cycle was captured.
+This supports a live native output reference, not a fixed hard-coded F snapshot.
+
+After about3.764s the original visible-Screen predicate failed; exact predicate/
+cause unknown. Loop cancellation, own borrowed-reference release and native
+component destroy/CLEANED completed; probe archived/disabled closed-game. User
+reports small/faded/semitransparent bluish output, no frame supplied. Pixel/size/
+color equivalence is **not accepted**; alpha/gamma/different coordinate spaces
+are hypotheses/known comparison seams, not diagnosed causes. No full device/
+remapping coverage, new manual-F7 or production acceptance is inferred. Earlier
+vertical-yaw manual-F7 PASS remains separate and unchanged.
+
 ## R-007 — Aphes.ttf и граница между глифами, UFont и языком
 
 - **Статус/источник:** техническая offline-проверка stock ресурсов того же baseline,
