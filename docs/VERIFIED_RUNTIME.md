@@ -433,6 +433,20 @@ mutation, GPU shader timing, universal Masked/Translucent pixel equality, a colo
 fix or new-mode geometry occlusion. Both stock MICs share the same base; the
 user's no-visible-improvement result does not exonerate the shared color path.
 
+### Live CanvasPanelSlot size seam — source cross-check, 2026-10-30
+
+Installed UMG UHT declares SetSize(FVector2D)/GetSize(). UE4.27 mirror commit
+`306a7e9f7fb53f14c2cb3bfd3854ad906710a17e`, CanvasPanelSlot.cpp175–194:
+SetSize writes LayoutData.Offsets.Right/Bottom and updates the existing Slate
+slot's Offset attribute when present; GetSize reads that live attribute when
+present, otherwise LayoutData. The setter does not change Left/Top, anchors or
+alignment. Retaining equal centered anchors is essential to the owned width/
+height interpretation used here. Slot identity/ownership and render-target
+containment still need checks; source readback does not prove final painted pixels.
+[Owning source candidate / primary link](https://github.com/NikichMods/ImmersiveInteractionPrompts/blob/9954b04828706820f94774a95f29cbb10f93629c/research/interaction-prompts-owner/world-space/hint-mirror/size/README.md).
+This is a source contract, not runtime acceptance of a new apparent size or
+color correction. Mod-specific multiplier/rebind policy remains in the owner.
+
 ## R-007 — Aphes.ttf и граница между глифами, UFont и языком
 
 - **Статус/источник:** техническая offline-проверка stock ресурсов того же baseline,
