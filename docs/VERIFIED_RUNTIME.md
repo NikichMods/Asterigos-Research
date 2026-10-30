@@ -447,6 +447,17 @@ containment still need checks; source readback does not prove final painted pixe
 This is a source contract, not runtime acceptance of a new apparent size or
 color correction. Mod-specific multiplier/rebind policy remains in the owner.
 
+Bounded runtime follow-up on the pinned baseline (2026-10-30): SetSize on one
+private Image's already-live CanvasPanelSlot changed both logical dimensions;
+native GetSize readback and the user's two frames confirmed visible enlargement.
+Equal centered anchors/alignment/position were retained, projected geometric
+center unchanged, same registered component/MID/RT/material and view. Manual
+cleanup detached/released/destroyed the owned output. No component re-registration,
+scale/DrawSize/material mutation or original UI edit was needed. This accepts
+that live slot seam for the bounded host, not native Screen geometry measurement,
+arbitrary layouts, source-rebind policy, color equivalence or a chosen mod size.
+[Owning runtime evidence and limits](https://github.com/NikichMods/ImmersiveInteractionPrompts/blob/5119bb7ac6797f0ccf08d0418d6a84b5f9bb3b1f/research/interaction-prompts-owner/world-space/hint-mirror/size/README.md).
+
 ## R-007 — Aphes.ttf и граница между глифами, UFont и языком
 
 - **Статус/источник:** техническая offline-проверка stock ресурсов того же baseline,

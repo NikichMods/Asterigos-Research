@@ -253,6 +253,10 @@ UMG font resource. Aphes UMG render/cook-load ещё не подтверждён
 
 ## Input/action contracts — 2026-10-29
 
+R-006 bounded runtime follow-up (2026-10-30): [live Canvas slot size](VERIFIED_RUNTIME.md#live-canvaspanelslot-size-seam--source-cross-check-2026-10-30)
+changed/read back and visibly enlarged one owned Image with unchanged projected
+center/component/material/RT. No native Screen-size, rebind or color acceptance.
+
 R-006 source addition (2026-10-30): [live CanvasPanelSlot size seam](VERIFIED_RUNTIME.md#live-canvaspanelslot-size-seam--source-cross-check-2026-10-30)
 updates own live Slate offsets without re-registration; source/readback contract,
 not new visual acceptance or an adopted mod size.
