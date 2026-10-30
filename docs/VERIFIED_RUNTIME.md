@@ -1358,3 +1358,42 @@ ubergraph bytecode JSON SHA256
 Only distilled game/API facts are promoted here. HildaSoftLight specification,
 candidate choice, current state and future visual acceptance remain mod-owned.
 No game assets/raw dump/source copies or executable payload are published.
+
+### R-018 owned PointLight — bounded runtime/manual teardown PASS (2026-10-30)
+
+Baseline Steam1.09/build12996889, UE4.27, Windows x64, UE4SS83330635.
+[Exact owning result and limits](https://github.com/NikichMods/HildaSoftLight/blob/9a449cf8be094dedc65629ffe88c07f31f3e24a3/docs/RUNTIME_EXPERIMENT.md).
+Executed probe source3e3eada6fe73cc5b25010e12f67b5e3f3eb43887, Lua SHA256
+`56f0d51af6ad61ba939302250a224e65a92b3cdc9fe0a599f1e61185f1003259`;
+closed-session UE4SS log SHA256
+`7374c7a35b14dbc11df0c2754a58d0bfb5e6ead998e18437fd0d94c9684b3255`.
+
+In one gameplay world01 session, the guarded HUD owning pawn was hilda_BP_C;
+root was its CollisionCylinder. A single native LineTraceSingle(query0,no debug,
+self ignored) yielded a blocking StaticMeshComponent floor. FHitResult.Component
+decoded through pinned FWeakObjectPtr.Get. Live LightingChannels masks were
+model3/channel0+1, floor1/channel0, own light3; no foreign channels changed.
+
+Explicit EngineTick actions created an RF_Transient Engine.PointLightComponent
+with pawn Outer/native owner, configured invisible/intensity0 before
+FinishAddComponent(manual=true), then attached directly to root with
+K2_AttachToComponent(None,KeepRelative×3,false). Creation/configuration/finish/
+attachment returned; owner/Outer/parent/flags/settings and expected transformed
+root-local offset guards passed. Diagnostic60lm/350cm parameters are mod-local
+test inputs, not shared recommended settings. No direct reflected IsRegistered
+or render-state bit was available; successful return alone was not renderer proof.
+The user separately confirmed a visible light effect.
+
+The real sequence was ON→OFF→ON.123 bounded state/transform checks passed while
+the pawn moved; this is native call/follow evidence, not FPS or visual-polish
+acceptance. Manual stop at58.81s cancelled monitor handle2 and timeout handle1
+(both removed=true/active=false), hid the own light, returned from self-called
+K2_DestroyComponent and confirmed native Kismet IsValid=false. CLEANED recorded
+own_component=false/action_handles0; no later probe event before host exit.
+Logical destruction does not prove immediate GPU/GC release.
+
+The90s automatic timeout was cancelled before execution and remains UNTESTED.
+Glimmer independence, separate model/floor visual acceptance, full disappearance
+judgment, travel/pawn replacement/death/cutscenes and broad compatibility are not
+established by this run. Mod design/settings/installation state remain mod-owned;
+no production architecture is adopted by this promotion.

@@ -1,5 +1,11 @@
 # Research Index — Asterigos: Curse of the Stars
 
+**2026-10-30 — R-018 bounded runtime:** own transient PointLightComponent on
+Hilda's root completed EngineTick creation, dark registration/attachment,
+ON/OFF, guarded movement and native manual teardown; user confirms visible light.
+[Exact limits](VERIFIED_RUNTIME.md#r-018-owned-pointlight--bounded-runtimemanual-teardown-pass-2026-10-30):
+automatic timeout/Glimmer/full lifecycle untested; visual settings remain mod-owned.
+
 **2026-10-30 — R-018 static lighting:**
 [VERIFIED_RUNTIME.md R-018](VERIFIED_RUNTIME.md#r-018--hilda-stock-flash-light-component-chain-and-independent-lighting-apis-static-2026-10-30)
 records Hilda's serialized `light`→PointLight subtree, `flash_light`/Lights
