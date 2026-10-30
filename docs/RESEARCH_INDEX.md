@@ -240,6 +240,9 @@ UMG font resource. Aphes UMG render/cook-load ещё не подтверждён
 
 ## Input/action contracts — 2026-10-29
 
+R-006 bounded runtime addition (2026-10-30): [viewport/projected point numeric out tables](VERIFIED_RUNTIME.md#player-viewport-and-projected-point-out-tables--bounded-runtime-2026-10-30)
+worked on the pinned baseline. No FGeometry or material/pixel equivalence claim.
+
 R-006 source addition (2026-10-30): [opaque geometry return / own material update](VERIFIED_RUNTIME.md#lua-geometry-return-and-owned-material-refresh--source-only-2026-10-30).
 Pinned Lua FGeometry return loses unreflected payload; projected numeric-vector
 out tables are a distinct route. Registered owned WidgetComponent material

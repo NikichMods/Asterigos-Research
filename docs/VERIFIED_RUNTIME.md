@@ -401,6 +401,21 @@ guessing a setter or re-registering; actual live material transition is not yet
 accepted. [Owning candidate and primary-source locations](https://github.com/NikichMods/ImmersiveInteractionPrompts/blob/caf955fb271558df1ddd5c991cf5b53217da2ef4/research/interaction-prompts-owner/world-space/hint-mirror/ab/README.md).
 No game-owned Retainer/material mutation or new runtime PASS is inferred.
 
+### Player viewport and projected point out tables — bounded runtime, 2026-10-30
+
+On the pinned Steam1.09/UE4.27/UE4SS83330635 baseline,
+PlayerController.GetViewportSize filled separate scalar out tables (`SizeX`,
+`SizeY`) with2560×1440; ProjectWorldLocationToScreen(FVector, out_table, false)
+returned true and filled X/Y for four finite world points. The viewport size
+matches the supplied PNG headers. This closes one bounded native numeric-out
+marshalling gate, not Screen FGeometry round-tripping or arbitrary off-screen/
+split-screen/DPI configurations. Projected points describe geometric footprint,
+not texture glyph coverage or depth-visible pixels.
+
+[Owning log/hash and scope](https://github.com/NikichMods/ImmersiveInteractionPrompts/blob/2ab20be38473a6d42b209a632d61371764987d73/research/interaction-prompts-owner/world-space/hint-mirror/ab/README.md).
+No new material-transition/color/visual-equivalence acceptance follows: the
+comparison guard stopped before the native material change.
+
 ## R-007 — Aphes.ttf и граница между глифами, UFont и языком
 
 - **Статус/источник:** техническая offline-проверка stock ресурсов того же baseline,
