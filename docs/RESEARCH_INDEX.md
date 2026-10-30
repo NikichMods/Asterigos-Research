@@ -1,5 +1,10 @@
 # Research Index — Asterigos: Curse of the Stars
 
+**2026-10-30 — R-006 source-only:** native Retainer/MID texture getters and
+Shipping global-mode boundary reviewed;0 from cvar getter is ambiguous. No new
+current-hint/device/rendering PASS.
+[Evidence](VERIFIED_RUNTIME.md#retainer-readiness-getters-and-global-mode-boundary--source-only-2026-10-30).
+
 **2026-10-30 — R-006 source-only:** current text/FText marshalling limits and
 Retainer hint material stage reviewed. Shared MID in a second Retainer can gain
 another render-target writer; no new live input-hint synchronization PASS.

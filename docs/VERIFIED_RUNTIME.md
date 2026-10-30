@@ -307,6 +307,26 @@ identity remains untested. The earlier copied-child F brush remains only a
 bounded keyboard snapshot, not general hint synchronization proof. No new game
 run/payload or production readiness is implied.
 
+### Retainer readiness getters and global-mode boundary — source-only, 2026-10-30
+
+[Exact follow-up and candidate limits](https://github.com/NikichMods/ImmersiveInteractionPrompts/blob/7c2aa07b7f33edcd22f69c95ddc1a03191b38da8/research/interaction-prompts-owner/world-space/hint-mirror/README.md).
+UE4.27 MaterialInstanceDynamic.K2_GetTextureParameterValue(FName) delegates to
+Super.GetTextureParameterValue and returns the existing UObject; it does not set
+parameters or allocate a texture. Retainer.GetEffectMaterial returns its current
+Slate DynamicEffect, also without allocation. Installed UHT exposes both routes.
+
+SRetainerWidget.ShouldBeRenderingOffscreen uses desire && global retained-mode
+nonzero. KismetSystemLibrary.GetConsoleVariableIntValue returns0 both for a missing
+cvar and a present zero-valued one. SRetainerWidget's cvar-change refresh delegate
+is inside !UE_BUILD_SHIPPING; a runtime cvar read is not a universal accessor for
+its private cached active flag. Do not assume arbitrary cvar histories are safely
+classified. The narrow candidate requires unchanged baseline1, native desire/phase
+checks and a nonempty existing Icon render target; unsupported states fail closed.
+Pixel/device/current-remapped-key equivalence remains runtime-unverified. No source
+material/texture/retainer setter or second shared-MID Retainer is needed; source
+input device is observed without reconstructing its keymap. This records no new
+runtime PASS and no mod-specific visual acceptance.
+
 ## R-007 — Aphes.ttf и граница между глифами, UFont и языком
 
 - **Статус/источник:** техническая offline-проверка stock ресурсов того же baseline,
