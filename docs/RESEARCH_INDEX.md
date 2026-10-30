@@ -234,6 +234,11 @@ UMG font resource. Aphes UMG render/cook-load ещё не подтверждён
 
 ## Input/action contracts — 2026-10-29
 
+R-006 source addition (2026-10-30): [opaque geometry return / own material update](VERIFIED_RUNTIME.md#lua-geometry-return-and-owned-material-refresh--source-only-2026-10-30).
+Pinned Lua FGeometry return loses unreflected payload; projected numeric-vector
+out tables are a distinct route. Registered owned WidgetComponent material
+refresh has a source-confirmed reflected seam, not new runtime acceptance.
+
 R-006 source follow-up (2026-10-30), [retained UI→World distinctions](VERIFIED_RUNTIME.md#retained-ui-material--world-surface--source-only-distinctions-2026-10-30):
 material-specific AlphaComposite versus draw flags, default gamma1 versus target
 encoding, explicit material override precedence and world units versus pixels.

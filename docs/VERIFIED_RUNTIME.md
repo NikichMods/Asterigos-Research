@@ -379,6 +379,28 @@ These are reusable source contracts, not a diagnosis of a particular washed-out
 icon, a validated gamma workaround or new runtime acceptance. Mod-specific
 comparison/layout decisions remain in the owning repository.
 
+### Lua geometry return and owned material refresh — source-only, 2026-10-30
+
+Pinned UE4SS83330635 LuaUObject.cpp returns UFunction results through
+GetNonTrivialLocal; FStructProperty converts them into Lua tables by reflected
+fields. Installed SlateCore.Geometry UHT has no reflected transform/size fields.
+The ordinary GetCachedGeometry/Tick/Paint return route therefore does not
+preserve the opaque FGeometry payload for a faithful second UFunction call.
+Presence of SlateBlueprintLibrary getters alone does not make this round-trip
+safe. This is a limit of that Lua route without custom property/bridge support,
+not a claim that native Slate cannot measure geometry. Numeric FVector2D out
+tables remain supported, e.g. PlayerController.ProjectWorldLocationToScreen;
+they do not require FGeometry round-tripping.
+
+Installed UHT exposes WidgetComponent.BlendMode as a property, but not
+SetBlendMode as a UFunction. Source-confirmed numeric enum write plus reflected
+virtual PrimitiveComponent.SetMaterial dispatches WidgetComponent's own override:
+UpdateMaterialInstance → own MID creation/parameter binding → render-state
+dirtiness. That provides a narrow owned registered-component update seam without
+guessing a setter or re-registering; actual live material transition is not yet
+accepted. [Owning candidate and primary-source locations](https://github.com/NikichMods/ImmersiveInteractionPrompts/blob/caf955fb271558df1ddd5c991cf5b53217da2ef4/research/interaction-prompts-owner/world-space/hint-mirror/ab/README.md).
+No game-owned Retainer/material mutation or new runtime PASS is inferred.
+
 ## R-007 — Aphes.ttf и граница между глифами, UFont и языком
 
 - **Статус/источник:** техническая offline-проверка stock ресурсов того же baseline,
