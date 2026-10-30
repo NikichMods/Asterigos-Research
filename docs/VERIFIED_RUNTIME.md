@@ -416,6 +416,23 @@ not texture glyph coverage or depth-visible pixels.
 No new material-transition/color/visual-equivalence acceptance follows: the
 comparison guard stopped before the native material change.
 
+### Registered owned World material refresh — bounded runtime, 2026-10-30
+
+Pinned UE4SS83330635/UE4.27 baseline: on one own registered WidgetComponent,
+reflected numeric BlendMode1→2 followed by virtual SetMaterial(0, exact stock
+Translucent MIC) returned successfully on EngineTick. GetMaterial and own
+GetMaterialInstance.Parent readback changed to the requested MIC, a new own MID
+appeared, and the same component/RT/borrowed source and other recorded settings
+survived. Output remained visible in the timestamp-matched user frame; manual
+cleanup released/destroyed the owned resources. No re-registration or second
+renderer was used. The original game Retainer/MID/widget tree was not mutated.
+
+[Owning evidence and limits](https://github.com/NikichMods/ImmersiveInteractionPrompts/blob/e49b636c9ccec6fef0bb96ab34758ec2490d7dfd/research/interaction-prompts-owner/world-space/hint-mirror/ab/README.md).
+This accepts one bounded native update/readback path, not arbitrary property
+mutation, GPU shader timing, universal Masked/Translucent pixel equality, a color
+fix or new-mode geometry occlusion. Both stock MICs share the same base; the
+user's no-visible-improvement result does not exonerate the shared color path.
+
 ## R-007 — Aphes.ttf и граница между глифами, UFont и языком
 
 - **Статус/источник:** техническая offline-проверка stock ресурсов того же baseline,

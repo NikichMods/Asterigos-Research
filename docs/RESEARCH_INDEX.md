@@ -240,6 +240,10 @@ UMG font resource. Aphes UMG render/cook-load ещё не подтверждён
 
 ## Input/action contracts — 2026-10-29
 
+R-006 bounded runtime addition (2026-10-30): [own registered World material refresh](VERIFIED_RUNTIME.md#registered-owned-world-material-refresh--bounded-runtime-2026-10-30)
+succeeded with new own MID and unchanged RT/source. No color-fix or general
+blend-mode/occlusion equivalence is inferred.
+
 R-006 bounded runtime addition (2026-10-30): [viewport/projected point numeric out tables](VERIFIED_RUNTIME.md#player-viewport-and-projected-point-out-tables--bounded-runtime-2026-10-30)
 worked on the pinned baseline. No FGeometry or material/pixel equivalence claim.
 
