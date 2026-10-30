@@ -1287,3 +1287,60 @@ In exact [UE4SS83330635 LuaUObject.cpp](https://github.com/UE4SS-RE/RE-UE4SS/blo
 - The scalar FKey return decoded to a Lua table/local-copy KeyName. Native IsInputKeyDown/WasInputKeyJustPressed accepted an FKey argument reconstructed from that owned name and returned true/true from the demonstrated OnActionInputPressed native post-hook: seven gamepad-positive and two keyboard-positive logged samples, in pre/post Scene0. The user performed empty-space interaction; no interactable actor was required by this read route. Sample count is not a count of physical presses.
 - Recorded menu-associated samples had no matching Interact key, with contexts0→1/1→1/1→0. Same-key-in-UI and every input-block condition were not tested; press-context/native UI guards remain necessary. Resolver refresh after UI exit and device change returned unchanged keys across3 generations. A before/after live rebind, chords, other platforms/namespaces and full lost-release/focus semantics are still unverified.
 - The specific current-PC resolver/scalar-key-query contract has runtime proof; this is not a universal action-dispatch API or a released HUD feature. Listener Target remains only a wake-up; no fixed physical-key fallback is needed. Observation ended with the normal host exit, without the earlier global-line-budget cutoff. The private observer was removed closed-game and all19 baseline loader files retained hashes. Production/acceptance/readiness for the mod remains owned by CombatHUD.
+
+
+## R-018 — Hilda stock flash-light component chain and independent lighting APIs, static (2026-10-30)
+
+**Source/static only**, not a new game run or lighting runtime acceptance.
+Baseline R-001: Steam1.09/build12996889, UE4.27, Windows x64,
+UE4SS v3.0.1-1181-g83330635; current installed DLL SHA256
+`ce5e3c46a920cc00b2817ac61e438c9162830290379d0b5b9c4dfc2b29459290`.
+Current appmanifest reports build12996889; game pak/EXE bytes were not freshly
+revalidated. Retained CUE4Parse hilda export and R-010 UHT headers were reused.
+
+Asset `/Game/MainContent/Act/Character_BP/hilda_BP`, class `hilda_BP_C`:
+SCS records native CharacterMesh0 → SkeletalMeshComponent `light`
+(`light_GEN_VARIABLE`, export89) → PointLightComponent `PointLight`
+(`PointLight_GEN_VARIABLE`, export76). Serialized light template:
+Intensity2.4, AttenuationRadius1200, inverse-square=false, exponent2,
+RGB255/231/152, CastShadows/Static/Dynamic=false, indirect0, volumetric0.1,
+specular0.3, visible=false. LightingChannels serializes bChannel2=true;
+other omitted channel values are not established by this export.
+These are template values, not a live owner/world path/current state.
+
+`SwitchLightEvent` reaches `ExecuteUbergraph_hilda_BP` offset15661:
+`GenesisCharacter.InputUseBagItem(flash_light)`. `LightBeginPlay` enters16967;
+16978 calls `light.GetChildrenComponents(false,Children)`; loop5987ff casts
+PointLightComponent and6260 adds to `Lights`,6328 saves max intensity.
+5235/5894 call LightComponent.SetIntensity on that array in fade paths.
+17052 calls `light.SetVisibility(false,true)`; LightTick reaches17301
+`light.K2_SetWorldLocation` after interpolation. This proves a static stock
+flash-light control branch, strongly identifying the Glimmer candidate;
+localized name mapping, all native writers and live behavior are not newly
+tested. A new light under this subtree risks stock collection/visibility control.
+No universal absence of other game writers is inferred.
+
+Retained UHT declares `/Script/Engine.PointLight` and `PointLightComponent`
+as non-Abstract; PointLight has a PointLightComponent reference. Reflected
+APIs include LocalLightComponent.SetAttenuationRadius/SetIntensityUnits,
+LightComponent.SetIntensity/SetLightColor/SetLightingChannels,
+LightComponentBase.SetCastShadows, SceneComponent.SetMobility/SetVisibility/
+K2_AttachToComponent, Actor.FinishAddComponent, ActorComponent.K2_DestroyComponent.
+No reflected RegisterComponent/SetupAttachment/SetUseInverseSquaredFalloff
+was found in the relevant inspected headers. UHT declarations are not successful
+Lua-call or renderer evidence.
+
+[Pinned UE4SS LuaUWorld.cpp83330635](https://github.com/UE4SS-RE/RE-UE4SS/blob/83330635/UE4SS/src/LuaType/LuaUWorld.cpp#L57)
+binds SpawnActor(UClass,location table,rotation table), delegates to the native
+world wrapper and returns AActor. Spawned Engine.PointLight and Actor attachment
+are not runtime-proven by this source inspection. The R-016 owned-component
+registration/cleanup result is reusable infrastructure, not a PointLight PASS.
+
+Original hilda export SHA256
+`1e293e34eddd98dc814d85087477a7355f048ac46f60d758411c3aa7ea231a56`;
+ubergraph bytecode JSON SHA256
+`b6d56df1d77940724f0422c73d96dd03049f6fd5f5bf7dd6ffea06b72d8bc9f4`.
+[Exact report, source links, per-file hashes and limits](https://github.com/NikichMods/HildaSoftLight/blob/1f3038992ed507b5abea1d88a9aad9ef74235a21/docs/LIGHTING_FEASIBILITY.md).
+Only distilled game/API facts are promoted here. HildaSoftLight specification,
+candidate choice, current state and future visual acceptance remain mod-owned.
+No game assets/raw dump/source copies or executable payload are published.

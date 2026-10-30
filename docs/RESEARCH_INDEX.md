@@ -1,5 +1,12 @@
 # Research Index — Asterigos: Curse of the Stars
 
+**2026-10-30 — R-018 static lighting:**
+[VERIFIED_RUNTIME.md R-018](VERIFIED_RUNTIME.md#r-018--hilda-stock-flash-light-component-chain-and-independent-lighting-apis-static-2026-10-30)
+records Hilda's serialized `light`→PointLight subtree, `flash_light`/Lights
+Blueprint control and reflected lighting/attachment APIs. Source/static evidence;
+no new light rendering, level lifecycle or runtime acceptance. Mod-owned report:
+[HildaSoftLight](https://github.com/NikichMods/HildaSoftLight/tree/research/lighting-feasibility).
+
 **2026-10-30 — дизайн-контракты шести видов оружия:**
 [WEAPON_BALANCE_CONTRACTS.md](WEAPON_BALANCE_CONTRACTS.md) фиксирует
 согласованные принципы и фантазии, отделяя их от ещё не принятых
