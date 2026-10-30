@@ -285,6 +285,28 @@ scan, runtime mapping success or World-rendering result is claimed here.
 - [Точный отчёт, дерево, хэши и воспроизводимый offline audit](https://github.com/NikichMods/ImmersiveInteractionPrompts/blob/e6592818452b007159be9d84a407e865483f5b11/research/interaction-prompts-owner/VISUAL_READINESS.md).
   Runtime/mod-specific implementation и визуальная приёмка не заявляются.
 
+### Current text / retained input hint — source-only integration boundary, 2026-10-30
+
+[Exact source audit and scope](https://github.com/NikichMods/ImmersiveInteractionPrompts/blob/0a9a2fb7c3d748c86d68ba9c4c0665cec4f98cf7/research/interaction-prompts-owner/world-space/composition/README.md).
+UE4.27 TextBlock.GetText reads live Slate when available. Pinned UE4SS83330635
+LuaUObject.push_textproperty Set marshals via ToFString/SetString, not full native
+FText history copying; do not claim string-table identity/culture propagation
+merely because a FText wrapper was passed. Re-reading the current displayed
+value can reproduce game-selected localized wording without a hard-coded label.
+
+Retained TipHUD export configures RetainerBox_0 with TipIconMat/TextureParameter
+Icon; ubergraph455/497/534 gets effect MID/action hold timer and writes scalar t.
+This is configured source evidence; live retention flags/device transitions are
+not proved by serialized fields. UE4.27 SRetainerWidget.SetEffectMaterial **reuses
+a supplied MID**; OnPaint writes its render-target texture into that MID and draws
+with PreMultipliedAlpha|NoGamma. A second Retainer sharing the original MID could
+therefore change the original output indirectly. GetEffectMaterial returns the
+existing DynamicEffect without constructing it. A read-only own Image mirror is
+a candidate; equivalence of alpha/gamma, live device/remapped-key output and branch
+identity remains untested. The earlier copied-child F brush remains only a
+bounded keyboard snapshot, not general hint synchronization proof. No new game
+run/payload or production readiness is implied.
+
 ## R-007 — Aphes.ttf и граница между глифами, UFont и языком
 
 - **Статус/источник:** техническая offline-проверка stock ресурсов того же baseline,

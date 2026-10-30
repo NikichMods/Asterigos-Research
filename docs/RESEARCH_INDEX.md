@@ -1,5 +1,10 @@
 # Research Index — Asterigos: Curse of the Stars
 
+**2026-10-30 — R-006 source-only:** current text/FText marshalling limits and
+Retainer hint material stage reviewed. Shared MID in a second Retainer can gain
+another render-target writer; no new live input-hint synchronization PASS.
+[Evidence](VERIFIED_RUNTIME.md#current-text--retained-input-hint--source-only-integration-boundary-2026-10-30).
+
 **2026-10-30 — R-016 bounded frame-loop/manual-stop runtime PASS:**1068 own
 rotation updates, explicit handle cancellation and user-triggered native cleanup
 completed. User visual confirmation; no FPS benchmark/full lifecycle claim.
