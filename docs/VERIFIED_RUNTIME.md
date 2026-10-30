@@ -686,6 +686,41 @@ arbitrary layouts, source-rebind policy, color equivalence or a chosen mod size.
   one-label construction/render/manual-detach case is recorded in R-006;
   GC and broader lifecycle remain unproved. Mod readiness belongs to the mod.
 
+### R-008 delayed GameThread actions — source/static, 2026-10-30
+
+Exact [UE4SS83330635 LuaMod.cpp](https://github.com/UE4SS-RE/RE-UE4SS/blob/8333063595fa3c49ad307f3b0f732accbb760d25/UE4SS/src/Mod/LuaMod.cpp)
+4716–4792 registers one repeating delayed action and returns an integer handle;
+3949–4090 marks it Executing, ignores callback results, then rearms from batch
+completion steady-clock time plus delay. No catch-up queue is generated for
+missed periods. EngineTick/ProcessEvent consumers are at4093–4164. GameThread
+delivery is distinct from a mod's gameplay-time clocks; nominal50ms is no exact
+FPS/pause latency guarantee. ProcessEvent's name alone does not prove every
+possible caller is on the game thread.
+
+CancelDelayedAction5115–5159 checks mod ownership, marks PendingRemoval and
+returns boolean success; it does not interrupt the running callback. The old
+LoopAsync boolean-return cancellation contract does not apply. Vector indices
+survive unlocked callback execution4013/4041, while nested processing can erase
+PendingRemoval records4082: avoid cancellation followed by UFunction calls in
+that callback. This ordering precaution does not remove global lifecycle risks.
+
+Read-only installed-baseline check: DLL SHA256
+`ce5e3c46a920cc00b2817ac61e438c9162830290379d0b5b9c4dfc2b29459290`,
+both API strings present, existing log reports83330635 and EngineTick hook;
+**not** new timer invocation/runtime acceptance. CombatHUD owns its candidate
+and detailed [review](https://github.com/NikichMods/CombatHUD/blob/7547dcbc7b0e913f7a92741ed99a022e2c00bf37/docs/SCHEDULER_READINESS.md).
+
+Upstream [#1345](https://github.com/UE4SS-RE/RE-UE4SS/issues/1345) and
+[#1456](https://github.com/UE4SS-RE/RE-UE4SS/issues/1456) recommend delayed
+GameThread APIs over async Lua; these are other environments/reports, not a
+diagnosis of an Asterigos crash. [#1445](https://github.com/UE4SS-RE/RE-UE4SS/issues/1445)
+separately reports load/teardown races without async functions. Installed83330635
+predates the queued-event lock fix [#1472](https://github.com/UE4SS-RE/RE-UE4SS/pull/1472),
+merged2026-10-25 as cdbc0b66cb2bb5b4a3d2f69b6e61a8460961e54c;
+subsequent lifecycle proposals #1473/#1474 remain open/unmerged at review.
+GameThread migration is not universal crash protection; do not hot reload or
+infer a HildaSoftLight cause from these reports.
+
 ## R-009 — Lua metadata completeness limit in UE4SS 83330635 (2026-10-28)
 
 - **Evidence:** source inspection for the same Steam 1.09/build12996889, UE4.27,
