@@ -1,5 +1,11 @@
 # Research Index — Asterigos: Curse of the Stars
 
+**2026-10-30 — публичная инвентаризация боевой системы:**
+[COMBAT_SYSTEM_EXTERNAL_INVENTORY.md](COMBAT_SYSTEM_EXTERNAL_INVENTORY.md) —
+оружие, обычные/переходные атаки, таланты, AP/SP, стихии и технические
+прецеденты. Внешние сведения не равны runtime-фактам Steam 1.09;
+точные формулы и владельцы данных не установлены.
+
 **2026-10-30 — самостоятельное cross-game дизайн-исследование:**
 [асимметричный баланс оружия](WEAPON_BALANCE_DESIGN_RESEARCH.md) — первичные
 интервью и материалы разработчиков, проектные принципы и методика проверки;
@@ -165,6 +171,7 @@ runtime PNG import / explicit CDO call / Image texture reference для UE4SS833
 | Раздел | Что известно | Уровень доказательств |
 | --- | --- | --- |
 | [VERIFIED_RUNTIME.md](VERIFIED_RUNTIME.md) | Поддерживаемый Steam-билд и UE/UE4SS; R-004: HP/startup pawn; R-005: native HUD menu owner; R-006: статическая цепочка, slot tree и живые поля CanShow; R-007: Aphes cmap и предел UMG font bridge; R-010: native UHT-сигнатура; R-011: TArray read-side growth | Точные источники/хэши в разделах. CanShow реально прочитал три TipHUD, но full lifecycle/final writer не установлены. Aphes принят в отдельном Coherent-контексте; UMG-рендер остаётся непроверенным. UHT-декларация не равна исполнению hook |
+| [COMBAT_SYSTEM_EXTERNAL_INVENTORY.md](COMBAT_SYSTEM_EXTERNAL_INVENTORY.md) | Внешняя инвентаризация механик шести видов оружия, талантов, AP/SP, стихий, прогрессии и классов возможных правок | Патчи, обзоры, wiki, сообщения игроков и моды; локальный runtime и поля данных **не исследованы** |
 | [WEAPON_BALANCE_DESIGN_RESEARCH.md](WEAPON_BALANCE_DESIGN_RESEARCH.md) | Межигровые принципы асимметричного баланса оружия, источники создателей, методика сравнения, гипотезы для Asterigos | Проверенные публичные источники + собственный синтез; внутриигровые параметры не измерялись |
 | [GAMEPLAY_RESEARCH.md](GAMEPLAY_RESEARCH.md) | Баланс посоха/кинжалов/копья, выносливость, реакция на урон, ориентирование, UX/визуальные отзывы, исправления патчей | Наблюдения пользователя, датированные сообщения игроков и официальные notes; это **не** runtime-верификация |
 | [MOD_IDEAS.md](MOD_IDEAS.md) | Согласованные 18 приоритетов, исключения и открытые продуктовые направления | Продуктовые решения, не обещание реализуемости |
