@@ -348,6 +348,37 @@ are hypotheses/known comparison seams, not diagnosed causes. No full device/
 remapping coverage, new manual-F7 or production acceptance is inferred. Earlier
 vertical-yaw manual-F7 PASS remains separate and unchanged.
 
+### Retained UI material → World surface — source-only distinctions, 2026-10-30
+
+Baseline remains Steam1.09/UE4.27/UE4SS83330635. UE4.27 source mirror
+`306a7e9f7fb53f14c2cb3bfd3854ad906710a17e` cross-check, not byte identity with
+the proprietary engine: FSlateMaterialShaderPS selects AlphaComposite blending
+from the UI material (ONE/INV_SRC_ALPHA), independently of the separate
+non-material PreMultipliedAlpha draw-flag branch. A normal UImage referencing
+such a MID is not automatically straight-alpha merely because it lacks the
+Retainer paint flag. SRetainerWidget's tint premultiplication still matters
+for non-unit opacity; this does not prove arbitrary fading equivalence.
+
+WidgetComponent default bApplyGammaCorrection=false propagates to its Slate
+renderer, yielding FinalGamma1 like NoGamma at the material paint stage.
+NoGamma also forces contrast1. This does not establish actual live flags,
+RT encoding/sampling or scene output color. WidgetComponent's own RT creation
+uses InitCustomFormat(..., false), not the WidgetRenderer::CreateTargetFor
+helper; do not substitute one target's settings for the other's.
+
+Installed stock Masked and Translucent world MICs share Widget3DPassThrough;
+Masked clips coverage, so its output is not continuous UI alpha. Cooked exports
+here lack the full expression graph: exact outer premultiplied-RGB handling
+is unknown. SetBlendMode alone does not replace an explicit material override;
+GetMaterial prefers that override and SetBlendMode does not rebuild its MID.
+Logical widget units × component scale are world lengths, not final pixel size;
+camera projection and native UI/DPI geometry are separate measurements.
+
+[Owning analysis, versioned source links and limits](https://github.com/NikichMods/ImmersiveInteractionPrompts/blob/451bbfac1e2a47f0d1743e035fc09d3b4c20f4e1/research/interaction-prompts-owner/world-space/hint-mirror/VISUAL_FIDELITY.md).
+These are reusable source contracts, not a diagnosis of a particular washed-out
+icon, a validated gamma workaround or new runtime acceptance. Mod-specific
+comparison/layout decisions remain in the owning repository.
+
 ## R-007 — Aphes.ttf и граница между глифами, UFont и языком
 
 - **Статус/источник:** техническая offline-проверка stock ресурсов того же baseline,
