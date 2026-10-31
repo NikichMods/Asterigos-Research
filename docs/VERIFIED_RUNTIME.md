@@ -721,6 +721,19 @@ subsequent lifecycle proposals #1473/#1474 remain open/unmerged at review.
 GameThread migration is not universal crash protection; do not hot reload or
 infer a HildaSoftLight cause from these reports.
 
+### R-008 delayed timer — bounded runtime execution, 2026-10-31
+
+CombatHUD0.4.1 source7547dcbc7b0e913f7a92741ed99a022e2c00bf37 uses one
+LoopInGameThreadWithDelay(50) with no async fallback. On the pinned Asterigos
+Steam1.09/build12996889/UE4.27/UE4SS83330635 baseline, exact installed hashes,
+completed-session startup,17 HUD targets, input hook and combat/damage/6s hold/fade
+updates were verified with no logged errors. User reports the supplied scenario
+passed. [Owned acceptance and evidence](https://github.com/NikichMods/CombatHUD/blob/93e93183a702cd49fc99ca655738f61a336ca932/docs/CANDIDATE-0.4.1.md),
+log SHA256563120948c644fb6be1b0b2b80d4db6060268a42b2411d54ea865ff113614d33.
+This establishes bounded actual timer execution in that environment, not measured
+exact cadence, independent thread-ID sampling, all lifecycle states, hot reload
+safety or absence of native crashes. Prior source/upstream limitations remain.
+
 ## R-009 — Lua metadata completeness limit in UE4SS 83330635 (2026-10-28)
 
 - **Evidence:** source inspection for the same Steam 1.09/build12996889, UE4.27,

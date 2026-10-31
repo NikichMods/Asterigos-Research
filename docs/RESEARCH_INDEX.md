@@ -288,3 +288,7 @@ R-008 source/static addition2026-10-30: [delayed GameThread timer contract](VERI
 records pinned83330635 single-loop/rearm/handle cancellation, restore-before-cancel
 ordering and later upstream lifecycle fixes. Installed DLL identity/API strings
 were checked; new timer execution and native-crash safety remain unverified.
+
+R-008 runtime addition2026-10-31: [bounded delayed-timer execution](VERIFIED_RUNTIME.md#r-008-delayed-timer--bounded-runtime-execution-2026-10-31)
+is demonstrated by accepted CombatHUD0.4.1 on the pinned baseline. Exact cadence,
+all lifecycle states and universal native-crash safety remain unproved.
