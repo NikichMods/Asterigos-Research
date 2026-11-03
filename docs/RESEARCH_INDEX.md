@@ -1,5 +1,13 @@
 # Research Index — Asterigos: Curse of the Stars
 
+**2026-11-04 — Hilda Outfit Redesign, artistic contract D + donor inventory:**
+[HILDA_OUTFIT_REDESIGN.md](HILDA_OUTFIT_REDESIGN.md) is the canonical design/recovery
+source for the accepted D direction (including the **bare back with no crossed
+straps**), source outfit references, installed Shorts Armor Type 1 / Arcanic
+Phantom Mantle Type 1 user observations, Nude Hilda attribution/history, and
+bounded next technical investigation. **No D game mod, verified asset IDs,
+export/reimport path or repository-hosted reference images yet.**
+
 **2026-10-30 — R-018 bounded runtime:** own transient PointLightComponent on
 Hilda's root completed EngineTick creation, dark registration/attachment,
 ON/OFF, guarded movement and native manual teardown; user confirms visible light.
@@ -194,6 +202,7 @@ runtime PNG import / explicit CDO call / Image texture reference для UE4SS833
 | [WEAPON_BALANCE_DESIGN_RESEARCH.md](WEAPON_BALANCE_DESIGN_RESEARCH.md) | Межигровые принципы асимметричного баланса оружия, источники создателей, методика сравнения, гипотезы для Asterigos | Проверенные публичные источники + собственный синтез; внутриигровые параметры не измерялись |
 | [GAMEPLAY_RESEARCH.md](GAMEPLAY_RESEARCH.md) | Баланс посоха/кинжалов/копья, выносливость, реакция на урон, ориентирование, UX/визуальные отзывы, исправления патчей | Наблюдения пользователя, датированные сообщения игроков и официальные notes; это **не** runtime-верификация |
 | [MOD_IDEAS.md](MOD_IDEAS.md) | Согласованные 18 приоритетов, исключения и открытые продуктовые направления | Продуктовые решения, не обещание реализуемости |
+| [HILDA_OUTFIT_REDESIGN.md](HILDA_OUTFIT_REDESIGN.md) | Принятый дизайн Хильды D, визуальная история, карта костюмов-доноров и Nude Hilda, план read-only исследования | Дизайн принят; установленные моды — наблюдение пользователя; редактируемость мешей и pipeline не подтверждены |
 | [MODDING_EVIDENCE.md](MODDING_EVIDENCE.md) | Публичные примеры `.pak`, UE4SS, 3Dmigoto; технические неопределённости для будущих исследований | Внешние опубликованные примеры, не проверенные в текущей установленной игре |
 | [GLOSSARY.md](GLOSSARY.md) | Игровые обозначения и уровни достоверности | Справочник |
 
