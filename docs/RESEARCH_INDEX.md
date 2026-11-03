@@ -6,7 +6,7 @@ source for the accepted D direction (including the **bare back with no crossed
 straps**), source outfit references, installed Shorts Armor Type 1 / Arcanic
 Phantom Mantle Type 1 user observations, Nude Hilda attribution/history, and
 bounded next technical investigation. **No D game mod, verified asset IDs,
-export/reimport path or repository-hosted reference images yet.**
+export/reimport path yet. **Seven concept PNGs are archived and Git-blob verified** in [assets/hilda](assets/hilda/README.md), with [06-D-Final-open-back.png](assets/hilda/06-D-Final-open-back.png) as the accepted visual baseline; third-party/user game screenshots are not hosted.
 
 **2026-10-30 — R-018 bounded runtime:** own transient PointLightComponent on
 Hilda's root completed EngineTick creation, dark registration/attachment,
