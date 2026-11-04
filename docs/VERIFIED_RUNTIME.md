@@ -889,6 +889,23 @@ found no matching uasset/uexp; this does not exclude differently named textures.
 Coherent HTML/URL is not a native UMG UTexture2D. Local import under R-012 is a
 candidate, not runtime-verified reuse or permission to redistribute game images.
 
+### Styled TextBlock desired extents and outline — source-only, 2026-11-05
+
+Steam1.09/UE4.27 installed UHT retains TextBlock font/outline/desired-size seams.
+Pinned UE4.27 mirror `306a7e9f7fb53f14c2cb3bfd3854ad906710a17e`:
+[STextBlock::ComputeDesiredSize](https://github.com/AlexMercer-MA/UnrealEngine-4.27/blob/306a7e9f7fb53f14c2cb3bfd3854ad906710a17e/Engine/Source/Runtime/Slate/Private/Widgets/Text/STextBlock.cpp)
+245–272 includes outline in simple mode or delegates styled layout;
+[FSlateTextRun](https://github.com/AlexMercer-MA/UnrealEngine-4.27/blob/306a7e9f7fb53f14c2cb3bfd3854ad906710a17e/Engine/Source/Runtime/Slate/Private/Framework/Text/SlateTextRun.cpp)
+32–59 includes outline/shadow in baseline/max-height/measurement. Styled layout
+returns its own measured size. Do not blindly add another two outline widths to
+a fresh fully styled TextBlock desired extent, or treat that extent as exact
+glyph alpha and subtract unknown font leading. Own prepass/native measurement
+is preferable to estimating from font size. This is an engine-source contract,
+not proof of exact proprietary host bytes or new glyph rendering/pixel bounds.
+Consumer and original offline evidence:
+[IIP compact-layout](https://github.com/NikichMods/ImmersiveInteractionPrompts/tree/research/compact-world-layout/research/interaction-prompts-owner/world-space/compact-layout).
+Native World acceptance remains owned by that mod.
+
 Retained game UHT Widget.h/WidgetTransform.h reflect GetDesiredSize,
 SetRenderTranslation(FVector2D), and RenderTransform.Translation. UE4.27 mirror
 `306a7e9f7fb53f14c2cb3bfd3854ad906710a17e`, Widget.cpp: GetDesiredSize reads cached

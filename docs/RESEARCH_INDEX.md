@@ -1,5 +1,10 @@
 # Research Index — Asterigos: Curse of the Stars
 
+**2026-11-05 — styled TextBlock source contract:** native desired extents already
+account for outline/shadow; do not blindly add outline twice or crop assumed
+glyph ink bounds. [Source-level limits](VERIFIED_RUNTIME.md#styled-textblock-desired-extents-and-outline--source-only-2026-11-05),
+not new Asterigos glyph-render/compact-layout acceptance.
+
 **2026-11-04 — Hilda Outfit Redesign, artistic contract D + donor inventory:**
 [HILDA_OUTFIT_REDESIGN.md](HILDA_OUTFIT_REDESIGN.md) is the canonical design/recovery
 source for the accepted D direction (including the **bare back with no crossed
