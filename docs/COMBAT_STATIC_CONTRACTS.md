@@ -17,8 +17,8 @@
 | --- | --- | --- |
 | Skill | `FSkillData` имеет DamageRate, Tags, SkillBeginTimelineData/TimelineData/SkillEndTimelineData; реальные таблицы `/Game/MainContent/Tables/Player/Skill_Player`, `TimelineData_PlayerSkill[_1/_2]`, `TimelineData_Status` | Декларация/строка не доказывает live commit или порядок native-интерпретатора |
 | Источник повреждения | `/Script/Genesis.BaseProjectile`: DamageRate, DamageAttributeName, HitStatus, HitGainAstralPool; GetCharacterOwner, GetBaseDamage/GetBaseDamageRate/GetBaseTypeDamage/GetTypeDamage и SetBaseDamage/SetBaseDamageRate; `GameGlobal.SpawnProjectile/SpawnProjectileEX` | Не установлены native snapshot/caches, итоговая формула и полнота ProcessEvent callbacks |
-| Цели | Разные ProjectileOverlapCharacter, ProjectileOverlapScene, ProjectileOverlapGameEventObject; в прочитанных source rows IsCanHitScene и IsCanHitCharacter могут быть одновременно true | Общий DamageRate не доказан combat-only; notification callback не доказан pre-damage writer |
-| HP | CharacterAttributeComponent.HP/MaxHP/OnCurHPChanged; GameGlobal HP accessors и отдельные BaseGameObject.GetHP/AddHP | Финальный native writer projectile combat damage не установлен |
+| Цели | Разные ProjectileOverlapCharacter, ProjectileOverlapScene, ProjectileOverlapGameEventObject; в прочитанных source rows IsCanHitScene и IsCanHitCharacter могут быть одновременно true. Для исследованного Astral hit нативная ветвь персонажа проверяет GenesisCharacter перед расчётом | Общий DamageRate может затронуть источники, которые взаимодействуют и со сценой. Другие ветви и типы целей отдельно не исследованы |
+| HP | CharacterAttributeComponent.HP/MaxHP/OnCurHPChanged; GameGlobal HP accessors и отдельные BaseGameObject.GetHP/AddHP. В обычной положительной ветви Astral дельта доходит до нативного писателя CharacterAttributeComponent | Установлено статически на одном билде. Доступный мутабельный перехват и live порядок не установлены |
 | Замены | `/Game/MainContent/Tables/Remapping`, `Status_Talent`, `Status_Skill`, weapon ModuleBuffList и SwitchWeaponSkill_Enter | Нельзя классифицировать происхождение по одному текущему оружию или предполагать отсутствие DLC/module/talent путей |
 
 ## Действие не равно projectile и не равно hit
@@ -36,6 +36,15 @@ Fire hit timeline создаёт отдельный `hilda_staff_bolt_fire_explo
 В `hilda_staff_bolt_astral` реально прочитаны сохранение `Original Damage Rate`, умножение DamageRate на 1.1 при `talent_e804` и последующее восстановление; аналогичная логика есть у Thunder. `hilda_staff_arrow` отдельно меняет DamageProjectile.DamageRate. Однократная внешняя запись этого поля не гарантирует сохранение значения или корректное stacking. Точные offsets и SHA — в первичном отчёте.
 
 Charged Rays разделён на aim/charge/shoot skills; shoot timeline создаёт carrier `hilda_staff_arrow`, который сам создаёт damage-projectile. Rapid Fire (`p802`) использует Remapping и другие переходы/SP cost. Fourth Quadrant (`e805`) подключает переход к четвёртому удару; Staff Mastery (`e809`) имеет SkillDamageRate status function. English localization связывает Judgment (`u805`) с `hilda_ult_com05`; stance использует staff fourth sources через отдельный `hilda_ult_com05_atk1`, без префикса `hilda_staff_`. Это data/bytecode факты, не доказательство полного живого поведения или готового способа изменения.
+
+## Нативное попадание обычного Astral-снаряда
+
+Статическая проверка Steam 1.09 / build 12996889, Windows x64, UE 4.27. SHA-256 исполняемого файла `ddea6b5ca5d34836f01702993d20209c2595367287e6cd5a135a7ace1958b1c0`. [Отчёт с RVA, переходами и независимой сверкой HP](https://github.com/NikichMods/StaffRebalance/blob/76a52a4e4b282f9bfd74d8ee495b13d5f4523b62/docs/ASTRAL_NATIVE_HP_PATH.md).
+
+- Контакт с персонажем проходит отдельную ветвь с проверкой GenesisCharacter и передаёт исходный projectile и hit component в компонент цели. Для сцены обнаружены отдельные обработчик и уведомления.
+- Компонент цели рассчитывает сумму по типам повреждения и в обычной положительной ветви вызывает прямой писатель HP (`0x10C1C60`). `GameGlobal.DamageCharacter_Cpp` использует общий механизм изменения HP по другому маршруту. Путь попадания через отражённую функцию не проходит.
+- `GenesisCharacter.ProjectileHitEvent` вызывается с целью, исходным projectile, hit component, позицией и копией урона перед штатной записью HP. Последующие нативные условия могут изменить фактическую дельту. `BaseProjectile.ProjectileOverlapCharacter` в этом маршруте вызывается после обработки.
+- `ProjectileHitEvent` — кандидат для read-only наблюдения. Доставка на конкретном Blueprint цели и обработка аргумента `FVector_NetQuantize` текущим UE4SS требуют проверки. Параметр `Damage` передаётся по значению, а штатный писатель получает величину из нативного расчёта. Связь с экземпляром projectile прямая, идентификатор породившего его выполнения skill остаётся открытым.
 
 ## Conduit: rest, recovery и transport различимы статически
 
