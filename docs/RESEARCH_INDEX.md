@@ -1,5 +1,9 @@
 # Research Index — Asterigos: Curse of the Stars
 
+**2026-11-06 — R-006 multi-action acquisition and EndPlay.** Normal load
+joined ready Open, Take and Check owners. EndPlay retired every recorded owner.
+[Runtime scope](VERIFIED_RUNTIME.md#multi-action-native-owner-observation--2026-11-06).
+
 **2026-11-05 — R-006 automatic Open acquisition, bounded runtime.**
 Global BeginPlayPost on normal save load yielded six ready Open/TipHUD owners.
 [Evidence and limits](VERIFIED_RUNTIME.md#automatic-open-acquisition-on-normal-load--bounded-runtime-2026-11-05).

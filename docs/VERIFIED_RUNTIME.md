@@ -1,5 +1,17 @@
 # Verified Runtime — Asterigos (cross-mod)
 
+### Multi-action native owner observation — 2026-11-06
+
+Steam 1.09/build 12996889, UE4.27, UE4SS 83330635. Global BeginPlayPost
+resolved 34 ready actor/ExtendedWidget/TipHUD triples on normal load:
+six Open, 18 Take and ten Check. The three sampled visible owner IDs
+resolved localized labels «Открыть», «Взять», «Проверить». Distinct owners
+were observed through withdrawal, with zero shown owners between them in
+complete 33-owner sweeps. EndPlay removed one registered owner during load
+and the remaining 33 on normal exit. Populated map reset, direct handoff and
+authoritative selected-target semantics remain open.
+[Exact runtime evidence and hashes](https://github.com/NikichMods/ImmersiveInteractionPrompts/blob/ee37dd2e87300c3137e948016fe7a13ab7e83998/research/interaction-prompts-owner/world-space/multi-action/README.md#runtime-result--2026-11-06).
+
 ### Automatic Open acquisition on normal load — bounded runtime, 2026-11-05
 
 On Steam 1.09/build 12996889, UE4.27 and UE4SS 83330635, global BeginPlayPost
