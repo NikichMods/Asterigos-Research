@@ -2,6 +2,13 @@
 
 **Создано:** 2026-10-27. **Статус записей:** *промотированные сведения из `NikichMods/AsterigosMods`: принятая база и отдельно обозначенные локальные runtime-наблюдения; повторных тестов этим Research-репозиторием не проводилось*. Это не универсальная таблица совместимости.
 
+## R-019 — Combat source/timeline and Conduit rest contracts, static (2026-11-05)
+
+- **Владелец общего знания:** [COMBAT_STATIC_CONTRACTS.md](COMBAT_STATIC_CONTRACTS.md). Точный первичный [отчёт](https://github.com/NikichMods/StaffRebalance/blob/9348a6ff7d8206b725f089428652ccbec8012675/docs/STATIC_COMBAT_RESEARCH_01.md) и [идентичность входов](https://github.com/NikichMods/StaffRebalance/blob/9348a6ff7d8206b725f089428652ccbec8012675/research/static-combat-01/EVIDENCE.json).
+- **Среда/метод:** Steam build 12996889 / UE4.27 / UE4SS 83330635; повторно использованные UHT headers и выборочные CUE4Parse 1.2.2 cooked/bytecode exports. Без запуска игры.
+- **Установлено статически:** реальные Skill/Timeline/Projectile owners; несколько sources на одну staff или melee атаку; staff rows с `Melee=true`; штатные Blueprint DamageRate save/multiply/restore; отдельные rest/recovery/transport ветви Conduit.
+- **Предел:** не установлены combat HP native final writer, live attack-instance identity, callback ordering и безопасный pre-damage writer. Прочитанные декларации/данные не являются runtime acceptance или обещанием hookability. Область применения — последующие исследования боевой системы на этом baseline; состояние отдельных модов здесь не хранится.
+
 ## R-001 — Подтверждённая в проекте базовая среда
 
 - **Источник:** [`AsterigosMods/AGENTS.md`](https://github.com/NikichMods/AsterigosMods/blob/main/AGENTS.md) и [`AsterigosMods/docs/VERIFIED_RUNTIME.md`](https://github.com/NikichMods/AsterigosMods/blob/main/docs/VERIFIED_RUNTIME.md).

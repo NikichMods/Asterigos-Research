@@ -1,5 +1,10 @@
 # Research Index — Asterigos: Curse of the Stars
 
+**2026-11-05 — static combat contracts:** [COMBAT_STATIC_CONTRACTS.md](COMBAT_STATIC_CONTRACTS.md)
+фиксирует реальные skill/timeline/projectile owners, multi-source атаки, ограничение
+`Melee` field, штатные DamageRate writers и отдельную Conduit rest/recovery chain.
+Это cooked/UHT/bytecode evidence; native final HP writer и live ordering не установлены.
+
 **2026-11-05 — styled TextBlock source contract:** native desired extents already
 account for outline/shadow; do not blindly add outline twice or crop assumed
 glyph ink bounds. [Source-level limits](VERIFIED_RUNTIME.md#styled-textblock-desired-extents-and-outline--source-only-2026-11-05),
@@ -186,7 +191,7 @@ runtime PNG import / explicit CDO call / Image texture reference для UE4SS833
 
 ## Репозитории модов после организационного разделения
 
-Общая группа игры содержит шесть самостоятельных репозиториев и этот единственный Research. Актуальные исходники, версии и приёмка принадлежат модам; исходный [AsterigosMods](https://github.com/NikichMods/AsterigosMods) сохранён доступным, без архивирования. Первичные ссылки на старые точные коммиты в исследовательских выводах остаются историческими доказательствами.
+Общая группа игры содержит самостоятельные репозитории модов и этот единственный Research. Актуальные исходники, версии и приёмка принадлежат модам; исходный [AsterigosMods](https://github.com/NikichMods/AsterigosMods) сохранён доступным, без архивирования. Первичные ссылки на старые точные коммиты в исследовательских выводах остаются историческими доказательствами.
 
 | Мод | Источник текущего состояния |
 | --- | --- |
@@ -196,11 +201,13 @@ runtime PNG import / explicit CDO call / Image texture reference для UE4SS833
 | [ProfileRender](https://github.com/NikichMods/ProfileRender) | [docs/STATUS.md](https://github.com/NikichMods/ProfileRender/blob/main/docs/STATUS.md) |
 | [AnimationRate](https://github.com/NikichMods/AnimationRate) | [docs/STATUS.md](https://github.com/NikichMods/AnimationRate/blob/main/docs/STATUS.md) |
 | [ImmersiveInteractionPrompts](https://github.com/NikichMods/ImmersiveInteractionPrompts) | [docs/STATUS.md](https://github.com/NikichMods/ImmersiveInteractionPrompts/blob/main/docs/STATUS.md) |
+| [StaffRebalance](https://github.com/NikichMods/StaffRebalance) | [docs/STATUS.md](https://github.com/NikichMods/StaffRebalance/blob/main/docs/STATUS.md); исследовательские ветви указаны в репозитории мода |
 
 ## Действующие источники
 
 | Раздел | Что известно | Уровень доказательств |
 | --- | --- | --- |
+| [COMBAT_STATIC_CONTRACTS.md](COMBAT_STATIC_CONTRACTS.md) | Skill/timeline/projectile модель, штатные damage writers, melee multi-source и отдельный Conduit rest path | UHT declarations, cooked tables, Blueprint bytecode; native combat final writer и live execution не доказаны |
 | [VERIFIED_RUNTIME.md](VERIFIED_RUNTIME.md) | Поддерживаемый Steam-билд и UE/UE4SS; R-004: HP/startup pawn; R-005: native HUD menu owner; R-006: статическая цепочка, slot tree и живые поля CanShow; R-007: Aphes cmap и предел UMG font bridge; R-010: native UHT-сигнатура; R-011: TArray read-side growth | Точные источники/хэши в разделах. CanShow реально прочитал три TipHUD, но full lifecycle/final writer не установлены. Aphes принят в отдельном Coherent-контексте; UMG-рендер остаётся непроверенным. UHT-декларация не равна исполнению hook |
 | [WEAPON_BALANCE_CONTRACTS.md](WEAPON_BALANCE_CONTRACTS.md) | Желаемые роли шести видов оружия, принятые принципы, кандидатные механизмы, риски и дальнейшие проверки | Дизайн: общая цель согласована, конкретные изменения остаются гипотезами |
 | [COMBAT_SYSTEM_EXTERNAL_INVENTORY.md](COMBAT_SYSTEM_EXTERNAL_INVENTORY.md) | Внешняя инвентаризация механик шести видов оружия, талантов, AP/SP, стихий, прогрессии и классов возможных правок | Патчи, обзоры, wiki, сообщения игроков и моды; локальный runtime и поля данных **не исследованы** |
