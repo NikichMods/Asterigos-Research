@@ -1,5 +1,9 @@
 # Research Index — Asterigos: Curse of the Stars
 
+**2026-11-05 — R-006 automatic Open acquisition, bounded runtime.**
+Global BeginPlayPost on normal save load yielded six ready Open/TipHUD owners.
+[Evidence and limits](VERIFIED_RUNTIME.md#automatic-open-acquisition-on-normal-load--bounded-runtime-2026-11-05).
+
 **2026-11-05 — static combat contracts:** [COMBAT_STATIC_CONTRACTS.md](COMBAT_STATIC_CONTRACTS.md)
 фиксирует реальные skill/timeline/projectile owners, multi-source атаки, ограничение
 `Melee` field, штатные DamageRate writers и отдельную Conduit rest/recovery chain.

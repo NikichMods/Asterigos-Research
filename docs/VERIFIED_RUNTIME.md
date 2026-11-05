@@ -1,5 +1,15 @@
 # Verified Runtime — Asterigos (cross-mod)
 
+### Automatic Open acquisition on normal load — bounded runtime, 2026-11-05
+
+On Steam 1.09/build 12996889, UE4.27 and UE4SS 83330635, global BeginPlayPost
+delivered six Open actors on normal save load. Their ExtendedWidget/TipHUD
+ownership links resolved immediately in those callbacks. Two sampled unique
+visibility intervals both resolved to the same owner. Global EndPlayPre and
+LoadMapPre fired during the session. Eviction of a tracked owner, pending-widget
+retry and distinct-target selection remain unobserved.
+[Exact observer source and run report](https://github.com/NikichMods/ImmersiveInteractionPrompts/blob/74ec3a4247feed0be9c8bf8788f5839c6cad20ae/research/interaction-prompts-owner/world-space/auto-target/README.md#normal-load-runtime-result--2026-11-05).
+
 **Создано:** 2026-10-27. **Статус записей:** *промотированные сведения из `NikichMods/AsterigosMods`: принятая база и отдельно обозначенные локальные runtime-наблюдения; повторных тестов этим Research-репозиторием не проводилось*. Это не универсальная таблица совместимости.
 
 ## R-019 — Combat source/timeline and Conduit rest contracts, static (2026-11-05)
