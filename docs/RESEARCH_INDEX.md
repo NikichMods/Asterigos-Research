@@ -1,5 +1,10 @@
 # Research Index — Asterigos: Curse of the Stars
 
+**2026-11-06 — R-006, граница штатного выбора объекта.** Установлены
+две отражённые декларации getter объекта и actor-local `ShowTipEvent`.
+Связь с финальным выбором остаётся открытой.
+[Статические доказательства](VERIFIED_RUNTIME.md#r-006-interaction-selection-reflection-boundary--static-2026-11-06).
+
 **2026-11-06 — cudgel, статические сокеты и skill-контракт.** Штатные
 узлы для убранного, активного, inventory и floating вариантов.
 [Карта](VERIFIED_RUNTIME.md#cudgel-equipment-sockets-and-skill-boundaries--static-2026-11-06), [runtime-снимки и доставка hooks](VERIFIED_RUNTIME.md#cudgel-socket-transition-and-skill-hook-delivery--observed-2026-11-06), [штатный writer видимости](VERIFIED_RUNTIME.md#cudgel-visibility-writer--static-2026-11-06), [живой порядок commit](VERIFIED_RUNTIME.md#cudgel-equipment-commit-ordering--observed-2026-11-06), [native dispatch](VERIFIED_RUNTIME.md#cudgel-native-equipment-dispatch--static-2026-11-06).

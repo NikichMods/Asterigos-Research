@@ -1,5 +1,24 @@
 # Verified Runtime — Asterigos (cross-mod)
 
+### R-006 interaction selection reflection boundary — static, 2026-11-06
+
+Steam 1.09/build 12996889, UE4.27, UE4SS 83330635 UHT declarations.
+`GameGlobal:GetLastInteractObject` and `GetDoingInteractObject` take
+`AGenesisCharacter*` and return `ABaseGameEventObject*`. Both are reflected
+BlueprintPure functions. `BaseGameEventObject:ShowTipEvent(bool)` is
+BlueprintImplementableEvent. The retained 304 bytecode exports show no
+references to these three declarations. Generated C++ stubs do not establish
+getter behavior or event delivery. The exact native state writer, winning
+target, and connection to the stock show/hide path remain unresolved.
+
+`InteractObjectFunctionLibrary_C:InteractObject_IsCanInteract` reads
+`IsActive && IsCanInteract` for a supplied actor at offset 79.
+`MainGameInstance_BP_C:TestInteractDebugState` calls
+`GameGlobal:SetInteractDebugState` at 131, with diagnostic branches for
+interaction update, object detection and component show/hide. These are
+static boundaries. They do not establish native arbitration or a runtime API.
+[Owning audit and input hashes](https://github.com/NikichMods/ImmersiveInteractionPrompts/blob/d360fa82e113a858d5a4c2ac90c46b3c187f48d2/research/interaction-prompts-owner/world-space/event-driven/TARGET_AUTHORITY_STUDY.md#local-static-follow-up--2026-11-06).
+
 ### Multi-action native owner observation — 2026-11-06
 
 Steam 1.09/build 12996889, UE4.27, UE4SS 83330635. Global BeginPlayPost
