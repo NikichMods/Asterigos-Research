@@ -1540,3 +1540,19 @@ Steam build 12996889, UE4.27, UE4SS 83330635, world01. Six read-only snapshots i
 On Steam build 12996889 / UE4.27, cooked `/Game/MainContent/Tables/Player/Weapon` row `cudgel_mod00` maps the same `HildaCudgel_BP_C` and slot `right_hand` to node `scabbard_a` in `SheathEquipObjects` and `cudgel_r_hand` in `InHandEquipObjects`. The in-hand list also contains `HildaCudgel_Use_BP_C` on `scabbard_a`; the inventory list instead defines `HildaCudgel_Unuse_BP_C` there. The floating list uses `dual_l_hand` for the main actor. A class or slot name alone cannot establish the visual role.
 
 The row references `hilda_cudgel_switch_enter` and `sheath_cudgel`. Cooked `Skill_Player` assigns `sheath_all` to `SkillEndTimelineData` for `sheath_cudgel`. The Hilda AnimBP bytecode calls reflected `BeginDoSkill` and `EndDoSkill`. These are static candidates; delivery, interruption semantics and ordering against equipment writers require runtime evidence. [Exact rows, timeline keys and bytecode offsets](https://github.com/NikichMods/MagicalScabbards/blob/533f7fad26684169503ab72a4686baf0d5ebccda/docs/SCABBARD_DRAW_STOW_RESEARCH_02.md#статическое-доказательство).
+
+
+### Cudgel socket transition and skill-hook delivery — observed 2026-11-06
+
+On Steam build 12996889 / UE4.27 / UE4SS 83330635, the same pawn-owned
+`HildaCudgel_BP_C` appeared on `cudgel_r_hand` when drawn (main mesh
+visible, sheath component hidden by `bVisible`) and on `scabbard_a`
+when stowed (the two `bVisible` flags reversed). A separate attached
+`_Use` was present in the drawn snapshot. The initial snapshot instead
+had an attached `_Unuse` without the main actor.
+
+Native `BaseCharacterAnimInstance:BeginDoSkill/EndDoSkill` pre/post hooks
+delivered on the local Hilda anim instance. A staff skill moved from
+pending to doing at Begin and cleared at End while a shield switch was
+pending. The filtered capture did not identify the exact cudgel
+transition signals or visibility writers. [Session and limits](https://github.com/NikichMods/MagicalScabbards/blob/ce6c59fbe8f373a201ceac896d857b5c1c4bcc8a/docs/SCABBARD_DRAW_STOW_RESEARCH_02.md#runtime-сеанс-2026-11-06).
