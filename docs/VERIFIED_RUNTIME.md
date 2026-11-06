@@ -1578,3 +1578,17 @@ does not move the root socket. This corrects the earlier static negative
 claim about this Blueprint writer. The native caller, live ordering versus
 attachment and callback delivery are still open.
 [Exact offsets and source](https://github.com/NikichMods/MagicalScabbards/blob/d0f035bf94ff3eb7a01a49d0d436c81f3ba6d152/docs/SCABBARD_EQUIPMENT_TRANSITION_03.md#подтверждённая-цепочка).
+
+### Cudgel equipment commit ordering — observed 2026-11-06
+
+In a single stock cudgel cycle on UE4.27 / UE4SS 83330635, the same
+pawn-owned actor was already on the new root socket at the first
+`SetVisibility` pre callback. The two visibility writes were followed
+by the Blueprint `EquipModeChange` post callback. The live order was
+`cudgel_r_hand` (InHand) → `dual_l_hand` (Floating) → `scabbard_a`
+(Sheath). At each Blueprint post, the enum parameter was the requested
+new mode while the actor's reflected `equipMode` still held the prior
+mode. Stable snapshots then showed the new mode. This establishes the
+observed equipment commit order, without locating the native caller
+or the first and last rendered animation frames.
+[Session evidence](https://github.com/NikichMods/MagicalScabbards/blob/9d14c1aee0eba54e750b074384147f555af6bad8/docs/SCABBARD_EQUIPMENT_TRANSITION_03.md#runtime-сеанс-2026-11-06).
