@@ -1610,3 +1610,15 @@ both reference `cudgel_in_hand`, which commands hand placement on key 5.
 This static chain does not establish actual delivery of a reflected
 upstream hook, nor the first and last rendered animation frames.
 [Provenance and exact paths](https://github.com/NikichMods/MagicalScabbards/blob/5b2e60e0e571788afdfd76969d2a975dbc25cdeb/docs/SCABBARD_DRAW_BOUNDARIES_04.md#от-команды-к-штатному-writer).
+
+### Cudgel first attack and visible stow — observed 2026-11-06
+
+On Steam build 12996889 / UE4.27 / UE4SS 83330635, the first normal
+cudgel attack from stowed delivered `BeginDoSkill` pre with pending
+`hilda_cudgel_atk1_idle` while the same actor was on `scabbard_a`.
+InHand post was logged 181 ms later. In the reverse transition,
+HUD-anchored video places the Sheath post near the equipment swap,
+with visible hand and assembly motion continuing afterwards. HUD,
+game-thread input and capture latency were not independently measured;
+this establishes neither frame-exact draw lead nor other weapon routes.
+[Session, PTS and alignment limits](https://github.com/NikichMods/MagicalScabbards/blob/2b0421075f0b3951ebc9f07d3d7d82121017863f/docs/SCABBARD_VISUAL_BOUNDARIES_05.md#игровой-сеанс-и-визуальная-сверка--2026-11-06).
