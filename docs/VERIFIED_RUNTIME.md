@@ -1533,3 +1533,10 @@ Steam build 12996889, UE4.27, UE4SS 83330635, world01. Six read-only snapshots i
 - The same pawn-owned `HildaCudgel_BP_C` exposed separate main and sheath components. Their sampled `bVisible` values switched between true/false and false/true while battle remained true, and also while battle remained false. The battle getter alone cannot identify weapon deployment.
 - A pawn-owned and attached `HildaCudgel_Use_BP_C` appeared in the drawn samples. An earlier Use actor still appeared in the class lookup with a visible component after losing owner and attachment. A pawn-owned attached `HildaCudgel_Unuse_BP_C` was present after load. Class and component visibility alone cannot identify live local equipment.
 - No filtered `ExecuteAction` callbacks were captured in this route. These observations establish snapshots and identity changes; writer order, continuous behavior, actual rendering and other weapon families remain unverified.
+
+
+## Cudgel equipment sockets and skill boundaries — static 2026-11-06
+
+On Steam build 12996889 / UE4.27, cooked `/Game/MainContent/Tables/Player/Weapon` row `cudgel_mod00` maps the same `HildaCudgel_BP_C` and slot `right_hand` to node `scabbard_a` in `SheathEquipObjects` and `cudgel_r_hand` in `InHandEquipObjects`. The in-hand list also contains `HildaCudgel_Use_BP_C` on `scabbard_a`; the inventory list instead defines `HildaCudgel_Unuse_BP_C` there. The floating list uses `dual_l_hand` for the main actor. A class or slot name alone cannot establish the visual role.
+
+The row references `hilda_cudgel_switch_enter` and `sheath_cudgel`. Cooked `Skill_Player` assigns `sheath_all` to `SkillEndTimelineData` for `sheath_cudgel`. The Hilda AnimBP bytecode calls reflected `BeginDoSkill` and `EndDoSkill`. These are static candidates; delivery, interruption semantics and ordering against equipment writers require runtime evidence. [Exact rows, timeline keys and bytecode offsets](https://github.com/NikichMods/MagicalScabbards/blob/533f7fad26684169503ab72a4686baf0d5ebccda/docs/SCABBARD_DRAW_STOW_RESEARCH_02.md#статическое-доказательство).

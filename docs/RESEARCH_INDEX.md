@@ -1,5 +1,9 @@
 # Research Index — Asterigos: Curse of the Stars
 
+**2026-11-06 — cudgel, статические сокеты и skill-контракт.** Штатные
+узлы для убранного, активного, inventory и floating вариантов.
+[Карта и границы](VERIFIED_RUNTIME.md#cudgel-equipment-sockets-and-skill-boundaries--static-2026-11-06).
+
 **2026-11-06 — ножны Хильды и cudgel, runtime-снимки.** Подтверждены
 владельцы, смена инстансов после загрузки и два состояния оружия при
 одном значении боевого getter. [Доказательства и границы](VERIFIED_RUNTIME.md#hilda-scabbard-and-cudgel-ownership--observed-2026-11-06).
