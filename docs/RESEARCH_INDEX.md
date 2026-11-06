@@ -1,5 +1,10 @@
 # Research Index — Asterigos: Curse of the Stars
 
+**2026-11-06 — штатные ножны Хильды, статический контракт.** Два
+компонента на pawn и отдельные компоненты экипировки. Проверены шаблоны
+и штатный Blueprint-писатель для пары на pawn.
+[Цепочка и границы](VERIFIED_RUNTIME.md#hilda-scabbard-components-and-visibility--static-2026-11-06).
+
 **2026-11-06 — R-006 multi-action acquisition and EndPlay.** Normal load
 joined ready Open, Take and Check owners. EndPlay retired every recorded owner.
 [Runtime scope](VERIFIED_RUNTIME.md#multi-action-native-owner-observation--2026-11-06).

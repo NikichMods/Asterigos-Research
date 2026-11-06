@@ -1502,3 +1502,24 @@ Glimmer independence, separate model/floor visual acceptance, full disappearance
 judgment, travel/pawn replacement/death/cutscenes and broad compatibility are not
 established by this run. Mod design/settings/installation state remain mod-owned;
 no production architecture is adopted by this promotion.
+
+## Hilda scabbard components and visibility — static 2026-11-06
+
+- **Baseline and evidence:** Steam build 12996889, UE4.27. CUE4Parse 1.2.2,
+  stock cooked packages and Blueprint bytecode. [Exact source, resource paths
+  and offsets](https://github.com/NikichMods/MagicalScabbards/blob/9f360eba1dd8eb33eba5e0b6de075c278a664e10/docs/SCABBARD_STATIC_RESEARCH_01.md#проверенная-карта-владельцев).
+- `/Game/MainContent/Act/Character_BP/hilda_BP` declares two independent
+  `SkeletalMeshComponent` instances in its construction script, `scabbard_a`
+  and `scabbard_b`, on matching attachment points of `CharacterMesh0`.
+  The templates use `hilda_scabbard_A` and `hilda_scabbard_B`. The
+  `ExecuteAction` branches `scabbard_on/off` set hidden state on both
+  components via `SetHiddenInGame` without child propagation.
+- Cudgel, dual main, shield, spear and staff equipment Blueprints each
+  declare a separate `*_sheath` component alongside the primary
+  `SkeletalMesh`. In the eight matching cudgel/dual/spear/staff
+  `*_Use_BP` and `*_Unuse_BP` classes, the primary component instead
+  references the corresponding state mesh. Four stock `*_sheath` meshes
+  have both scabbard and weapon material sections.
+- **Limit:** this establishes cooked ownership and one Blueprint writer.
+  Live equipment creation, attachment changes, other writers and their
+  ordering relative to combat state remain unverified.
