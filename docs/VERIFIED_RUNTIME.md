@@ -1565,3 +1565,16 @@ the drawn and final stowed snapshots, despite the restored socket and flags.
 This limits those reflected hooks as a stow completion source for the observed
 route; the equipment writer and exact timing remain unknown.
 [Repeat evidence](https://github.com/NikichMods/MagicalScabbards/blob/6df404c2666fb2a23760efdc43f0ddde1ea2fd0a/docs/SCABBARD_DRAW_STOW_RESEARCH_02.md#результат-повтора-2026-11-06).
+
+### Cudgel visibility writer — static 2026-11-06
+
+On Steam build 12996889 / UE4.27, the cooked override
+`/Game/MainContent/Act/Item_BP/HildaCudgel_BP.HildaCudgel_BP_C:EquipModeChange`
+consumes one `EWeaponEquipMode` parameter. Its Blueprint dispatch writes
+`bVisible` for `SkeletalMesh` and `hilda_cudgel_sheath` via two
+`SceneComponent:SetVisibility` calls without propagation: InHand/Floating =
+true/false, Sheath = false/true, Inventory/None = false/false. The override
+does not move the root socket. This corrects the earlier static negative
+claim about this Blueprint writer. The native caller, live ordering versus
+attachment and callback delivery are still open.
+[Exact offsets and source](https://github.com/NikichMods/MagicalScabbards/blob/d0f035bf94ff3eb7a01a49d0d436c81f3ba6d152/docs/SCABBARD_EQUIPMENT_TRANSITION_03.md#подтверждённая-цепочка).
