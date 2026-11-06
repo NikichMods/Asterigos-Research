@@ -1523,3 +1523,13 @@ no production architecture is adopted by this promotion.
 - **Limit:** this establishes cooked ownership and one Blueprint writer.
   Live equipment creation, attachment changes, other writers and their
   ordering relative to combat state remain unverified.
+
+
+## Hilda scabbard and cudgel ownership — observed 2026-11-06
+
+Steam build 12996889, UE4.27, UE4SS 83330635, world01. Six read-only snapshots included combat, weapon draw/stow and reloading a save. [Session identity, table and scope](https://github.com/NikichMods/MagicalScabbards/blob/03f7519bc7aecc72e14e60876f647801405452d7/docs/SCABBARD_RUNTIME_RESEARCH_01.md#результат-сеанса-2026-11-06).
+
+- The local `hilda_BP_C` owned both `scabbard_a/b` SkeletalMeshComponents with their expected stock assets and named sockets on `CharacterMesh0`. The pawn and both components had new identities after load. Both sampled flags remained `bHiddenInGame=false`, `bVisible=true`.
+- The same pawn-owned `HildaCudgel_BP_C` exposed separate main and sheath components. Their sampled `bVisible` values switched between true/false and false/true while battle remained true, and also while battle remained false. The battle getter alone cannot identify weapon deployment.
+- A pawn-owned and attached `HildaCudgel_Use_BP_C` appeared in the drawn samples. An earlier Use actor still appeared in the class lookup with a visible component after losing owner and attachment. A pawn-owned attached `HildaCudgel_Unuse_BP_C` was present after load. Class and component visibility alone cannot identify live local equipment.
+- No filtered `ExecuteAction` callbacks were captured in this route. These observations establish snapshots and identity changes; writer order, continuous behavior, actual rendering and other weapon families remain unverified.
