@@ -1556,3 +1556,12 @@ delivered on the local Hilda anim instance. A staff skill moved from
 pending to doing at Begin and cleared at End while a shield switch was
 pending. The filtered capture did not identify the exact cudgel
 transition signals or visibility writers. [Session and limits](https://github.com/NikichMods/MagicalScabbards/blob/ce6c59fbe8f373a201ceac896d857b5c1c4bcc8a/docs/SCABBARD_DRAW_STOW_RESEARCH_02.md#runtime-сеанс-2026-11-06).
+
+A second cycle with cudgel already selected observed the same owned actor on
+`scabbard_a → cudgel_r_hand → scabbard_a`. The unfiltered local anim hook
+captured `hilda_cudgel_atk1_idle` entering and leaving between the first two
+snapshots. There were no delivered BeginDoSkill/EndDoSkill callbacks between
+the drawn and final stowed snapshots, despite the restored socket and flags.
+This limits those reflected hooks as a stow completion source for the observed
+route; the equipment writer and exact timing remain unknown.
+[Repeat evidence](https://github.com/NikichMods/MagicalScabbards/blob/6df404c2666fb2a23760efdc43f0ddde1ea2fd0a/docs/SCABBARD_DRAW_STOW_RESEARCH_02.md#результат-повтора-2026-11-06).
