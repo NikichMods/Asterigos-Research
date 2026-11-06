@@ -1,5 +1,19 @@
 # Verified Runtime — Asterigos (cross-mod)
 
+### R-006 GetLastInteractObject tracks execution history — native static, 2026-11-06
+
+Steam 1.09/build 12996889, exact shipping SHA-256
+`ddea6b5ca5d34836f01702993d20209c2595367287e6cd5a135a7ace1958b1c0`.
+`GameGlobal:GetLastInteractObject` exec thunk RVA `0x1273690` resolves
+a weak object reference in the character's interaction state. Writes at
+`0x11DD8E8` and `0x11E47C9` precede interaction Begin/Fail dispatch.
+The traced End path clears the distinct slot read by
+`GetDoingInteractObject` at `0x11DEA00`, retaining Last. Last can
+therefore represent a failed attempt or remain set after execution ends.
+It is unsuitable as authority for the current pre-input TipHUD target.
+This finding is from the binary, with no runtime call or measured cost.
+[Registration, writer and dispatch evidence](https://github.com/NikichMods/ImmersiveInteractionPrompts/blob/1bf81721ed8eefd7639b9292893c16df0bfdd02c/research/interaction-prompts-owner/world-space/event-driven/TARGET_AUTHORITY_STUDY.md#native-getlastinteractobject--2026-11-06).
+
 ### R-006 interaction selection reflection boundary — static, 2026-11-06
 
 Steam 1.09/build 12996889, UE4.27, UE4SS 83330635 UHT declarations.

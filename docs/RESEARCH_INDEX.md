@@ -1,5 +1,9 @@
 # Research Index — Asterigos: Curse of the Stars
 
+**2026-11-06 — R-006, native `GetLastInteractObject`.** Хранит слабую
+ссылку из веток выполнения взаимодействия и переживает очистку Doing.
+[Native-трассировка и предел вывода](VERIFIED_RUNTIME.md#r-006-getlastinteractobject-tracks-execution-history--native-static-2026-11-06).
+
 **2026-11-06 — R-006, граница штатного выбора объекта.** Установлены
 две отражённые декларации getter объекта и actor-local `ShowTipEvent`.
 Связь с финальным выбором остаётся открытой.
