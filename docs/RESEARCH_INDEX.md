@@ -1,5 +1,10 @@
 # Research Index — Asterigos: Curse of the Stars
 
+**2026-11-07 — R-006, отражённые API взаимодействия Genesis.** Сверены
+типы зон для Open/Take/Check и generic `GetActionTarget`. Источник
+текущей цели штатной подсказки остаётся открытым.
+[Карта и границы](VERIFIED_RUNTIME.md#r-006-genesis-interaction-api-inventory--static-2026-11-07).
+
 **2026-11-06 — R-006, native `GetLastInteractObject`.** Хранит слабую
 ссылку из веток выполнения взаимодействия и переживает очистку Doing.
 [Native-трассировка и предел вывода](VERIFIED_RUNTIME.md#r-006-getlastinteractobject-tracks-execution-history--native-static-2026-11-06).

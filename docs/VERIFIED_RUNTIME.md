@@ -1,5 +1,19 @@
 # Verified Runtime — Asterigos (cross-mod)
 
+### R-006 Genesis interaction API inventory — static, 2026-11-07
+
+Steam 1.09/build 12996889. Cooked Blueprint component templates show
+`BaseLoot_BP.InteractLookArea` uses `GameEventObject_InteractAreaComponent`
+and `InteractTriggerArea` uses `GameEventObject_InteractTriggerAreaComponent`.
+`BaseLoot2_BP.InteractTriggerArea_NoAlign` and
+`BaseDocumentObject.GameEventObject_InteractArea` both use the area type.
+These are authored templates, with no native range/facing/priority
+consumer established. The 568-header UHT inventory also identifies the
+generic reflected `GameGlobal:GetActionTarget(AGenesisCharacter*) → AActor*`
+and its explicit setter. No retained Blueprint reference ties either
+to the current TipHUD target. Unreflected native state is outside this
+inventory. [Owning API map and coverage](https://github.com/NikichMods/ImmersiveInteractionPrompts/blob/127b5ae4bdc5989e2534615f977a8d84e45576d1/research/interaction-prompts-owner/world-space/event-driven/TARGET_AUTHORITY_STUDY.md#genesis-reflected-api-inventory--2026-11-07).
+
 ### R-006 GetLastInteractObject tracks execution history — native static, 2026-11-06
 
 Steam 1.09/build 12996889, exact shipping SHA-256
