@@ -1592,3 +1592,21 @@ mode. Stable snapshots then showed the new mode. This establishes the
 observed equipment commit order, without locating the native caller
 or the first and last rendered animation frames.
 [Session evidence](https://github.com/NikichMods/MagicalScabbards/blob/9d14c1aee0eba54e750b074384147f555af6bad8/docs/SCABBARD_EQUIPMENT_TRANSITION_03.md#runtime-сеанс-2026-11-06).
+
+### Cudgel native equipment dispatch — static 2026-11-06
+
+Steam build 12996889 / UE4.27, installed EXE SHA-256
+`ddea6b5ca5d34836f01702993d20209c2595367287e6cd5a135a7ace1958b1c0`.
+Native timeline registration binds `set weapon in hand` to RVA `0x11c4d50`.
+The handler calls the shared native path at `0x1151850`, bypassing the
+reflected GameGlobal and AnimInstance thunks. Floating and the separate
+slot-node replacement entry converge with the hand path on the same
+equipment consumer. Its BaseEquipObject dispatch at `0x11f8007` precedes
+the actor mode write at `0x11f8010`, explaining the old reflected mode
+in the previously observed Blueprint post callback.
+
+The cooked `hilda_cudgel_atk1_idle` and `hilda_cudgel_switch_enter` rows
+both reference `cudgel_in_hand`, which commands hand placement on key 5.
+This static chain does not establish actual delivery of a reflected
+upstream hook, nor the first and last rendered animation frames.
+[Provenance and exact paths](https://github.com/NikichMods/MagicalScabbards/blob/5b2e60e0e571788afdfd76969d2a975dbc25cdeb/docs/SCABBARD_DRAW_BOUNDARIES_04.md#от-команды-к-штатному-writer).
