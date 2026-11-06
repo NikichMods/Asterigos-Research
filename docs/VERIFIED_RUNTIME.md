@@ -1622,3 +1622,16 @@ with visible hand and assembly motion continuing afterwards. HUD,
 game-thread input and capture latency were not independently measured;
 this establishes neither frame-exact draw lead nor other weapon routes.
 [Session, PTS and alignment limits](https://github.com/NikichMods/MagicalScabbards/blob/2b0421075f0b3951ebc9f07d3d7d82121017863f/docs/SCABBARD_VISUAL_BOUNDARIES_05.md#игровой-сеанс-и-визуальная-сверка--2026-11-06).
+
+### SceneComponent visibility setter separation — static 2026-11-07
+
+On Steam build 12996889 / UE4.27, the reflected SceneComponent thunks lead
+to distinct native setters. `SetVisibility` writes bit 0x20 at component
+offset 0x14c; `SetHiddenInGame` writes bit 0x04 at offset 0x14d.
+The latter with propagation=false can invalidate child render state
+without writing the child hidden bit; propagation=true can write that
+bit directly inside native traversal. A reflected call hook on a child
+cannot establish coverage of those native stores. This establishes
+setter separation for the pinned EXE, not ownership of either flag for
+a particular runtime instance.
+[Exact EXE identity and RVA evidence](https://github.com/NikichMods/MagicalScabbards/blob/7a73588daef189c5d20d3724b1044124c6e63515/docs/SCABBARD_DELAYED_HIDE_GATE_06.md#отдельные-биты-и-предел-доказательства).
