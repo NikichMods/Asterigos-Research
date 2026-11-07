@@ -1052,6 +1052,15 @@ through the player view and converts into layer-local coordinates. Thus Screen
 WidgetComponent rendering can still move with its world actor; SetWidgetSpace
 alone does not make a contextual prompt viewport-fixed.
 
+For this screen route, the pinned UE4.27 WidgetComponent.cpp 57–111 passes
+TakeWidget() directly to the layer. Component TintColorAndOpacity is used
+for the World material. At the widget level, UserWidget.cpp 279–305 routes
+ColorAndOpacity to the Slate wrapper. SRetainerWidget.cpp 475–666 uses the
+inherited style for both the retained paint context and the final surface
+tint. A parent tint therefore has no established guarantee of preserving
+pixels in a shared Retainer texture. Actual Asterigos TipHUD pixels under
+this change remain untested. [Source audit](https://github.com/NikichMods/ImmersiveInteractionPrompts/blob/2239239176729d20c29f680a0edc6decfa1da4e4/research/interaction-prompts-owner/world-space/tiphud-render-suppression/README.md).
+
 Actual UHT UserWidget is Abstract. WidgetBlueprintLibrary.Create(WorldContext,
 WidgetType,OwningPlayer), AddToViewport/AddToPlayerScreen and viewport anchor/
 position APIs are reflected; UE4.27 ValidateUserWidgetClass rejects Abstract
