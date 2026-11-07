@@ -1058,8 +1058,18 @@ for the World material. At the widget level, UserWidget.cpp 279–305 routes
 ColorAndOpacity to the Slate wrapper. SRetainerWidget.cpp 475–666 uses the
 inherited style for both the retained paint context and the final surface
 tint. A parent tint therefore has no established guarantee of preserving
-pixels in a shared Retainer texture. Actual Asterigos TipHUD pixels under
-this change remain untested. [Source audit](https://github.com/NikichMods/ImmersiveInteractionPrompts/blob/2239239176729d20c29f680a0edc6decfa1da4e4/research/interaction-prompts-owner/world-space/tiphud-render-suppression/README.md).
+pixels in a shared Retainer texture. On Steam 12996889, one Open with root
+alpha zero lost both the Screen prompt and the World icon using its retained
+MID. World text and divider remained. The result does not identify the
+particular GPU update or establish behavior for other prompt kinds.
+[Bounded Open result](https://github.com/NikichMods/ImmersiveInteractionPrompts/blob/648c3d677b86e28764763008638099b1d20ade11/research/interaction-prompts-owner/world-space/tiphud-render-suppression/README.md#игровой-результат-a--2026-11-07).
+
+UE4.27 URetainerBox.RequestRender queues repaint. OnPaint uses the same input
+style for the offscreen context and Screen draw element. WidgetRenderer
+queues the render-target update, so a second UMG setter in the same engine
+tick does not establish an intervening capture. No independently callable
+capture with a separate style or capture callback was found in the reflected
+RetainerBox API or UE4SS 83330635 Lua path. [Source audit](https://github.com/NikichMods/ImmersiveInteractionPrompts/blob/f158b5ddba0937259314f70fb94668c02ba4bdf4/research/interaction-prompts-owner/world-space/tiphud-render-suppression/README.md).
 
 Actual UHT UserWidget is Abstract. WidgetBlueprintLibrary.Create(WorldContext,
 WidgetType,OwningPlayer), AddToViewport/AddToPlayerScreen and viewport anchor/
