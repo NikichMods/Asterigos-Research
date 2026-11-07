@@ -1,5 +1,19 @@
 # Verified Runtime — Asterigos (cross-mod)
 
+### R-006 native interaction prompt owner transition — static, 2026-11-07
+
+Steam 1.09/build 12996889, UE4.27 x64. Character-side update RVA
+`0x11E39C0` compares the proposed actor weak reference at state
+`+0x418` with the committed prompt owner at `+0x410`. On a change it
+commands hide for the old actor, copies the proposed reference, and
+commands show for the new actor if present. Actor helper `0x10A59F0`
+dispatches the named `ShowTipEvent(bool)` and calls
+`ExtendedWidgetComponent:SetShow` body `0x10D9960` directly. The event
+comes before the component command. This establishes the stock single-owner
+transition for this path, while UE4SS callback delivery, actual rendering
+and global exclusivity remain unverified.
+[Owning PE trace, detector and limits](https://github.com/NikichMods/ImmersiveInteractionPrompts/blob/c8aec0a9382198abef14cb6b8403e4504853a494/research/interaction-prompts-owner/world-space/event-driven/TARGET_AUTHORITY_STUDY.md#native-tiphud-show-and-hide--2026-11-07).
+
 ### R-006 Genesis interaction API inventory — static, 2026-11-07
 
 Steam 1.09/build 12996889. Cooked Blueprint component templates show

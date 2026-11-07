@@ -1,5 +1,9 @@
 # Research Index — Asterigos: Curse of the Stars
 
+**2026-11-07 — R-006, native-переключение владельца TipHUD.** Найдены
+слот выбранного актёра, `ShowTipEvent(bool)` и прямой вызов `SetShow`.
+[Статическая цепочка](VERIFIED_RUNTIME.md#r-006-native-interaction-prompt-owner-transition--static-2026-11-07).
+
 **2026-11-07 — R-006, отражённые API взаимодействия Genesis.** Сверены
 типы зон для Open/Take/Check и generic `GetActionTarget`. Источник
 текущей цели штатной подсказки остаётся открытым.
