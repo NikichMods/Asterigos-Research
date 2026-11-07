@@ -1,5 +1,9 @@
 # Research Index — Asterigos: Curse of the Stars
 
+**2026-11-07 — R-006, выбранный владелец TipHUD в игре.** Слабая ссылка
+сопоставлена с показом и скрытием Open/Take/Check через NONE.
+[Игровой результат](VERIFIED_RUNTIME.md#r-006-committed-prompt-owner-correlation--bounded-runtime-2026-11-07).
+
 **2026-11-07 — R-006, владелец состояния выбора TipHUD.** Подтверждены
 `PlayerActionComponent` и отдельное хранилище `GetActionTarget`.
 [Native-трассировка](VERIFIED_RUNTIME.md#r-006-prompt-owner-component-and-action-target-separation--static-2026-11-07).

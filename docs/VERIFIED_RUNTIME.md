@@ -1,5 +1,16 @@
 # Verified Runtime — Asterigos (cross-mod)
 
+### R-006 committed prompt owner correlation — bounded runtime, 2026-11-07
+
+Steam 1.09/build 12996889, UE4.27 x64, UE4SS 83330635. On a normal
+load a read-only observer acquired the local controller via BeginPlayPost
+and resolved the committed weak owner at `PlayerActionComponent+0x410`.
+Three distinct Open/Take/Check owners each correlated with native TipHUD
+show and then hide through NONE on the first subsequent observer frame.
+Direct adjacent handoff, component replacement, global exclusivity,
+pixel latency and performance remain unverified.
+[Exact runtime evidence and scope](https://github.com/NikichMods/ImmersiveInteractionPrompts/blob/4875f87251e5abf2d1d59d7b636389139ccad593/research/interaction-prompts-owner/world-space/committed-owner-observer/README.md#runtime-result--2026-11-07).
+
 ### R-006 prompt owner component and action target separation — static, 2026-11-07
 
 Steam 1.09/build 12996889, UE4.27 x64. Native character setup at
