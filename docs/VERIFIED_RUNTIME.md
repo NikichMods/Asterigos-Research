@@ -1,5 +1,18 @@
 # Verified Runtime — Asterigos (cross-mod)
 
+### R-006 prompt owner component and action target separation — static, 2026-11-07
+
+Steam 1.09/build 12996889, UE4.27 x64. Native character setup at
+`0x114DA91–0x114DAD1` looks up a `PlayerActionComponent` and caches the
+class-checked result at character `+0x560`. Reflected
+`Actor:GetComponentByClass` uses the same virtual lookup slot `+0x620`.
+The component holds committed and proposed prompt-owner weak pairs at
+`+0x410/+0x418`. `GameGlobal:GetActionTarget/SetActionTarget` instead
+access the weak pair at pointee `+0xDE4` through character `+0x4F0`.
+Runtime equivalence of fresh lookup and cache through component replacement,
+and a custom Lua weak-property read of the committed slot, are unverified.
+[Native chains and UE4SS source evidence](https://github.com/NikichMods/ImmersiveInteractionPrompts/blob/9511393fc7ac76eda8eff5985a69b4b360f1ac6e/research/interaction-prompts-owner/world-space/event-driven/TARGET_AUTHORITY_STUDY.md#selected-owner-read-seam--local-native-trace-2026-11-07).
+
 ### R-006 native interaction prompt owner transition — static, 2026-11-07
 
 Steam 1.09/build 12996889, UE4.27 x64. Character-side update RVA

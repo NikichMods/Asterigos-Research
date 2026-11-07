@@ -1,5 +1,9 @@
 # Research Index — Asterigos: Curse of the Stars
 
+**2026-11-07 — R-006, владелец состояния выбора TipHUD.** Подтверждены
+`PlayerActionComponent` и отдельное хранилище `GetActionTarget`.
+[Native-трассировка](VERIFIED_RUNTIME.md#r-006-prompt-owner-component-and-action-target-separation--static-2026-11-07).
+
 **2026-11-07 — R-006, native-переключение владельца TipHUD.** Найдены
 слот выбранного актёра, `ShowTipEvent(bool)` и прямой вызов `SetShow`.
 [Статическая цепочка](VERIFIED_RUNTIME.md#r-006-native-interaction-prompt-owner-transition--static-2026-11-07).
