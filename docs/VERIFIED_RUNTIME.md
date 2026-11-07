@@ -1071,6 +1071,15 @@ tick does not establish an intervening capture. No independently callable
 capture with a separate style or capture callback was found in the reflected
 RetainerBox API or UE4SS 83330635 Lua path. [Source audit](https://github.com/NikichMods/ImmersiveInteractionPrompts/blob/f158b5ddba0937259314f70fb94668c02ba4bdf4/research/interaction-prompts-owner/world-space/tiphud-render-suppression/README.md).
 
+On Steam build 12996889, one non-hold Open showed nine device 1↔4
+transitions with matching input-brush Texture2D changes, keyboard F to
+Xbox FaceButton_UP and back. The brush was 64×64 with unset UV and white
+tint. The original Retainer MID and RT kept their identities in the accepted
+window. The user observed corresponding visible glyph changes. Hold was
+false and the scalar readback was zero. Remap, hold progress, frame ordering
+and behavior under root alpha zero remain open.
+[Runtime evidence](https://github.com/NikichMods/ImmersiveInteractionPrompts/blob/99ec64fed19812cc30a8444b91af492086a4e528/research/interaction-prompts-owner/world-space/tiphud-render-suppression/README.md#игровой-результат-c--2026-11-08).
+
 Actual UHT UserWidget is Abstract. WidgetBlueprintLibrary.Create(WorldContext,
 WidgetType,OwningPlayer), AddToViewport/AddToPlayerScreen and viewport anchor/
 position APIs are reflected; UE4.27 ValidateUserWidgetClass rejects Abstract
