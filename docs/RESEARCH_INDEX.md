@@ -1,5 +1,9 @@
 # Research Index — Asterigos: Curse of the Stars
 
+**2026-11-07 — stock Hilda attachment and mesh geometry.** Verified cudgel
+helper LOD0 sections, pawn light SCS and costume amulet location.
+[Static asset facts and runtime limits](VERIFIED_RUNTIME.md#stock-cudgel-helper-geometry-and-attachment-limits--static-2026-11-07).
+
 **2026-11-07 — SceneComponent, раздельные биты видимости.** Проверены
 native setter и пределы reflected hook при propagation.
 [Доказательство](VERIFIED_RUNTIME.md#scenecomponent-visibility-setter-separation--static-2026-11-07).

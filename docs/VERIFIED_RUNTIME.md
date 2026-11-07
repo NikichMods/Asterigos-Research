@@ -1525,6 +1525,28 @@ no production architecture is adopted by this promotion.
   ordering relative to combat state remain unverified.
 
 
+### Stock cudgel helper geometry and attachment limits — static 2026-11-07
+
+On Steam build 12996889 / UE4.27, `HildaCudgel_Unuse_BP_C` and
+`HildaCudgel_Use_BP_C` override the inherited `BaseEquipment_BP_C.SkeletalMesh`.
+Original `hilda_cudgel_unuse` LOD0 has a single angular shell
+(`hilda_scabbard_mat`, 364 triangles) and an emissive section
+(`M_Light`, 440 triangles). Original `hilda_cudgel_use` LOD0 has two
+shell flanks with an open center (212 shell triangles, 196
+`hilda_dual_FX_mat` triangles). The three stock sheath/A/B SCS nodes
+declare no child nodes. Runtime attachments remain possible and
+`SetVisibility(value, false)` leaves child visibility unpropagated.
+
+The same stock baseline has a separate pawn `hilda_BP_C.light`
+skeletal mesh, `mi028_guardian_mesh`, attached directly to
+`CharacterMesh0` with no named socket, relative Z=3 and
+`bHiddenInGame=true` on the template. Its `PointLight` child
+contributes light rather than mesh geometry. On stock `hilda_2`,
+`hilda_amulet_mat` geometry is at the chest in the exported pose and
+the rear belt ring belongs to `hilda_2_eq_mat`. These asset facts
+do not identify the live costume or the primitives drawn in another
+session. [Source, projections method and runtime limits](https://github.com/NikichMods/MagicalScabbards/blob/e7cd0f79c1adeeebd649a1c58d9c17b969743a57/docs/SCABBARD_COMBINED_VISIBILITY_10.md#адресная-офлайн-проверка-остатка).
+
 ## Hilda scabbard and cudgel ownership — observed 2026-11-06
 
 Steam build 12996889, UE4.27, UE4SS 83330635, world01. Six read-only snapshots included combat, weapon draw/stow and reloading a save. [Session identity, table and scope](https://github.com/NikichMods/MagicalScabbards/blob/03f7519bc7aecc72e14e60876f647801405452d7/docs/SCABBARD_RUNTIME_RESEARCH_01.md#результат-сеанса-2026-11-06).
