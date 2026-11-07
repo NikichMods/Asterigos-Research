@@ -1547,6 +1547,20 @@ the rear belt ring belongs to `hilda_2_eq_mat`. These asset facts
 do not identify the live costume or the primitives drawn in another
 session. [Source, projections method and runtime limits](https://github.com/NikichMods/MagicalScabbards/blob/e7cd0f79c1adeeebd649a1c58d9c17b969743a57/docs/SCABBARD_COMBINED_VISIBILITY_10.md#адресная-офлайн-проверка-остатка).
 
+In one live world01 snapshot (Steam build 12996889 / UE4SS 83330635),
+the stowed ordinary cudgel coexisted with three other pawn-owned
+equipment actors. `HildaSpear_Unuse_BP_C.SkeletalMesh` used
+`hilda_spear_unuse` on `CharacterMesh0/scabbard_a`;
+`HildaStaff_BP_C.hilda_staff_sheath` and
+`HildaDual_Unuse_BP_C.SkeletalMesh` used `hilda_staff_sheath` and
+`hilda_dual_unuse` on `CharacterMesh0/scabbard_b`. Each actor reached
+the pawn mesh through its own root, independently of the pawn
+scabbard components. The same asset lookup also found meshes on
+hidden sublevel actors and detached components without a valid owner.
+The snapshot confirms attachment and flags in this setup. It leaves
+slot semantics and rendered geometry unverified.
+[Session, exact flags and limits](https://github.com/NikichMods/MagicalScabbards/blob/3b4d7e7ff75a707026a9f8479bb1da0ef672d8ff/docs/SCABBARD_ASSET_CENSUS_11.md#игровой-результат-2026-11-07).
+
 ## Hilda scabbard and cudgel ownership — observed 2026-11-06
 
 Steam build 12996889, UE4.27, UE4SS 83330635, world01. Six read-only snapshots included combat, weapon draw/stow and reloading a save. [Session identity, table and scope](https://github.com/NikichMods/MagicalScabbards/blob/03f7519bc7aecc72e14e60876f647801405452d7/docs/SCABBARD_RUNTIME_RESEARCH_01.md#результат-сеанса-2026-11-06).
